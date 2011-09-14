@@ -7,9 +7,10 @@ MAC=$1_new
 NAME=$2
 EMAIL=$3
 
+BASEDIR=`dirname $0`
 TODAY=`date +%Y-%m-%d`
-DESCRIPTION=`echo "$NAME; $EMAIL; $TODAY" | sed -f /home/urlencode.sed`
-ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f /home/urlencode.sed`
+DESCRIPTION=`echo "$NAME; $EMAIL; $TODAY" | sed -f $BASEDIR/urlencode.sed`
+ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f $BASEDIR/urlencode.sed`
 
 SERVER=https://172.16.1.2
 PFSENSE_RADIUS_PASSWD=pfSense
@@ -41,3 +42,4 @@ OUTFILE=pf_add_user_2.html
 POST="__csrf_magic=`echo $CSRF`&xml=freeradius.xml&username=`echo $MAC`&password=`echo $PFSENSE_RADIUS_PASSWD`&ip=&multiconnet=1&expiration=&sessiontime=`echo $SESSIONTIME`&onlinetime=&description=`echo $DESCRIPTION`&vlanid=&additionaloptions=`echo $ADDITIONAL_OPTIONS`&id=$NEW_USER_ID&Submit=Save"
 wget --keep-session-cookies --load-cookies cookies.txt  --no-check-certificate --post-data $POST "$SERVER/$URL" -O $OUTFILE
 
+# TODO, cleanup & logging

@@ -4,7 +4,9 @@ IP=$1
 NAME=$2
 EMAIL=$3
 
-MAC=$(/home/resolve_mac_address.sh $IP)
+BASEDIR=`dirname $0`
 
-/home/register_user.sh $MAC $NAME $EMAIL
+MAC=$($BASEDIR/resolve_mac_address.sh $IP)
+
+$BASEDIR/register_user.sh $MAC $NAME $EMAIL
 
