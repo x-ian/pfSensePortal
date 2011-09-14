@@ -10,7 +10,7 @@
 			<img src="captiveportal-apzu.png" />
 		</td>
 		<td>
-			Everybody gets connected - Hopefully by now you as well!<br/>
+			Everybody gets connected - Hopefully you by now as well!<br/>
 			<p><?php
 				$ip=$_SERVER['REMOTE_ADDR'];
 				$name=$_REQUEST['name'];
@@ -19,7 +19,7 @@
 				echo exec("/home/pfSensePortal/add_user_to_radius.sh " . $ip . " " . $name . " " . $email);
 			?>
 			</p>
-			<p>If you are not able to access any webpages like <a href="http://www.google.mw">Google</a>, please find the APZU-IT team.</p>
+			<p>If you are not able to access any webpages like <a href="http://www.google.mw">Google</a>, please try it <a href="/">again</a> in a few minutes.</p>
 		</td>
 	</tr>
 </table>
