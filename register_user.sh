@@ -16,9 +16,8 @@ SERVER=https://172.16.1.2
 PFSENSE_RADIUS_PASSWD=pfSense
 SESSIONTIME=3600
 
-# TODO, move out
-USER=admin
-PASSWD=kupunz1r4
+# Tget pfSense login details
+source $BASEDIR/credentials.config
 
 # login
 URL="login=Login&usernamefld=`echo $USER`&passwordfld=`echo $PASSWD`"

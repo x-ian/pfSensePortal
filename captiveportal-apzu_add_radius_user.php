@@ -1,3 +1,4 @@
+<html>
 <span style="font-variant:small-caps; font-size:200%">
 	<p align="center">
 		Abwenzi Pa Za Umoyo / Partners In Health
@@ -6,15 +7,15 @@
 <table>
 	<tr>
 		<td>
-			<img src="apzu.png" />
+			<img src="captiveportal-apzu.png" />
 		</td>
 		<td>
-			Everybody gets connected - Hopefully you as well!<br/>
+			Everybody gets connected - Hopefully by now you as well!<br/>
 			<p><?php
 				$ip=$_SERVER['REMOTE_ADDR'];
 				$name=$_REQUEST['name'];
 				$email=$_REQUEST['email'];
-			    echo "The registration process should be done by now for " . $name . " (" . $email . ") from " . $ip;
+			    echo "The registration process should be done for " . $name . " (" . $email . ") from " . $ip;
 				echo exec("/home/pfSensePortal/add_user_to_radius.sh " . $ip . " " . $name . " " . $email);
 			?>
 			</p>
@@ -22,4 +23,4 @@
 		</td>
 	</tr>
 </table>
-
+</html>
