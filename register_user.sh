@@ -3,7 +3,7 @@
 # TODO, docs
 # kudos for urlencode to http://www.unix.com/shell-programming-scripting/59936-url-encoding.html
 
-MAC=$1_new
+MAC=$1
 NAME=$2
 EMAIL=$3
 
