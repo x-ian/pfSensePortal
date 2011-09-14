@@ -1,0 +1,152 @@
+<span style="font-variant:small-caps; font-size:200%">
+	<p align="center">
+		Abwenzi Pa Za Umoyo / Partners In Health
+	</p>
+</span>
+<table>
+	<tr>
+		<td>
+			<img src="apzu.png" />
+		</td>
+		<td>
+			Everybody gets connected - But please play fair!
+			<p>But the Internet access is a limited resource and we must ensure a
+				functional network for the work of the Ministries and APZU.</p>
+			<p>Therefore there will be times when the Internet access is
+				restricted or not available due to excessive use or technical
+				outages. If necessary, the IT team might restrict or disconnected
+				single users/computers from the network. For further information
+				please refer to the Acceptable Use Policy.</p>
+			<p>Thanks for your understanding, the APZU-IT team.</p>
+		</td>
+	</tr>
+	<tr>
+		<td />
+		<td>
+			<br />
+			<br />
+			<hr />
+			<br />
+			<br />
+		</td>
+	</tr>
+	<tr>
+		<td />
+		<td>
+			To connect to the network either register your computer once (1.) or provide the username/password/voucher if you have received them (2.).<br/><br/>
+			<table>
+			  <colgroup>
+			    <col width="50%">
+			    <col width="50%">
+			  </colgroup>
+				<tr>
+					<td>
+						1. Provide details to register once:
+						<form method="post" action="https://172.16.1.2/apzu_add_radius_user.php"
+							onSubmit="return validateMacAuth() ;">
+							<table>
+								<tr>
+									<td>Name:</td>
+									<td>
+										<input name="name" id="name" type="text">
+									</td>
+								</tr>
+								<tr>
+									<td>Email:</td>
+									<td>
+										<input name="email" id="email" type="text">
+									</td>
+								</tr>
+								<tr>
+									<td />
+									<td>
+										<input id="iagree" type="checkbox" name="iagree" value="1">
+											Agree to Acceptable Use Policy
+										</p>
+								</tr>
+								<tr>
+									<td />
+									<td>
+										<input name="accept" type="submit" value="Continue">
+									</td>
+								</tr>
+							</table>
+						</form>
+					</td>
+
+					<td>
+						2. Enter username/password or voucher code (use guest/guest for limited 10
+						minutes access or check your welcome package for further
+						information)
+						<form method="post" action="$PORTAL_ACTION$" onSubmit="return validate() ;">
+							<input name="redirurl" type="hidden" value="$PORTAL_REDIRURL$" />
+							<table>
+								<tr>
+									<td>Username:</td>
+									<td>
+										<input name="auth_user" type="text">
+									</td>
+								</tr>
+								<tr>
+									<td>Password:</td>
+									<td>
+										<input name="auth_pass" type="password">
+									</td>
+								</tr>
+								<tr>
+									<td>Voucher code:</td>
+									<td>
+										<input name="auth_voucher" type="text">
+									</td>
+								</tr>
+								<tr>
+									<td />
+									<td>
+										<input id="iagree" type="checkbox" name="iagree" value="1">
+											Agree to Acceptable Use Policy
+										</p>
+								</tr>
+								<tr>
+									<td />
+									<td>
+										<input name="accept" type="submit" value="Continue">
+									</td>
+								</tr>
+							</table>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+
+<script type="text/javascript">
+function validateMacAuth() {
+    if(document.getElementById('iagree').checked == false) {
+        alert("Please read and agree to the Acceptable Use Policy!");
+        return false;
+    }
+    if (document.getElementById('name').value == null || document.getElementById('name').value == "") {
+        alert("Please provide a name!");
+        return false;
+    }
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    var address = document.getElementById('email').value;
+    if(reg.test(address) == false) {
+        alert('Please specify a valid Email Address!');
+        return false;
+    }
+    return true;
+}
+
+function validate() {
+    if(document.getElementById('iagree2').checked == false) {
+        alert("Please read and agree to the Acceptable Use Policy!");
+        return false;
+    } else {
+        return true;
+    }
+}
+</script>
