@@ -36,7 +36,7 @@ URL="pkg_edit.php?xml=freeradius.xml&id=$NEW_USER_ID"
 wget --keep-session-cookies --load-cookies $TEMP_COOKIES --no-check-certificate "$SERVER/$URL" -O $TEMP_OUTFILE
 
 # parse csrf token
-CSRF=`grep name=\'__csrf_magic\' pf_add_user.html | sed "s/^.*value=\"//g" | sed "s/\".*$//g" | sed "s/:/%3A/g" | sed "s/,/%2C/g"`
+CSRF=$(grep name=\'__csrf_magic\' `echo $TEMP_OUTFILE` | sed "s/^.*value=\"//g" | sed "s/\".*$//g" | sed "s/:/%3A/g" | sed "s/,/%2C/g")
 
 # place request
 URL="pkg_edit.php?xml=freeradius.xml&id=$NEW_USER_ID"
@@ -44,6 +44,6 @@ POST="__csrf_magic=`echo $CSRF`&xml=freeradius.xml&username=`echo $MAC`&password
 wget --keep-session-cookies --load-cookies $TEMP_COOKIES --no-check-certificate --post-data $POST "$SERVER/$URL" -O $TEMP_OUTFILE
 
 # TODO, cleanup & logging
-echo "Register system `date`; $MAC; $DESCRIPTION">> $LOGFILE
+echo "Register system `date`; $MAC; $NAME; $EMAIL; $NETBIOS; $TODAY">> $LOGFILE
 rm -f $TEMP_COOKIES
 rm -f $TEMP_OUTFILE
