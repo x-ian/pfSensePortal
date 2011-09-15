@@ -128,6 +128,7 @@ function validateMacAuth() {
         alert("Please read and agree to the Acceptable Use Policy!");
         return false;
     }
+    document.getElementById('name').value = document.getElementById('name').value.split(' ').join('_');
     if (document.getElementById('name').value == null || document.getElementById('name').value == "") {
         alert("Please provide a name!");
         return false;
