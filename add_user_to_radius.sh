@@ -9,5 +9,5 @@ BASEDIR=`dirname $0`
 MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 NETBIOS=$($BASEDIR/resolve_netbios_name.sh $IP)
 
-$BASEDIR/register_user.sh $MAC $NAME $EMAIL $NETBIOS
+$BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $NETBIOS
 

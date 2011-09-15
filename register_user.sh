@@ -25,8 +25,8 @@ URL="login=Login&usernamefld=`echo $USER`&passwordfld=`echo $PASSWD`"
 OUTFILE=pf_login.html
 wget --keep-session-cookies --save-cookies cookies.txt  --post-data $URL --no-check-certificate $SERVER -O $OUTFILE
 
-# get next free user id
-NEW_USER_ID=3
+# get next free user id, maybe not necessary to always recalc the current highest number
+NEW_USER_ID=4
 
 # get page with csrf token
 URL="pkg_edit.php?xml=freeradius.xml&id=$NEW_USER_ID"
