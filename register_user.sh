@@ -29,7 +29,7 @@ URL="login=Login&usernamefld=`echo $USER`&passwordfld=`echo $PASSWD`"
 wget --keep-session-cookies --save-cookies $TEMP_COOKIES --post-data $URL --no-check-certificate $SERVER -O $TEMP_OUTFILE
 
 # TODO?, get next free user id, maybe not necessary to always recalc the current highest number
-NEW_USER_ID=4
+NEW_USER_ID=6000
 
 # get page with csrf token
 URL="pkg_edit.php?xml=freeradius.xml&id=$NEW_USER_ID"
