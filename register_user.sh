@@ -6,13 +6,14 @@
 MAC=$1
 NAME=$2
 EMAIL=$3
-NETBIOS=$4
+IP=$4
 DHCPHOSTNAME=$5
+NETBIOS=$6
 
 LOGFILE=/var/log/apzu-portal.log
 BASEDIR=`dirname $0`
 TODAY=`date +%Y-%m-%d`
-DESCRIPTION=`echo "$NAME; $EMAIL; $DHCPHOSTNAME; $NETBIOS; $TODAY" | sed -f $BASEDIR/urlencode.sed`
+DESCRIPTION=`echo "$NAME; $EMAIL; $DHCPHOSTNAME; $NETBIOS; $IP; $TODAY" | sed -f $BASEDIR/urlencode.sed`
 ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f $BASEDIR/urlencode.sed`
 
 SERVER=https://172.16.1.2
