@@ -1,4 +1,8 @@
 <html>
+<head>
+<meta http-equiv="Refresh" content="3; url=http://www.google.mw/" />
+</head>
+<body>
 <span style="font-variant:small-caps; font-size:200%">
 	<p align="center">
 		Abwenzi Pa Za Umoyo / Partners In Health
@@ -23,4 +27,5 @@
 		</td>
 	</tr>
 </table>
+</body>
 </html>
