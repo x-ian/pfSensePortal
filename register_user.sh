@@ -15,7 +15,7 @@ BASEDIR=`dirname $0`
 TODAY=`date +%Y-%m-%d`
 DESCRIPTION=`echo "$NAME; $EMAIL; $DHCPHOSTNAME; $NETBIOS; $IP; $TODAY" | sed -f $BASEDIR/urlencode.sed`
 ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f $BASEDIR/urlencode.sed`
-WGET_OPTIONS=--timeout=5 --tries=3 --keep-session-cookies --no-check-certificate
+WGET_OPTIONS="--timeout=5 --tries=3 --keep-session-cookies --no-check-certificate"
 
 SERVER=https://172.16.1.2
 PFSENSE_RADIUS_PASSWD=pfSense
