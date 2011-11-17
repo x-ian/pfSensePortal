@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>resolve_hostname.sh</string>
+	<string>register_user.sh</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -35,6 +35,34 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>captiveportal-apzu_add_radius_user.php</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>captiveportal-apzu_portal_page.html</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>103</integer>
+				<key>line</key>
+				<integer>130</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>43</integer>
+		</dict>
 		<key>credentials.sample.config</key>
 		<dict>
 			<key>caret</key>
@@ -54,30 +82,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>40</integer>
+				<integer>82</integer>
 				<key>line</key>
-				<integer>15</integer>
+				<integer>17</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>35</integer>
-				<key>line</key>
-				<integer>15</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>47</integer>
-				<key>line</key>
-				<integer>15</integer>
-			</dict>
 		</dict>
 		<key>resolve_hostname.sh</key>
 		<dict>
@@ -99,6 +111,8 @@
 		<string>README</string>
 		<string>register_user.sh</string>
 		<string>resolve_hostname.sh</string>
+		<string>captiveportal-apzu_portal_page.html</string>
+		<string>captiveportal-apzu_add_radius_user.php</string>
 		<string>credentials.sample.config</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>

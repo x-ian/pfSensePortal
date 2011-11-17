@@ -17,7 +17,7 @@
 				outages. If necessary, the IT team might restrict or disconnected
 				single users/computers from the network. For further information
 				please refer to the <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>.</p>
-			<p>Thanks for your understanding, the APZU-IT team.</p>
+			<p>Thanks for your understanding, <i>the APZU-IT team</i>.</p>
 		</td>
 	</tr>
 	<tr>
@@ -41,33 +41,43 @@
 			  </colgroup>
 				<tr>
 					<td>
-						1. Provide details to register once:
+						1. Provide details to self-register
 						<form method="post" action="/captiveportal-apzu_add_radius_user.php"
 							onSubmit="return validateMacAuth() ;">
 							<table>
 								<tr>
 									<td>Name:</td>
 									<td>
-										<input name="name" id="name" type="text">
+										<input name="name" id="name" type="text"/>
 									</td>
 								</tr>
 								<tr>
 									<td>Email:</td>
 									<td>
-										<input name="email" id="email" type="text">
+										<input name="email" id="email" type="text"/>
 									</td>
 								</tr>
 								<tr>
-									<td />
+									<td>Owned by:</td>
 									<td>
-										<input id="iagree" type="checkbox" name="iagree" value="1">
-											Agree to <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>
-										</p>
+										<input id="owner_gov" type="radio" name="owner" value="gov"/>Government
+										<input id="owner_apzu" type="radio" name="owner" value="apzu"/>APZU
+										<input id="owner_private" type="radio" name="owner" value="priv"/>Private
+										<input id="owner_other" type="radio" name="owner" value="oth" checked/>Other
+									<td/>
 								</tr>
 								<tr>
 									<td />
 									<td>
-										<input name="accept" type="submit" value="Continue">
+										<input id="iagree" type="checkbox" name="iagree" value="1"/>
+											Agree to <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>
+										</p>
+									<td/>
+								</tr>
+								<tr>
+									<td />
+									<td>
+										<input name="accept" type="submit" value="Continue"/>
 									</td>
 								</tr>
 							</table>
@@ -84,32 +94,33 @@
 								<tr>
 									<td>Username:</td>
 									<td>
-										<input name="auth_user" type="text">
+										<input name="auth_user" type="text"/>
 									</td>
 								</tr>
 								<tr>
 									<td>Password:</td>
 									<td>
-										<input name="auth_pass" type="password">
+										<input name="auth_pass" type="password"/>
 									</td>
 								</tr>
 								<tr>
 									<td>Voucher code:</td>
 									<td>
-										<input name="auth_voucher" type="text">
+										<input name="auth_voucher" type="text"/>
 									</td>
 								</tr>
 								<tr>
 									<td />
 									<td>
-										<input id="iagree2" type="checkbox" name="iagree2" value="1">
+										<input id="iagree2" type="checkbox" name="iagree2" value="1"/>
 											Agree to <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>
 										</p>
+									<td/>
 								</tr>
 								<tr>
 									<td />
 									<td>
-										<input name="accept" type="submit" value="Continue">
+										<input name="accept" type="submit" value="Continue"/>
 									</td>
 								</tr>
 							</table>

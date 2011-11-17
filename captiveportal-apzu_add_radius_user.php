@@ -19,8 +19,9 @@
 				$ip=$_SERVER['REMOTE_ADDR'];
 				$name=$_REQUEST['name'];
 				$email=$_REQUEST['email'];
+				$email=$_REQUEST['owner'];
 			    echo "The registration process should be done for " . $name . " (" . $email . ") from " . $ip;
-				echo exec("/home/pfSensePortal/add_user_to_radius.sh " . $ip . " " . $name . " " . $email);
+				echo exec("/home/pfSensePortal/add_user_to_radius.sh " . $ip . " " . $name . " " . $email . " " . $owner);
 			?>
 			</p>
 			<p>If you are not able to access any webpages like <a href="http://www.google.mw">Google</a>, please try it <a href="/">again</a> in a few minutes.</p>
