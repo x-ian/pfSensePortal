@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>register_user.sh</string>
+	<string>captiveportal-apzu_acceptable_use_policy.html</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,28 +21,28 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>README</key>
+		<key>captiveportal-apzu_acceptable_use_policy.html</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>49</integer>
+				<integer>6</integer>
 				<key>line</key>
-				<integer>9</integer>
+				<integer>46</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>10</integer>
 		</dict>
-		<key>captiveportal-apzu_add_radius_user.php</key>
+		<key>captiveportal-apzu_portal_error_page.html</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>129</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -54,14 +54,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>103</integer>
+				<integer>41</integer>
 				<key>line</key>
-				<integer>130</integer>
+				<integer>43</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>43</integer>
+			<integer>124</integer>
 		</dict>
 		<key>credentials.sample.config</key>
 		<dict>
@@ -77,43 +77,12 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>register_user.sh</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>82</integer>
-				<key>line</key>
-				<integer>17</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>resolve_hostname.sh</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>52</integer>
-				<key>line</key>
-				<integer>4</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>README</string>
-		<string>register_user.sh</string>
-		<string>resolve_hostname.sh</string>
 		<string>captiveportal-apzu_portal_page.html</string>
-		<string>captiveportal-apzu_add_radius_user.php</string>
-		<string>credentials.sample.config</string>
+		<string>captiveportal-apzu_portal_error_page.html</string>
+		<string>captiveportal-apzu_acceptable_use_policy.html</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

@@ -8,8 +8,9 @@ OWNER=$4
 BASEDIR=`dirname $0`
 
 MAC=$($BASEDIR/resolve_mac_address.sh $IP)
-NETBIOS=$($BASEDIR/resolve_netbios_name.sh $IP)
+# doesn't seem as reliable as dhcp hostname
+#NETBIOS=$($BASEDIR/resolve_netbios_name.sh $IP)
 DHCPHOSTNAME=$($BASEDIR/resolve_hostname.sh $IP)
 
-$BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $DHCPHOSTNAME $NETBIOS $OWNER
+$BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $DHCPHOSTNAME $OWNER
 
