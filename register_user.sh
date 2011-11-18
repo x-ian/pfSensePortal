@@ -9,7 +9,7 @@ EMAIL=$3
 IP=$4
 DHCPHOSTNAME=$5
 #NETBIOS=$6
-OWNER=$7
+OWNER=$6
 
 # maybe not the best location as var/log gets deleted with every reboot
 LOGFILE=/var/log/apzu-portal.log
