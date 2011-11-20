@@ -12,5 +12,5 @@ MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 #NETBIOS=$($BASEDIR/resolve_netbios_name.sh $IP)
 DHCPHOSTNAME=$($BASEDIR/resolve_hostname.sh $IP)
 
-$BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $DHCPHOSTNAME $OWNER
+$BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $OWNER "$DHCPHOSTNAME"
 

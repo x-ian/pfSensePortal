@@ -7,9 +7,9 @@ MAC=$1
 NAME=$2
 EMAIL=$3
 IP=$4
-DHCPHOSTNAME=$5
+OWNER=$5
+DHCPHOSTNAME=$6
 #NETBIOS=$6
-OWNER=$6
 
 # maybe not the best location as var/log gets deleted with every reboot
 LOGFILE=/var/log/apzu-portal.log
