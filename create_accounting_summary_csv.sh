@@ -6,23 +6,24 @@
 TODAY=`date +%Y-%m-%d`
 ACCOUNTING_CSV=accounting_`echo $TODAY`.csv
 ACCOUNTING_DIR=accountingdir
-RADIUS_DIR=radiusdir
+RADIUS_DIR=/var/log/radacct/192.168.10.1
+#RADIUS_DIR=radiusdir
 REPORT_DIR=reportdir
-#PFSENSE_CONFIG=/conf/config.xml
-PFSENSE_CONFIG=./config.xml
+PFSENSE_CONFIG=/conf/config.xml
+#PFSENSE_CONFIG=./config.xml
 MAX_DAYS_BACK=7
 
 # --------------------------------------
 # invoke radiusContext for last 7 detail file
 # todo, make incremental updates
-for RADIUS_DETAIL in `ls -r -1 $RADIUS_DIR | head -n $MAX_DAYS_BACK`; do
-  ./radiusContext-1.93/raddetail $RADIUS_DIR/$RADIUS_DETAIL
-  ./radiusContext-1.93/stdreport --generate csv -g csv --reportdir $REPORT_DIR
-  mv $REPORT_DIR/index.csv $ACCOUNTING_DIR/index_$RADIUS_DETAIL.csv
+#for RADIUS_DETAIL in `ls -r -1 $RADIUS_DIR | head -n $MAX_DAYS_BACK`; do
+#  ./radiusContext-1.93/raddetail $RADIUS_DIR/$RADIUS_DETAIL
+#  ./radiusContext-1.93/stdreport --generate csv -g csv --reportdir $REPORT_DIR
+#  mv $REPORT_DIR/index.csv $ACCOUNTING_DIR/index_$RADIUS_DETAIL.csv
   # todo, cleanup of radiusContext files, there should be a better way but i didn't look for one
-  rm -rf $REPORT_DIR/*
-  rm -f SessionData.db
-done
+#  rm -rf $REPORT_DIR/*
+#  rm -f SessionData.db
+#done
 
 # --------------------------------------
 # get all ever registered mac addresses and users
@@ -60,11 +61,11 @@ done
 # export to complete data set to one csv
 # create header
 HEADER="MAC,MAC_DETAILS"
-for (( i=1; i <=$MAX_DAYS_AGO; i++ )); do
+for (( i=1; i <= $MAX_DAYS_BACK; i++ )); do
   HEADER="`echo $HEADER`,OUT -$i days"
 done
 HEADER="`echo $HEADER`,separator"
-for (( i=1; i <=$MAX_DAYS_AGO; i++ )); do
+for (( i=1; i <= $MAX_DAYS_BACK; i++ )); do
   HEADER="`echo $HEADER`,IN -$i days"
 done
 echo $HEADER >$ACCOUNTING_CSV
@@ -73,12 +74,12 @@ for MAC in `cat mac_addresses.txt`; do
   # MAC_DETAILS are specific to APZUs registration process and may or may not be available
   MAC_DETAILS=`grep -A 10 $MAC $PFSENSE_CONFIG | grep description | sed -e "s/<description><\!\[CDATA\[//g" | sed -e "s/\]\]><\/description>//g" | tr -d "\t" | tr -d " "`
   LINE="$MAC,$MAC_DETAILS"
-  for (( i=1; i <=$MAX_DAYS_AGO; i++ )); do
+  for (( i=1; i <= $MAX_DAYS_BACK; i++ )); do
 	OUT=$(eval echo \$A_${MAC}_${i}_OUT)
 	LINE=`echo $LINE,$OUT`
   done
   LINE="`echo $LINE`,separator"
-  for (( i=1; i <=$MAX_DAYS_AGO; i++ )); do
+  for (( i=1; i <= $MAX_DAYS_BACK; i++ )); do
 	IN=$(eval echo \$A_${MAC}_${i}_IN)
 	LINE=`echo $LINE,$IN`
 #	eval echo \$${MAC}_${DAYS_AGO}_IN
