@@ -13,4 +13,4 @@ MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 DHCPHOSTNAME=$($BASEDIR/resolve_hostname.sh $IP)
 
 $BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $OWNER "$DHCPHOSTNAME"
-
+$BASEDIR/send_gmail.perl $MAC "$NAME" "$EMAIL" $IP $OWNER "$DHCPHOSTNAME"
