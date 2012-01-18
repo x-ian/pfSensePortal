@@ -14,14 +14,14 @@ my $REG_IP=$ARGV[3];
 my $REG_OWNER=$ARGV[4];
 my $REG_HOSTNAME=$ARGV[5];
 
-my $SUBJECT="pfSense: New user: " . $REG_TYPE . " " . $REG_NAME . " " . $REG_EMAIL;
-my $BODY=$REG_TYPE . "\n" . "\n" . $REG_NAME . "\n" . $REG_EMAIL . "\n" . $REG_IP . "\n". $REG_HOSTNAME . "\n" . $REG_DATE;
+my $SUBJECT="pfSense: New user: " . $REG_OWNER . " " . $REG_NAME . " " . $REG_EMAIL;
+my $BODY=$REG_OWNER . "\n" . $REG_MAC . "\n" . $REG_NAME . "\n" . $REG_EMAIL . "\n" . $REG_IP . "\n". $REG_HOSTNAME . "\n" . $REG_DATE;
 
 my $SENDER='mail@apzu.pih.org';
 my $RECEIVER='apzu-it@apzu.pih.org';
 
 #my $PASSWORD='changeme';
-open FILE, "<mail_it_config.txt";
+open FILE, "</home/pfSensePortal/send_gmail_config.txt";
 $PASSWORD = do { local $/; <FILE> };
 
 my $SMTP='smtp.gmail.com';
