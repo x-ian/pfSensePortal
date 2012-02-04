@@ -14,11 +14,11 @@ grep "<username>" $PFSENSE_CONFIG | sed  "s/<username>//g" | sed "s/<\/username>
 
 # --------------------------------------
 # scan through all radius logs to find last time users showed up
-echo 'MAC,MAC,LAST_SEEN' >$USERS_CSV
+echo 'MAC;TYPE;NAME;EMAIL;HOSTNAME;INITIAL_IP;REGISTERED;LAST_SEEN' >$USERS_CSV
 for MAC in `cat mac_addresses.txt`; do 
   LAST_SEEN=`grep -l $MAC $RADIUS_DIR/detail-* | tail -1 | sed "s/^.*detail-//g"`
-  MAC_DETAILS=`grep -A 10 $MAC $PFSENSE_CONFIG | grep description | sed -e "s/<description><\!\[CDATA\[//g" | sed -e "s/\]\]><\/description>//g" | tr -d "\t" | tr -d " "`
-  LINE="$MAC,$MAC_DETAILS,$LAST_SEEN"
+  USER_DETAILS=`grep -A 10 $MAC $PFSENSE_CONFIG | grep description | sed -e "s/<description><\!\[CDATA\[//g" | sed -e "s/\]\]><\/description>//g" | tr -d "\t" | tr -d " "`
+  LINE="$MAC;$USER_DETAILS;$LAST_SEEN"
   echo $LINE >> $USERS_CSV
 done
 
