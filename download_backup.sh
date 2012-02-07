@@ -2,7 +2,7 @@
 
 # remotely download latest backup file
 
-BASEDIR=`dirname $0`
+BASEDIR=/home/pfSensePortal
 SERVER=https://172.16.1.2
 
 # get pfSense login details
