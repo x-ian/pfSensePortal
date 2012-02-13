@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 # all the housekeeping stuff that I want to be done sunday nights
 # let's say right before midnight
