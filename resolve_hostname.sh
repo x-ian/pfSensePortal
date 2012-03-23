@@ -6,6 +6,7 @@
 
 IP=$1
 
-DHCPHOST=$(grep -a "DHCPOFFER on $IP" /var/log/dhcpd.log | tail -r -n 1 | sed s/\(//g |sed s/\)//g | awk -F" " '{print $11}')
+#DHCPHOST=$(grep -a "DHCPPACK on $IP" /var/log/dhcpd.log | tail -r -n 1 | sed s/\(//g |sed s/\)//g | awk -F" " '{print $11}')
+DHCPHOST=$(grep -A 12 "lease $IP" /var/dhcpd/var/db/dhcpd.leases | tail -n 12 | grep "client-hostname" |  awk -F" " '{print $2}' | sed -e 's/"//g' | sed -e 's/;//g')
 
 echo $DHCPHOST
