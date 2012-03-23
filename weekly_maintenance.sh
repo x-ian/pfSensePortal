@@ -4,6 +4,13 @@
 # let's say right before midnight
 # 55 23 * * Sun ...
 
+BASEDIR=/home/pfSensePortal
+
+source $BASEDIR/credentials.config
+ 
+# reset ntop traffic stats
+/usr/local/bin/wget --user `echo $USER` --password `echo $PASSWD` http://172.16.1.2:3000/resetStats.html
+
 # do some accounting and clean it up
 echo BIG_TIME_TODO
 
