@@ -8,3 +8,9 @@ Installation:
 1. Set up pfSense
 2. Clone git repo to /home on the pfSense box
 3. Upload captiveportal-... files through Captive Portal File Manager
+
+Cronjobs:
+55 23 * * Sun /home/pfSensePortal/weekly_maintenance.sh
+0 3 * * * /usr/local/sbin/squid -k rotate
+0 4 * * * /home/pfSensePortal/download_backup.sh
+
