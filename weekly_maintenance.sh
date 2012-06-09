@@ -15,10 +15,16 @@ source $BASEDIR/credentials.config
 echo BIG_TIME_TODO
 
 # compacting squid cache (http://doc.pfsense.org/index.php/Squid_Package_Tuning)
-/usr/local/sbin/squid -k rotate
+#/usr/local/sbin/squid -k rotate
+
+# clearing out and recreating the whole squid cache dir
+/usr/local/sbin/squid -k shutdown
+/bin/sleep 10
+/bin/rm -rf /var/squid/cache/*
+/usr/local/sbin/squid -z
 
 # some internal backup
-/home/pfSensePortal/download_backup.sh
+#/home/pfSensePortal/download_backup.sh
 
 # clean up DHCP leases as they seem to be never removed. ideally this should maybe be done monthly or quarterly
 /bin/rm -f /var/dhcpd/var/db/dhcpd.leases
