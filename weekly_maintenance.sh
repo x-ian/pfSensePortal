@@ -20,6 +20,10 @@ echo BIG_TIME_TODO
 # some internal backup
 /home/pfSensePortal/download_backup.sh
 
+# clean up DHCP leases as they seem to be never removed. ideally this should maybe be done monthly or quarterly
+/bin/rm -f /var/dhcpd/var/db/dhcpd.leases
+/bin/rm -f /var/dhcpd/var/db/dhcpd.leases~
+
 # just for the case, restart once in a while
 /sbin/reboot
 
