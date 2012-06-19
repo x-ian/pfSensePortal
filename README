@@ -13,4 +13,6 @@ Cronjobs:
 55 23 * * Sun /home/pfSensePortal/weekly_maintenance.sh
 0 3 * * * /usr/local/sbin/squid -k rotate
 0 4 * * * /home/pfSensePortal/download_backup.sh
+@reboot /home/pfSensePortal/delete_squid_cache.sh
+@reboot /home/pfSensePortal/send_gmail_after_startup.sh
 
