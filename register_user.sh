@@ -10,12 +10,13 @@ IP=$4
 OWNER=$5
 DHCPHOSTNAME=$6
 #NETBIOS=$6
+MAC_VENDOR=$7
 
 # maybe not the best location as var/log gets deleted with every reboot
 LOGFILE=/var/log/apzu-portal.log
 BASEDIR=`dirname $0`
 TODAY=`date +%Y-%m-%d`
-DESCRIPTION=`echo "$OWNER; $NAME; $EMAIL; $DHCPHOSTNAME; $IP; $TODAY" | sed -f $BASEDIR/urlencode.sed`
+DESCRIPTION=`echo "$OWNER; $NAME; $EMAIL; $DHCPHOSTNAME; $IP; $TODAY; $MAC_VENDOR" | sed -f $BASEDIR/urlencode.sed`
 ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f $BASEDIR/urlencode.sed`
 WGET_OPTIONS="--timeout=5 --tries=3 --keep-session-cookies --no-check-certificate"
 
