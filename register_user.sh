@@ -17,9 +17,23 @@ LOGFILE=/var/log/apzu-portal.log
 BASEDIR=`dirname $0`
 TODAY=`date +%Y-%m-%d`
 DESCRIPTION=`echo "$OWNER; $NAME; $EMAIL; $DHCPHOSTNAME; $IP; $TODAY; $MAC_VENDOR" | sed -f $BASEDIR/urlencode.sed`
+# default slow speed for everyone
 ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f $BASEDIR/urlencode.sed`
 SESSIONTIME=3600
+# auto elevate all @pih.org users
 echo $EMAIL | grep "@pih.org"
+if [ $? -eq 0 ]; then
+	ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 400000, WISPr-Bandwidth-Max-Up = 150000" | sed -f $BASEDIR/urlencode.sed`
+	SESSIONTIME=43200
+fi
+# auto elevate all APZU users
+echo $OWNER | grep "apzu"
+if [ $? -eq 0 ]; then
+	ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 400000, WISPr-Bandwidth-Max-Up = 150000" | sed -f $BASEDIR/urlencode.sed`
+	SESSIONTIME=43200
+fi
+# auto elevate all APZU- computers
+echo $DHCPHOSTNAME | grep "apzu-" --ignore-case
 if [ $? -eq 0 ]; then
 	ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 400000, WISPr-Bandwidth-Max-Up = 150000" | sed -f $BASEDIR/urlencode.sed`
 	SESSIONTIME=43200
