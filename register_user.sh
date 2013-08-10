@@ -18,15 +18,16 @@ BASEDIR=`dirname $0`
 TODAY=`date +%Y-%m-%d`
 DESCRIPTION=`echo "$OWNER; $NAME; $EMAIL; $DHCPHOSTNAME; $IP; $TODAY; $MAC_VENDOR" | sed -f $BASEDIR/urlencode.sed`
 ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f $BASEDIR/urlencode.sed`
-grep "@pih.org" $EMAIL
+SESSIONTIME=3600
+echo $EMAIL | grep "@pih.org"
 if [ $? -eq 0 ]; then
 	ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 400000, WISPr-Bandwidth-Max-Up = 150000" | sed -f $BASEDIR/urlencode.sed`
+	SESSIONTIME=43200
 fi
 WGET_OPTIONS="--timeout=5 --tries=3 --keep-session-cookies --no-check-certificate"
 
 SERVER=https://172.16.1.2
 PFSENSE_RADIUS_PASSWD=pfSense
-SESSIONTIME=3600
 
 TEMP_COOKIES=`mktemp /tmp/wget.cookies.XXXXXX`
 TEMP_OUTFILE=`mktemp /tmp/wget.outfile.XXXXXX`
