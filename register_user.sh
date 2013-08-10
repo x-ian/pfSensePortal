@@ -5,7 +5,7 @@
 
 MAC=$1
 NAME=$2
-EMAIL=$3
+EMAIL=$(echo $3 | awk '{print tolower($0)}')
 IP=$4
 OWNER=$5
 DHCPHOSTNAME=$6
@@ -18,6 +18,10 @@ BASEDIR=`dirname $0`
 TODAY=`date +%Y-%m-%d`
 DESCRIPTION=`echo "$OWNER; $NAME; $EMAIL; $DHCPHOSTNAME; $IP; $TODAY; $MAC_VENDOR" | sed -f $BASEDIR/urlencode.sed`
 ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 50000, WISPr-Bandwidth-Max-Up = 25000" | sed -f $BASEDIR/urlencode.sed`
+grep "@pih.org" $EMAIL
+if [ $? -eq 0 ]; then
+	ADDITIONAL_OPTIONS=`echo "WISPr-Bandwidth-Max-Down = 400000, WISPr-Bandwidth-Max-Up = 150000" | sed -f $BASEDIR/urlencode.sed`
+fi
 WGET_OPTIONS="--timeout=5 --tries=3 --keep-session-cookies --no-check-certificate"
 
 SERVER=https://172.16.1.2
