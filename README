@@ -16,3 +16,9 @@ Cronjobs:
 @reboot /home/pfSensePortal/delete_squid_cache.sh
 @reboot /home/pfSensePortal/send_gmail_after_startup.sh
 
+Facebook DNS based blocking
+1. Add Firewall Alias with URL Table pointing to http://172.16.1.2:8000/captiveportal-facebook_subnets.txt
+2. Create schedule to include working hours
+3. Add Floating Firewall Rules with Destination Alias name of Firewall Alias name of 1.
+4. Optional: Update list of Facebook subnets once in a while with
+     for ip in `whois -h whois.radb.net '!gAS32934' | grep /`; do echo $ip; done
