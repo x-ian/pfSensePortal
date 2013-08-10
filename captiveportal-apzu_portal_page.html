@@ -33,15 +33,17 @@
 	<tr>
 		<td />
 		<td>
-			To connect to the network either register your computer once (1.) or provide the username/password/voucher if you have received them (2.).<br/><br/>
+			To connect to the network please register your computer once.<br/><br/>
 			<table>
+<!--
 			  <colgroup>
 			    <col width="50%">
 			    <col width="50%">
 			  </colgroup>
+-->
 				<tr>
 					<td>
-						1. Provide details to self-register
+						Provide details to self-register (use @pih.org Email when available):
 						<form method="post" action="/captiveportal-apzu_add_radius_user.php"
 							onSubmit="return validateMacAuth() ;">
 							<table>
@@ -61,7 +63,7 @@
 									<td>Owned by:</td>
 									<td>
 										<input id="owner_gov" type="radio" name="owner" value="gov"/>Government
-										<input id="owner_apzu" type="radio" name="owner" value="apzu"/>APZU
+										<input id="owner_apzu" type="radio" name="owner" value="apzu"/>APZU / PIH
 										<input id="owner_private" type="radio" name="owner" value="priv"/>Private
 										<input id="owner_other" type="radio" name="owner" value="oth" checked/>Other
 									<td/>
@@ -83,7 +85,7 @@
 							</table>
 						</form>
 					</td>
-
+<!--
 					<td>
 						2. Enter username/password or voucher code (use guest/guest for limited 10
 						minutes access or check your welcome package for further
@@ -126,6 +128,7 @@
 							</table>
 						</form>
 					</td>
+-->
 				</tr>
 			</table>
 		</td>
