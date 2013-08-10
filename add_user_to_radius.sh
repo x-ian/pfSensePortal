@@ -25,6 +25,6 @@ if [ $? -ne 0 ]; then
   #NETBIOS=$($BASEDIR/resolve_netbios_name.sh $IP)
   DHCPHOSTNAME=$($BASEDIR/resolve_hostname.sh $IP)
 
-  $BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $OWNER "$DHCPHOSTNAME"
-  perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/send_gmail.perl "$MAC" "$NAME" "$EMAIL" "$IP" "$OWNER" "$DHCPHOSTNAME"
+  $BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $OWNER "$DHCPHOSTNAME" "$MAC_VENDOR"
+  perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/send_gmail.perl "$MAC" "$NAME" "$EMAIL" "$IP" "$OWNER" "$DHCPHOSTNAME" "$MAV_VENDOR"
 fi
