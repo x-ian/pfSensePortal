@@ -13,9 +13,10 @@ my $REG_EMAIL=$ARGV[2];
 my $REG_IP=$ARGV[3];
 my $REG_OWNER=$ARGV[4];
 my $REG_HOSTNAME=$ARGV[5];
+my $REG_MAC_VENDOR=$ARGV[6];
 
 my $SUBJECT="pfSense: New user: " . $REG_OWNER . " " . $REG_NAME . " " . $REG_EMAIL;
-my $BODY=$REG_OWNER . "\n" . $REG_MAC . "\n" . $REG_NAME . "\n" . $REG_EMAIL . "\n" . $REG_IP . "\n". $REG_HOSTNAME . "\n" . $REG_DATE . "\n" . "https://172.16.1.2/pkg.php?xml=freeradius.xml";
+my $BODY=$REG_OWNER . "\n" . $REG_MAC . "\n" . $REG_NAME . "\n" . $REG_EMAIL . "\n" . $REG_IP . "\n". $REG_HOSTNAME . "\n" . $REG_DATE . "\n" $REG_MAC_VENDOR . "\n" . "https://172.16.1.2/pkg.php?xml=freeradius.xml";
 
 my $SENDER='mail@apzu.pih.org';
 my $RECEIVER='apzu-it@apzu.pih.org';
