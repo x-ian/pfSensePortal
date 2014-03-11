@@ -1,5 +1,10 @@
 #!/usr/local/bin/bash
 
+# pings all network devices in the local network and sends out emails if some 
+# are not responding
+
+# best done with a daily cronjob like 0 7 * * * /home/pfSensePortal/monitor_network_devices.sh
+
 BASEDIR=`dirname $0`
 LOG=/tmp/monitor_network_devices.log
 
