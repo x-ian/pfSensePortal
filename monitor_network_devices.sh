@@ -11,7 +11,7 @@ LOG=/tmp/monitor_network_devices.log
 rm $LOG
 
 for i in `cat $BASEDIR/monitor_network_devices.txt`; do
-  /sbin/ping -t 1 $i
+  /sbin/ping -t 4 $i # >> $LOG
   if [ $? -eq 0 ]; then
     echo  
     # echo $i alive >> $LOG
