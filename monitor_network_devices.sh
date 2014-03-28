@@ -9,9 +9,11 @@ BASEDIR=`dirname $0`
 LOG=/tmp/monitor_network_devices.log
 
 rm $LOG
+rm $LOG.tmp
 
 for i in `cat $BASEDIR/monitor_network_devices.txt`; do
-  /sbin/ping -t 4 $i # >> $LOG
+  /bin/sleep 5
+  /sbin/ping -t 4 $i  >> $LOG.tmp
   if [ $? -eq 0 ]; then
     echo  
     # echo $i alive >> $LOG
