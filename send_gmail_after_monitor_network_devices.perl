@@ -13,7 +13,7 @@ my $SUBJECT="172.16.1.2 - pfSense: Internal network devices check : " . $DATETIM
 my $BODY=$ARGV[1];
 
 my $SENDER='mail@apzu.pih.org';
-my $RECEIVER='christian.neumann@gmail.com';
+my $RECEIVER='apzu-it@apzu.pih.org';
 
 #my $PASSWORD='changeme';
 open FILE, "</home/pfSensePortal/send_gmail_config.txt";
