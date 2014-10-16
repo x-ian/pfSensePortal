@@ -16,15 +16,15 @@ MAC_VENDOR=$(grep "(base 16)" $BASEDIR/ieee_oui.txt | grep $MAC_FIRST_DIGITS | a
 # check if we already have this user/MAC address and ignore if necessary
 # sometimes after restarting it seems that the Captive Portal redirects to the register page, 
 # even though the radius entry already exists
-PFSENSE_CONFIG=/conf/config.xml
-grep "$MAC" $PFSENSE_CONFIG
-if [ $? -ne 0 ]; then
+#PFSENSE_CONFIG=/conf/config.xml
+#grep "$MAC" $PFSENSE_CONFIG
+#if [ $? -ne 0 ]; then
   # no entry found, continue to register
 
   # netbios doesn't seem as reliable as dhcp hostname
   #NETBIOS=$($BASEDIR/resolve_netbios_name.sh $IP)
   DHCPHOSTNAME=$($BASEDIR/resolve_hostname.sh $IP)
 
-  $BASEDIR/register_user.sh $MAC "$NAME" "$EMAIL" $IP $OWNER "$DHCPHOSTNAME" "$MAC_VENDOR"
-  perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/send_gmail.perl "$MAC" "$NAME" "$EMAIL" "$IP" "$OWNER" "$DHCPHOSTNAME" "$MAC_VENDOR"
-fi
+  $BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" $OWNER APZUnet+user "$IP $DHCPHOSTNAME $MAC_VENDOR"
+  #perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/send_gmail.perl "$MAC" "$NAME" "$EMAIL" "$IP" "$OWNER" "$DHCPHOSTNAME" "$MAC_VENDOR"
+  #fi
