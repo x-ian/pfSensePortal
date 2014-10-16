@@ -1,0 +1,10 @@
+#!/usr/local/bin/bash
+
+USER=root
+PASSWD=pfsense
+
+# DALORADIUS 
+DR_SERVER=http://192.168.1.36/
+DR_HTTP_USER_PASSWD=admin:admin
+DR_USER=administrator
+DR_PASSWD=radius
