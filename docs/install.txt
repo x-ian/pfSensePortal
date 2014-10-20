@@ -1,0 +1,53 @@
+
+
+Quick / default isnstallation of pfSense
+(press I at the beginning of the boot process when asked for input to invoke the installation, otherwise it will start the LiveCD after 10 seconds)
+(remove CD after installation, otherwise it boots up again from the CD instead of the newly created installation on the hard disk)
+configure network interface em0 as WAN (172.16.1.X/24) and em1 as LAN (IP 192.168.1.1/24 with DHCP services enabled)
+connect with a cable to the LAN port, wait until your computer receives an IP address from the pfSense and open the web borwser pointing to http://192.168.1.1
+finish the installation process by following the instructions of the wizard
+
+enable remote access on WAN interface for SSH and web management through Firewall rules
+
+Admin advanced
+Activate HTTPS for WebConfigurator
+Enable SSH (Secure Shell)
+
+Login with SSH as root and run these statement in the shell (to get to the shell press 8)
+setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/amd64/packages-8.3-release/Latest/
+/usr/sbin/pkg_add -r curl
+/usr/sbin/pkg_add -r wget
+/usr/sbin/pkg_add -r bash
+/usr/sbin/pkg_add -r python
+/usr/sbin/pkg_add -r git
+cd /home
+git clone https://github.com/x-ian/pfSensePortal.git
+
+cp /home/pfSensePortal/config.txt.sample /home/pfSensePortal/config.txt
+and adjust values as needed
+
+/home/pfSensePortal/daloradius-integration(16): ln -s /usr/local/bin/bash /bin/bash
+
+pfSense config
+(confirm intel NIC license agreement - optional: https://forum.pfsense.org/index.php?topic=40355.0)
+Create and enable new Captive portal zone on the internal LAN interfaces
+Configure RADIUS server with RADIUS authentication
+Set IP of primary RADIUS server to the daloRADIUS server
+enabled 'send RADIUS accounting packets' with 'interim updates'
+enable 'RADIUS MAC authentication'
+set 'MAC authentication secret' to radius
+enable 'Use RADIUS Session-Timeout attributes'
+MAC address format 'unformatted'
+Choose file 'setup-captiveportal/captiveportal-apzu_portal_page.html' for 'Portal page content'
+Choose file 'setup-captiveportal/captiveportal-apzu_portal_error_page.html' for 'Authentication error page contents'
+disable concurrent logins
+
+
+upload all files from directory pfSensePort/setup-captiveportal/filemanager through captive portal - file manager
+
+install 'freeradius2' from 'system - packages - available packages'
+stop service freeradius from status - services
+
+
+daloradius
+reboot after adding new NAS
