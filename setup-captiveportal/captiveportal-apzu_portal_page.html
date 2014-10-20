@@ -1,3 +1,4 @@
+
 <span style="font-variant:small-caps; font-size:200%">
 	<p align="center">
 		Abwenzi Pa Za Umoyo / Partners In Health
@@ -9,17 +10,12 @@
 			<img src="/captiveportal-apzu.jpg" />
 		</td>
 		<td>
-			Everybody gets connected - But please play fair!
-			<p>The Internet access is a limited resource and we must ensure a
-				functional network for the work of the Ministries and APZU.</p>
-			<p>Therefore there might be times when the Internet access is
-				restricted or not available due to excessive use or technical
-				outages. If necessary, the IT team might restrict or disconnected
-				single users/computers from the network. For further information
-				please refer to the <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>.</p>
-			<p>Thanks for your understanding, <i>the APZU-IT team</i>.</p>
+			<p>Welcome to the network services provided by APZU/PIH.</p>
+			<p>TODO: Checking status of current system against RADIUS automatically to detect new or currently restricted access. (If device is not yet registered, automatically forward to the self-registreation page. If device is registered, then access should have been granted already. If not, then network access for this device is currently restricted and the reason should be shown.)</p>
+			<p>If you are sure that you have NOT registered this device (computer, smartphone, tablet) to the network previously, please <a href="/captiveportal-self_registration_page.html">click here to register your device once</a>. If not, please come back at a later time to check if network access has been granted to you again.</p>
 		</td>
 	</tr>
+<!--
 	<tr>
 		<td />
 		<td>
@@ -33,135 +29,18 @@
 	<tr>
 		<td />
 		<td>
-			To connect to the network please register your computer once.<br/><br/>
+			To connect to the network please register your computer once.<br/>Click here to continue <a href="/captiveportal-self_registration_page.html">here</a><br/> or provide username / password.
+			<form method="post" action="http://192.168.10.214:8000/">
+			   <input name="auth_user" type="text">
+			   <input name="auth_pass" type="password">
+			   <input name="auth_voucher" type="text">
+			   <input name="redirurl" type="hidden" value="/">
+			   <input name="accept" type="submit" value="Continue">
+			</form>
 			<table>
-<!--
-			  <colgroup>
-			    <col width="50%">
-			    <col width="50%">
-			  </colgroup>
--->
-				<tr>
-					<td>
-						Provide details to self-register (use @pih.org Email when available):
-						<form method="post" action="/captiveportal-apzu_add_radius_user.php"
-							onSubmit="return validateMacAuth() ;">
-							<table>
-								<tr>
-									<td>Name:</td>
-									<td>
-										<input name="name" id="name" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Email:</td>
-									<td>
-										<input name="email" id="email" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Owned by:</td>
-									<td>
-										<input id="owner_gov" type="radio" name="owner" value="gov"/>Government
-										<input id="owner_apzu" type="radio" name="owner" value="apzu"/>APZU / PIH
-										<input id="owner_private" type="radio" name="owner" value="priv"/>Private
-										<input id="owner_other" type="radio" name="owner" value="oth" checked/>Other
-									<td/>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input id="iagree" type="checkbox" name="iagree" value="1"/>
-											Agree to <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>
-										</p>
-									<td/>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input name="accept" type="submit" value="Continue"/>
-									</td>
-								</tr>
-							</table>
-						</form>
-					</td>
-<!--
-					<td>
-						2. Enter username/password or voucher code (use guest/guest for limited 10
-						minutes access or check your welcome package for further
-						information)
-						<form method="post" action="$PORTAL_ACTION$" onSubmit="return validate() ;">
-							<input name="redirurl" type="hidden" value="$PORTAL_REDIRURL$" />
-							<table>
-								<tr>
-									<td>Username:</td>
-									<td>
-										<input name="auth_user" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Password:</td>
-									<td>
-										<input name="auth_pass" type="password"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Voucher code:</td>
-									<td>
-										<input name="auth_voucher" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input id="iagree2" type="checkbox" name="iagree2" value="1"/>
-											Agree to <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>
-										</p>
-									<td/>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input name="accept" type="submit" value="Continue"/>
-									</td>
-								</tr>
-							</table>
-						</form>
-					</td>
--->
-				</tr>
+			</tr>
 			</table>
 		</td>
 	</tr>
+-->
 </table>
-
-
-<script type="text/javascript">
-function validateMacAuth() {
-    if(document.getElementById('iagree').checked == false) {
-        alert("Please read and agree to the Acceptable Use Policy!");
-        return false;
-    }
-    document.getElementById('name').value = document.getElementById('name').value.split(' ').join('_');
-    if (document.getElementById('name').value == null || document.getElementById('name').value == "") {
-        alert("Please provide a name!");
-        return false;
-    }
-    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    var address = document.getElementById('email').value;
-    if(reg.test(address) == false) {
-        alert('Please specify a valid Email Address!');
-        return false;
-    }
-    return true;
-}
-
-function validate() {
-    if(document.getElementById('iagree2').checked == false) {
-        alert("Please read and agree to the Acceptable Use Policy!");
-        return false;
-    } else {
-        return true;
-    }
-}
-</script>
