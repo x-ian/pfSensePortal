@@ -6,13 +6,13 @@ BASEDIR=`dirname $0`
 source $BASEDIR/../config.txt
 PATH=$PATH:/usr/local/bin
 
-MAC=$1
-FIRSTNAME=$2
-LASTNAME=$3
-EMAIL=$4
-COMPANY=$5
-GROUP=$6 # e.g. APZUnet+user
-NOTES=$7
+MAC=`echo $1 | sed -f $BASEDIR/urlencode.sed`
+FIRSTNAME=`echo $2 | sed -f $BASEDIR/urlencode.sed`
+LASTNAME=`echo $3 | sed -f $BASEDIR/urlencode.sed`
+EMAIL=`echo $4 | sed -f $BASEDIR/urlencode.sed`
+COMPANY=`echo $5 | sed -f $BASEDIR/urlencode.sed`
+GROUP=`echo $6 | sed -f $BASEDIR/urlencode.sed`
+NOTES=`echo $7 | sed -f $BASEDIR/urlencode.sed`
 
 $BASEDIR/daloradius-login.sh
 
