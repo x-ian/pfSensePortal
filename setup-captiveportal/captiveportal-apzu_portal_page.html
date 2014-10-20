@@ -1,167 +1,541 @@
-<span style="font-variant:small-caps; font-size:200%">
-	<p align="center">
-		Abwenzi Pa Za Umoyo / Partners In Health
-	</p>
-</span>
-<table>
-	<tr>
-		<td>
-			<img src="/captiveportal-apzu.jpg" />
-		</td>
-		<td>
-			Everybody gets connected - But please play fair!
-			<p>The Internet access is a limited resource and we must ensure a
-				functional network for the work of the Ministries and APZU.</p>
-			<p>Therefore there might be times when the Internet access is
-				restricted or not available due to excessive use or technical
-				outages. If necessary, the IT team might restrict or disconnected
-				single users/computers from the network. For further information
-				please refer to the <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>.</p>
-			<p>Thanks for your understanding, <i>the APZU-IT team</i>.</p>
-		</td>
-	</tr>
-	<tr>
-		<td />
-		<td>
-			<br />
-			<br />
-			<hr />
-			<br />
-			<br />
-		</td>
-	</tr>
-	<tr>
-		<td />
-		<td>
-			To connect to the network please register your computer once.<br/><br/>
-			<table>
-<!--
-			  <colgroup>
-			    <col width="50%">
-			    <col width="50%">
-			  </colgroup>
--->
-				<tr>
-					<td>
-						Provide details to self-register (use @pih.org Email when available):
-						<form method="post" action="/captiveportal-apzu_add_radius_user.php"
-							onSubmit="return validateMacAuth() ;">
-							<table>
-								<tr>
-									<td>Name:</td>
-									<td>
-										<input name="name" id="name" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Email:</td>
-									<td>
-										<input name="email" id="email" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Owned by:</td>
-									<td>
-										<input id="owner_gov" type="radio" name="owner" value="gov"/>Government
-										<input id="owner_apzu" type="radio" name="owner" value="apzu"/>APZU / PIH
-										<input id="owner_private" type="radio" name="owner" value="priv"/>Private
-										<input id="owner_other" type="radio" name="owner" value="oth" checked/>Other
-									<td/>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input id="iagree" type="checkbox" name="iagree" value="1"/>
-											Agree to <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>
-										</p>
-									<td/>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input name="accept" type="submit" value="Continue"/>
-									</td>
-								</tr>
-							</table>
-						</form>
-					</td>
-<!--
-					<td>
-						2. Enter username/password or voucher code (use guest/guest for limited 10
-						minutes access or check your welcome package for further
-						information)
-						<form method="post" action="$PORTAL_ACTION$" onSubmit="return validate() ;">
-							<input name="redirurl" type="hidden" value="$PORTAL_REDIRURL$" />
-							<table>
-								<tr>
-									<td>Username:</td>
-									<td>
-										<input name="auth_user" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Password:</td>
-									<td>
-										<input name="auth_pass" type="password"/>
-									</td>
-								</tr>
-								<tr>
-									<td>Voucher code:</td>
-									<td>
-										<input name="auth_voucher" type="text"/>
-									</td>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input id="iagree2" type="checkbox" name="iagree2" value="1"/>
-											Agree to <a href="captiveportal-apzu_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a>
-										</p>
-									<td/>
-								</tr>
-								<tr>
-									<td />
-									<td>
-										<input name="accept" type="submit" value="Continue"/>
-									</td>
-								</tr>
-							</table>
-						</form>
-					</td>
--->
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-
-
-<script type="text/javascript">
-function validateMacAuth() {
-    if(document.getElementById('iagree').checked == false) {
-        alert("Please read and agree to the Acceptable Use Policy!");
-        return false;
-    }
-    document.getElementById('name').value = document.getElementById('name').value.split(' ').join('_');
-    if (document.getElementById('name').value == null || document.getElementById('name').value == "") {
-        alert("Please provide a name!");
-        return false;
-    }
-    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    var address = document.getElementById('email').value;
-    if(reg.test(address) == false) {
-        alert('Please specify a valid Email Address!');
-        return false;
-    }
-    return true;
-}
-
-function validate() {
-    if(document.getElementById('iagree2').checked == false) {
-        alert("Please read and agree to the Acceptable Use Policy!");
-        return false;
-    } else {
-        return true;
-    }
-}
-</script>
+d0df9a8612c4;gov;D.Dzinkambani;d.dzinkambani@yahoo.com;user-HP;192.168.11.240;2014-04-30;Liteon_Technology_Corporation;;;5;;3600;;;
+a86a6f56a0d0;oth;suemangani;suemangani@gmail.com;BLACKBERRY-3F20;192.168.13.115;2014-04-30;RIM;;;5;;3600;;;
+760a6b94f835;oth;chikondi;chikondimaluwa@yahoo.com;android_83a16ef88a64622c;192.168.21.73;2014-05-05;;;;5;;3600;;;
+9cd21e99d6d7;oth;charles_phiri;charlesphiri80@gmail.com;CharlesPhiri;192.168.10.98;2014-05-06;;;;5;;3600;;;
+844bf57056c4;gov;memory;memorykaleso@yahoo.com;mkmonteiro;192.168.10.99;2014-05-06;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+0022facb529e;apzu;apzuGIS;apzuhelpdesk@pih.org;lenovo-PC;192.168.10.100;2014-05-06;Intel_Corporate;;;5;;43200;;;
+cc52af5a091c;oth;Mphatso_Kachule;mkachule@riders.org;Riders-HP;192.168.12.95;2014-05-06;Universal_Global_Scientific_Industrial_Co.,_Ltd.;;;5;;3600;;;
+34aa8b6bf3d1;oth;mapepu_godrick;dangodrick.magody@gmail.com;android-2e02faaf4ad5c6f8;192.168.10.222;2014-05-06;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+cc89fd791de4;apzu;gloria;gloriamandala@gmail.com;Windows-Phone;192.168.12.99;2014-05-07;;;;5;;43200;;;
+f4b7e2b2cda9;priv;macbrian_jamu;macbrianjamu@gmail.com;m1code-PC;192.168.13.111;2014-05-09;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+c417fe62435f;priv;pearson_chisomo_taika;chisomotaika861@gmail.com;chisomo-PC;192.168.13.115;2014-05-09;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+88308a5efe4a;apzu;GaniAlabi;galabi60@pih.org;android-e09902c03c897183;192.168.21.128;2014-05-11;Murata_Manufactuaring_Co.,Ltd.;;;5;;43200;;;
+708d09986364;oth;Harvey_kachingwe;michaelharveyletkay@gmail.com;;192.168.10.65;2014-05-12;;;;5;;3600;;;
+d0df9a156346;gov;Kamkwamba;pkamkwamba@yahoo.com;Ewips-HP;192.168.21.72;2014-05-12;Liteon_Technology_Corporation;;;5;;3600;;;
+0cc66abe63d2;oth;Fadwick_Makombe;makombefb@yahoo.co.uk;;192.168.21.79;2014-05-12;Nokia_Corporation;;;5;;3600;;;
+b8e856b7bc63;apzu;Bryan_eustis;beustis@pih.org;Bryan-s-iPhone;192.168.12.95;2014-05-13;Apple;;;5;;43200;;;
+5cf9388dfd64;apzu;Bryan_Eustis;beustis@pih.org;;192.168.12.92;2014-05-13;;;;5;;43200;;;
+4c0b3aa32273;priv;fainala_Muyila;faimuyila@yahoo.com;eth0;192.168.13.77;2014-05-14;TCT_Mobile_Limited;;;5;;3600;;;
+fcc734b0626d;oth;anna;annaklosterskov@gmail.com;;192.168.10.110;2014-05-14;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+a06cecd3501c;oth;winnie_kazako;winniecondowy@gmail.com;BLACKBERRY-98D3;192.168.10.116;2014-05-15;RIM;;;5;;3600;;;
+e899c4f4fdac;oth;atupere;atupere@gmail.com;android-ef3e32cbc5cae8be;192.168.10.117;2014-05-15;HTC_Corporation;;;5;;3600;;;
+1c3e84cda92f;gov;Aubrey_Phiri;masekoaubreyphiri@gmail.com;hp;192.168.10.119;2014-05-15;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+e83eb6a7252b;gov;Aubrey;masekoaubreyphiri@gmail.com;BLACKBERRY-D3DD;192.168.10.122;2014-05-15;RIM;;;5;;3600;;;
+5c59481b4ef1;gov;Joseph_Lusaka_;jlusaka@gmail.com;Joes-iPhone;192.168.13.111;2014-05-16;Apple,_Inc.;;;5;;3600;;;
+e0b9a500670a;oth;peter_chatuwa;peterchatuwa@gmail.com;Concept-PC;192.168.11.145;2014-05-17;Azurewave;;;5;;3600;;;
+307c30282ff7;oth;atupere;atupere@gmail.com;BLACKBERRY-2B90;192.168.13.125;2014-05-18;RIM;;;5;;3600;;;
+1886ace91084;oth;peter_chatuwa;peter@gmail.com;;192.168.11.148;2014-05-18;Nokia_Danmark_A/S;;;5;;3600;;;
+34bb1f362dd3;gov;patrick_phiri;sue2_p@yahoo.com;BLACKBERRY-BE26;192.168.13.129;2014-05-18;Research_In_Motion;;;5;;3600;;;
+ac811249964e;gov;Master;mwafulirwamaster@gmail.com;gelevazio;192.168.21.71;2014-05-19;Gemtek_Technology_Co.,_Ltd.;;;5;;3600;;;
+844bf56b5fdc;oth;patrick_Gomani;pgomani@pih.org;Patrick-PC;192.168.10.79;2014-05-19;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+001f3c1773a2;gov;ken_Namuku;kennamuku@gmail.com;D430-PC;192.168.21.77;2014-05-19;Intel_Corporate;;;5;;3600;;;
+406aab52b6ea;oth;chisomo;ckanyenda@gmail.com;BLACKBERRY-8F75;192.168.13.74;2014-05-19;RIM;;;5;;3600;;;
+9094e40096bd;gov;moses_kabudula;kabunthu@gmail.com;pc;192.168.21.91;2014-05-20;D-Link_International;;;5;;3600;;;
+687f740a1dca;apzu;tmandala;losh@live.com;BOS-MAL-TMANDAL;192.168.11.82;2014-05-20;Cisco-Linksys,_LLC;;;5;;43200;;;
+64273734279b;emmanuelkondowe@gmail.com;winnie;kazako;user-PC;192.168.11.100;2014-05-21;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+ac36136f2cb8;priv;Stanley_Khoswe;stainkhoswe@yahoo.com;android-44ca1122275ad1b5;192.168.13.105;2014-05-21;;;;5;;3600;;;
+0026c68e8a86;apzu;joji;jojimalunga@ymail.com;PIH-APZUEMRSRV;192.168.10.103;2014-05-22;Intel_Corporate;;;5;;43200;;;
+00215c8706b7;gov;chalo;chalo.mfune25@gmail.com;chiccowamanyozo;192.168.13.110;2014-05-22;Intel_Corporate;;;5;;3600;;;
+489d247838ef;gov;lawrence;lnazimera@gmail.com;BLACKBERRY-19F8;192.168.10.110;2014-05-23;Research_In_Motion;;;5;;3600;;;
+00216a9ca03e;apzu;moir_blackson;mblackson@pih.org;APZU-66;192.168.10.64;2014-05-26;Intel_Corporate;;;5;;43200;;;
+78a873ee84c4;gov;edna_phiri;ednaphiri43@yahoo.com;android-4120dff770dc7329;192.168.11.61;2014-05-26;;;;5;;3600;;;
+a0f450555b5a;oth;Sam_njolomole;snjolomole@pih.org;Android_359144048251329;192.168.12.85;2014-05-27;HTC_Corporation;;;5;;3600;;;
+e0ca94663108;oth;George_Mikwamba;gmikwamba@bayor-malawi.org;Kamoto;192.168.10.90;2014-05-27;Askey_Computer;;;5;;3600;;;
+0811968007a4;oth;paul_jack_jiya;pjjiya@medcol.mw;PaulJackJiya;192.168.10.91;2014-05-27;Intel_Corporate;;;5;;3600;;;
+38ece4d5f697;gov;patrick_gomiwa;pgomiwa@outlook.com;;192.168.21.101;2014-05-28;Samsung_Electronics;;;5;;3600;;;
+04180fb8d133;oth;Jessie_kaziputa;jkaziputa@yahoo.com;;192.168.11.123;2014-05-28;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+2016d81c9ad5;oth;khumbochilemba;khumbochilemba@yahoo.com;josephkhumbo;192.168.11.139;2014-05-30;Liteon_Technology_Corporation;;;5;;3600;;;
+001f3cbabe1e;oth;Daniel_Gunya;gunyadaniels@gmail.com;DANIEL-PC;192.168.21.103;2014-06-01;Intel_Corporate;;;5;;3600;;;
+70f1a10772c8;gov;jonas_photiwa;jonasphotiwa@gmail.com;PAMODZI;192.168.12.86;2014-06-02;Liteon_Technology_Corporation;;;5;;3600;;;
+70188b127be2;gov;Ron_shaba;ronshaba@yahoo.co.uk;User-HP;192.168.11.97;2014-06-03;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+904ce521030c;apzu;gloria_chinguwo;gchinguwo@pih.org;Welu-PC;192.168.10.98;2014-06-04;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+1c62b8cf0309;oth;Henry_makungwa;hmakungwa@pih.org;;192.168.12.150;2014-06-04;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+e4ce8f34df0e;apzu;Jeanel_Drake;jdrake@pih.org;jeaneldomputer3;192.168.11.118;2014-06-04;Apple,_Inc.;;;5;;43200;;;
+881fa11adb8e;gov;JK_Masiye;jkmasiye@yahoo.co.uk;Drs-MacBook-Pro;192.168.21.108;2014-06-05;Apple;;;5;;3600;;;
+7c7a915ecdd8;apzu;thoko_mandala;loshman@live.com;APZU-71;192.168.10.111;2014-06-05;Intel_Corporate;;;5;;43200;;;
+bc926b0a2878;gov;Hai;hai@gmail.com;AakashShsiPhone;192.168.10.114;2014-06-05;Apple;;;5;;3600;;;
+a0f450d1ba4f;gov;kddakamau;kddakamau@yahoo.com;android-29c9e753f9900b65;192.168.10.126;2014-06-06;HTC_Corporation;;;5;;3600;;;
+0025d0e8ea6d;oth;chipiliro_madwazi.;chimadwazi@gmail.com;;192.168.12.154;2014-06-06;Nokia_Danmark_A/S;;;5;;3600;;;
+40f02f11cece;gov;Brian__Nkwinda;briannkwinda@gmail.com;hp;192.168.13.115;2014-06-07;;;;5;;3600;;;
+a071a99bf376;oth;Kapangaza;ntonyakapa@yahoo.com;;192.168.11.157;2014-06-08;Nokia_Corporation;;;5;;3600;;;
+001e8c04be88;gov;barnet;jordaanknight@rocketmail.com;Barnet-PC;192.168.10.75;2014-06-09;ASUSTek_COMPUTER_INC.;;;5;;3600;;;
+f04f7cca4e9f;oth;edith_chihana;echihana@pih.org;android-7fdb4798af2a91e4;192.168.12.85;2014-06-09;_;;;5;;3600;;;
+10ae607b9435;oth;Samson_Njomole;sam.njox@gmail.com;android-eb762c2904553c96;192.168.12.81;2014-06-09;;;;5;;3600;;;
+f025b7e00d4b;apzu;chiyembekezo_kachimanga;chembekachimanga@yahoo.co.uk;android-23244781f9c7e864;192.168.12.98;2014-06-10;;;;5;;3600;;;
+806007895ced;apzu;pierre_paul;piepaul@pih.org;BLACKBERRY-2F3F;192.168.12.102;2014-06-10;RIM;;;5;;43200;;;
+74e543e48537;oth;daniel;gunyadaniels@gmail.com;BRANTON;192.168.10.91;2014-06-10;Liteon_Technology_Corporation;;;5;;3600;;;
+9803d8e093f5;gov;Eluby_Nasimba_;elnasimba@gmail.com;Elubys-iphone;192.168.13.90;2014-06-11;Apple,_Inc.;;;5;;3600;;;
+00e04c8192be;oth;jessie_kaziputa;jkaziputa@yahoo.com;JESSIEBANDA-PC;192.168.11.114;2014-06-12;REALTEK_SEMICONDUCTOR_CORP.;;;5;;3600;;;
+20689dd8f737;gov;Dominic_Amos;domieamos@gmail.com;User-HP;192.168.11.123;2014-06-13;Liteon_Technology_Corporation;;;5;;3600;;;
+0026c70ecaa2;gov;mose_brazilia;mosebrazilia@yahoo.com;MOSE;192.168.10.113;2014-06-13;Intel_Corporate;;;5;;3600;;;
+90187cb80b16;apzu;Noel_Kalanga;nkalanga@pih.org;android-2270ec1cecd0b161;192.168.10.99;2014-06-18;Samsung_Electro_Mechanics_co.,_LTD.;;;5;;43200;;;
+681729a6b3af;apzu;Noel_Kalanga;nkalanga@pih.org;Noel-PC;192.168.10.100;2014-06-18;Intel_Corporate;;;5;;43200;;;
+e0ca9434735c;gov;Tawonga_Mwale;tawongamwale@gmail.com;Tawo-PC;192.168.21.114;2014-06-18;Askey_Computer;;;5;;3600;;;
+001c267249b5;domieamos@gmail.com;Dominic;amos;msuka;192.168.11.132;2014-06-19;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+b065bd32143c;oth;Moses_masese;mosesmasese@gmail.com;Lll-Len;192.168.21.128;2014-06-20;Apple_Inc;;;5;;3600;;;
+7c11bee70684;gov;Noel_Kalanga_;nkalanga@gmail.com;Tawos-iPhone;192.168.21.131;2014-06-20;Apple,_Inc.;;;5;;3600;;;
+00197e5bc94c;gov;Mc_Pherson;khwawa@gmail.com;khwawa-pc;192.168.10.123;2014-06-21;Hon_Hai_Precision_Ind._Co.,_Ltd;;;5;;3600;;;
+001f01fb0eef;oth;Chisomo_Njirayaduka;chisomonjirayaduka@yahoo.com;;192.168.11.145;2014-06-21;Nokia_Danmark_A/S;;;5;;3600;;;
+001644bc4b5c;gov;Domie_Amos;domieamos@gmail.com;RobertPhondo-PC;192.168.11.62;2014-06-23;LITE-ON_Technology_Corp.;;;5;;3600;;;
+844bf5316a15;gov;Billy_Nyambalo;bnyambalo@gmail.com;USER-PC;192.168.12.231;2014-06-24;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+e8039a0a9704;gov;zizwani_luhana;zizwaniluhana@yahoo.com;Rheetah-PC;192.168.21.223;2014-06-24;Samsung_Electronics_CO.,_LTD;;;5;;3600;;;
+5c260a86d53a;oth;paul_jack_jiya;pjjiya@medcol.mw;PaulJackJiya;192.168.21.230;2014-06-25;Dell_Inc.;;;5;;3600;;;
+30694bd36a3f;remiechangawa@gmail.com;Remie;chidetsa;BLACKBERRY-37AE;192.168.11.150;2014-06-25;RIM;;;5;;3600;;;
+001505dedf1b;oth;felix;thyokafelix@medcol.mw;android_cb4dc8ec64ef650f;192.168.10.117;2014-06-25;Actiontec_Electronics,_Inc;;;5;;3600;;;
+38ece482f422;apzu;Noel_Kalanga;nkalanga@pih.org;;192.168.21.119;2014-06-25;Samsung_Electronics;;;5;;43200;;;
+2016d8f2eca2;oth;blessings;bsalima@pih.org;Yohane;192.168.12.247;2014-06-26;Liteon_Technology_Corporation;;;5;;3600;;;
+c8f7330eabe1;oth;MK_Visitor;bcpap@rice.edu;CPAPMalawiPC;192.168.10.126;2014-06-26;Intel_Corporate;;;5;;3600;;;
+d850e6a00555;oth;pjjiya;pjjiya@medcol.mw;Damson;192.168.21.240;2014-06-26;ASUSTek_COMPUTER_INC.;;;5;;3600;;;
+c488e5db1886;apzu;Luckson_Dullie;ldullie@medcol.mw;;192.168.21.243;2014-06-26;Samsung_Electronics_Co.,Ltd;;;5;;43200;;;
+7ce9d31f92a1;gov;john_mhango;jomerlkly@gmail.com;JMHANGO-PC;192.168.11.161;2014-06-26;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+b8ff61dc4364;oth;Scola;smaganga@gmail.com;iPhone;192.168.13.144;2014-06-28;Apple,_Inc.;;;5;;3600;;;
+984b4acd49dd;priv;sophie_;sophiemacheka@gmail.com;;192.168.11.169;2014-06-28;ARRIS_Group,_Inc.;;;5;;3600;;;
+cc89fd185f38;apzu;Asimenye_simwinga;asimenyedav@gmail.com;assy;192.168.12.88;2014-06-30;;;;5;;43200;;;
+6c3e6d78d1a1;gov;Tawonga_mwale;tawongamwale@gmail.com;Tawos-iPhone;192.168.21.66;2014-06-30;Apple_Inc;;;5;;3600;;;
+00bb3a55daa0;apzu;Bright_Mailosi;brghtmls@gmail.com;android-2a89f64b5b1eea1a;192.168.13.82;2014-07-01;_;;;5;;3600;;;
+e83eb690d615;oth;roy_kamphinda_banda;kamphindaroy@gmail.com;BLACKBERRY-5BBC;192.168.13.84;2014-07-01;RIM;;;5;;3600;;;
+4c72b958c5d2;gov;moses_kabudula;kabunthu@gmail.com;pc;192.168.21.246;2014-07-01;Pegatron_Corporation;;;5;;3600;;;
+74e50b496e98;apzu;Steve_Mtewa;stevemtewa@pih.org;StevenMtewa-PC;192.168.14.50;2014-07-01;Intel_Corporate;;;5;;43200;;;
+8ca982a85f9c;apzu;jordaan_knight__;jordaanknight70@gmail.com;Apzu-56;192.168.10.69;2014-07-01;Intel_Corporate;;;5;;43200;;;
+001e658ea66c;apzu;Edwin_Kambanga;ekambanga@pih.org;APZU-24;192.168.12.61;2014-07-01;Intel_Corporate;;;5;;43200;;;
+8ca982bf0462;apzu;Charles;charlesgoliath2@gmail.com;Apzu-06;192.168.10.60;2014-07-01;Intel_Corporate;;;5;;43200;;;
+e0f8473f22da;apzu;Stephen_Po-Chedley;spochedley@pih.org;Po-Chedley;192.168.10.59;2014-07-01;Apple,_Inc.;;;5;;43200;;;
+0026c73be092;apzu;Gladson_Chinomba;gladchinomba@gmail.com;APZU-31;192.168.13.60;2014-07-01;Intel_Corporate;;;5;;43200;;;
+74e50b36460c;gov;lawrence;lnazimera@gmail.com;user-VAIO;192.168.10.71;2014-07-01;Intel_Corporate;;;5;;43200;;;
+78e3b59b818d;apzu;apzu_10;ithelpdesk@pih.org;APZU-10;192.168.21.55;2014-07-01;Hewlett-Packard_Company;;;5;;43200;;;
+78e3b59a5307;apzu;apzu_11;ithelpdesk@pih.org;APZU-11;192.168.21.54;2014-07-01;Hewlett-Packard_Company;;;5;;43200;;;
+0018ded9dfe1;priv;Edward_Chisanga;chisangahe@yahoo.com;pal;192.168.11.61;2014-07-01;Intel_Corporate;;;5;;3600;;;
+74e50b08f3c0;apzu;THOKO_NYAKA;tnyaka@pih.org;TBC-51;192.168.12.73;2014-07-01;Intel_Corporate;;;5;;43200;;;
+485d606a1f42;apzu;Victor_Kanyema;vkanyema@pih.org;APZU-39;192.168.12.92;2014-07-01;Azurewave_Technologies,_Inc.;;;5;;43200;;;
+cc52af9961b4;apzu;Luckson_Dullie;ldullie@pih.org;COLLEGEOFMEDICI;192.168.12.62;2014-07-01;Universal_Global_Scientific_Industrial_Co.,_Ltd.;;;5;;43200;;;
+b8ac6fb70757;gov;laboratory;nenodholab@gmail.com;NDH-LAB;192.168.21.91;2014-07-01;Dell_Inc;;;5;;3600;;;
+240a64bf95bd;oth;damson_kasawa;damsonkasawa@yahoo.com;Damson;192.168.10.65;2014-07-01;AzureWaveTechnologies,Inc;;;5;;3600;;;
+f4b7e264c6ab;apzu;michael_mulepa;michaelmulepa@gmail.com;Apzu-64;192.168.12.50;2014-07-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+001e65b22bba;oth;Sophie;sophiemacheka@gmail.com;APZU-21;192.168.12.63;2014-07-01;Intel_Corporate;;;5;;43200;;;
+bc855697f772;gov;GIDEON_MKHUMBWA;gideonmkhumbwa@gmail.com;Gideon;192.168.11.140;2014-07-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+d0df9a319ad0;apzu;Kelsey_Nagel;knagel@pih.org;GHC-FELLOWS;192.168.12.70;2014-07-01;Liteon_Technology_Corporation;;;5;;43200;;;
+001de000e127;oth;petronella;pettylubbinda@gmail.com;Apzu-34;192.168.10.120;2014-07-01;Intel_Corporate;;;5;;43200;;;
+30aabd3d837e;gov;latifaiman_moosa;latifaiman18@yahoo.com;android-fa010bf761416803;192.168.11.173;2014-07-01;Shanghai_Reallytek_Information_Technology_Co.,Ltd;;;5;;3600;;;
+485d60b12ca4;apzu;Pilira_Kausiwa;pilirakausiwa@yahoo.com;APZU-59-PC;192.168.10.51;2014-07-01;Azurewave_Technologies,_Inc.;;;5;;43200;;;
+c417fe96167d;apzu;atupere;atupere@gmail.com;APZU-36-PC;192.168.10.86;2014-07-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+00216a9ca7da;apzu;harold_mkwaila;haroldmkwaila@yahoo.com;Apzu-33;192.168.12.67;2014-07-01;Intel_Corporate;;;5;;43200;;;
+786c1cef0906;apzu;Stephen_Po-Chedley;spochedley@pih.org;StephenysiPhone;192.168.10.56;2014-07-01;Apple;;;5;;43200;;;
+485d60699d4c;apzu;Joseph_Green;yosefeneno@gmail.com;Apzu-53;192.168.21.88;2014-07-01;Azurewave_Technologies,_Inc.;;;5;;43200;;;
+d0df9a870f03;apzu;edith_chihana;echihana@pih.org;TBC-54;192.168.12.93;2014-07-01;Liteon_Technology_Corporation;;;5;;43200;;;
+00215dba85c6;apzu;memory_kaleso;mkaleso@yahoo.com;kkk-PC;192.168.11.133;2014-07-01;Intel_Corporate;;;5;;3600;;;
+001f3c46a959;gov;grant_gonani;cggonani@gmail.com;Gonani-PC;192.168.11.73;2014-07-01;Intel_Corporate;;;5;;3600;;;
+a06cec1b3823;gov;grant_gonani;cggonani@gmail.com;BLACKBERRY-9C45;192.168.11.65;2014-07-01;RIM;;;5;;3600;;;
+f4b7e264c6b1;apzu;Jordan_Maloya;jordanmaloya@gmail.com;Apzu-28;192.168.11.94;2014-07-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+485d60b1bed1;apzu;chisomo;ckanyenda@gmail.com;APZU-37-PC;192.168.10.88;2014-07-01;Azurewave_Technologies,_Inc.;;;5;;43200;;;
+50ead64605b5;gov;Bertino_Mpapa;mpapabpa@gmail.com;iPhone;192.168.10.91;2014-07-01;Apple,_Inc.;;;5;;3600;;;
+68a3c4979599;gov;Alexues_Chipendo;alexueschipendo@gmail.com;user-HP;192.168.11.56;2014-07-01;Liteon_Technology_Corporation;;;5;;3600;;;
+8ca982bf2240;apzu;George_Malunga;george.malunga@gmail.com;Apzu-05;192.168.10.62;2014-07-01;Intel_Corporate;;;5;;43200;;;
+904ce55729d5;apzu;Blessings_Banda;blessbanda@pih.org;Apzu-26;192.168.12.74;2014-07-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+00215ddc2412;apzu;glory;glorykondowe@yahoo.com;user-PC;192.168.10.93;2014-07-01;Intel_Corporate;;;5;;43200;;;
+78dd08c9acd4;gov;Boniface_Macheka;bonifacemacheka@gmail.com;User-VAIO;192.168.21.95;2014-07-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+742f68660b60;gov;D.Dzinkambani;d.dzinkambani@yahoo.com;USer-PC;192.168.11.64;2014-07-01;Azurewave_Technologies,_Inc.;;;5;;3600;;;
+e02a82e0a1db;gov;Alick_Milanzi;alickmilanzi@yahoo.com;AMILANZI-PC;192.168.11.62;2014-07-01;Universal_Global_Scientific_Industrial_Co.,_Ltd.;;;5;;3600;;;
+a4db3037d135;oth;kapangaza_ntonya;ntonyakapa@yahoo.com;ownerpc;192.168.11.99;2014-07-01;;;;5;;3600;;;
+083e8ed383b7;oth;Bright_Mailosi;brghtmls@gmail.com;Bright;192.168.13.56;2014-07-01;Hon_Hai_Precision_Ind.Co.Ltd;;;5;;3600;;;
+f437b784b67d;oth;Liz_Petersen;empetersen@partners.org;iPhone-5s;192.168.13.90;2014-07-01;;;;5;;3600;;;
+a88808af7df6;oth;Liz_Petersen;empetersen@partners.org;iPad;192.168.13.91;2014-07-01;Apple;;;5;;3600;;;
+485d6082bb6b;apzu;Gloria_Chinguwo;gchinguwo@pih.org;Apzu-12;192.168.11.104;2014-07-01;Azurewave_Technologies,_Inc.;;;5;;43200;;;
+ac8112405762;priv;John_Chidule;jchidule@pih.org;JohnChidule-PC;192.168.13.80;2014-07-02;Gemtek_Technology_Co.,_Ltd.;;;5;;43200;;;
+0026c734419c;apzu;Tiwonge_Mwase-Vuma;tmwasevuma@pih.org;MEGANC72010;192.168.14.51;2014-07-02;Intel_Corporate;;;5;;43200;;;
+001e65b2a33e;apzu;Russell_Msiska;rmsiska@pih.org;APZU-16;192.168.12.97;2014-07-02;Intel_Corporate;;;5;;3600;;;
+0013026f6973;apzu;blair;jordaanknight70@gmail.com;admin-PC;192.168.10.92;2014-07-02;Intel_Corporate;;;5;;43200;;;
+001c260f2ad0;apzu;ivy;imwanakhu.mwanakhu@gmail.com;Apzu-25-PC;192.168.12.57;2014-07-02;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+8ca982b8d2d2;apzu;marlin;mmantchichi@pih.org;Apzu-17;192.168.12.54;2014-07-02;Intel_Corporate;;;5;;43200;;;
+f4b7e2646a95;apzu;adys_kaponda;akaponda@yahoo.com;APZU-14;192.168.14.54;2014-07-02;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+00262db8c4bd;gov;Donsa;epdonsa@yahoo.com;user-PC;192.168.21.74;2014-07-02;Wistron_Corporation;;;5;;43200;;;
+001d097ee74e;gov;E.B.C._Mtemula;eltonmtemula@gmail.com;MOH-HR;192.168.21.232;2014-07-02;Dell_Inc;;;5;;3600;;;
+dca9715e2838;oth;Alfred_Njoloma;njolomafred@gmail.com;Alfred-PC;192.168.11.175;2014-07-02;Intel_Corporate;;;5;;3600;;;
+001ec29fa2a8;oth;Liz_Petersen;empetersen@partners.org;EPetersen;192.168.13.129;2014-07-02;Apple,_Inc;;;5;;3600;;;
+8ca982ba72fe;oth;blessings_salima;salimabless@yahoo.com;Apzu-76;192.168.12.249;2014-07-02;Intel_Corporate;;;5;;43200;;;
+00166f118006;apzu;annie_jika;jikaannie@yahoo.com;experien-79fa85;192.168.11.71;2014-07-02;Intel_Corporate;;;5;;3600;;;
+001f3c6f3db5;apzu;john_chipyoza;johnchipyoza@gmail.com;Apzu22-PC;192.168.21.59;2014-07-02;Intel_Corporate;;;5;;43200;;;
+1c659dd3bb0d;oth;hope_kautah;hkautah@gmail.com;HOPE;192.168.21.94;2014-07-02;Liteon_Technology_Corporation;;;5;;3600;;;
+ccaf78941fc7;oth;Fredrick_Chelewani;fchelewani@fpamalawi.org;USER-PC;192.168.21.224;2014-07-02;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+4c0f6e5c956c;gov;innocent;innogj@yahoo.com;HP-PC;192.168.11.88;2014-07-02;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+001e65b25270;apzu;regina;regbanda@pih.org;APZU-67;192.168.10.96;2014-07-02;Intel_Corporate;;;5;;43200;;;
+ac36137b0af2;oth;Sam_Njolomole;sam.njox@gmail.com;android-5dd744329b0af79a;192.168.12.101;2014-07-02;;;;5;;3600;;;
+e0cb1d1e8c67;apzu;Russell_Msiska;rmsiska@pih.org;kindle-8b4b7f318;192.168.12.99;2014-07-02;_;;;5;;3600;;;
+001f3c855d54;oth;Qgness;jchidule@pih.org;PC-de-Jehoveh;192.168.21.231;2014-07-02;Intel_Corporate;;;5;;43200;;;
+e0f5c636508d;apzu;Joia_mukherjee;jmukherjee@pih.org;JOIAs-iPad;192.168.13.137;2014-07-03;Apple_Inc;;;5;;43200;;;
+904ce55711ff;apzu;thokomandala;loshman@live.com;APZU-55;192.168.10.154;2014-07-03;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+d0df9a14ba91;oth;priscanelisa;nelisanyangulu@yahoo.com;priscanelisa-HP;192.168.13.83;2014-07-03;Liteon_Technology_Corporation;;;5;;3600;;;
+485d6072e701;apzu;asimenye;asimenyedav@gmail.com;Apzu-15;192.168.10.158;2014-07-03;Azurewave_Technologies,_Inc.;;;5;;43200;;;
+7845c4c765f5;apzu;thoko_mandala;tmandala@pih.org;thokko-PC;192.168.21.236;2014-07-03;Dell_Inc;;;5;;43200;;;
+20107a560b8b;gov;R.W.MENYERE-DEM;rwmenyere@gmail.com;DEM2;192.168.11.87;2014-07-03;Gemtek_Technology_Co.,_Ltd.;;;5;;3600;;;
+1c659d1c08ca;oth;mackson;jchidule@pih.org;user-512f7c25ba;192.168.10.64;2014-07-03;Liteon_Technology_Corporation;;;5;;43200;;;
+848506300aa2;apzu;Gay_Bronson;gbronson@pih.org;gaybronsiPhone2;192.168.13.116;2014-07-04;Apple_Inc;;;5;;43200;;;
+001f5bb9bd80;apzu;Beth_Dunbar;dunbar.elizabeth.l@gmail.com;Befs-2;192.168.10.165;2014-07-04;Apple,_Inc.;;;5;;43200;;;
+cc52af5f26f4;gov;Dominic_Amos;domieamos@gmail.com;DEMO-PC;192.168.11.85;2014-07-04;Universal_Global_Scientific_Industrial_Co.,_Ltd.;;;5;;3600;;;
+446d5713ec1f;gov;DOA;fred@yahoo.com;MISO1;192.168.13.75;2014-07-04;Liteon_Technology_Corporation;;;5;;3600;;;
+68a3c4e1d5bd;gov;Elias_Sambani;ejsambani@gmail.com;User-HP;192.168.21.226;2014-07-04;Liteon_Technology_Corporation;;;5;;3600;;;
+e0b9a5008fd7;apzu;henry_makungwa;hmakungwa@pih.org;Henry-PC;192.168.12.66;2014-07-04;Azurewave;;;5;;43200;;;
+002241630764;gov;Kasamwa;kasandra@gmail.com;taris-ipod;192.168.21.219;2014-07-04;Apple,_Inc;;;5;;3600;;;
+cc89fd3582c4;apzu;bright_mailosi;brghtmls@gmail.com;Windows-Phone;192.168.13.151;2014-07-05;;;;5;;43200;;;
+00c6f68130db;priv;Victor_Kanyema;vkanyema@gmail.com;android-a5cc82574b762e8a;192.168.11.200;2014-07-06;;;;5;;3600;;;
+e4ce8fc1f714;gov;Annette_Kalengamaliro_;chifundokalengamaliro@gmail.com;Ronalds-iPhone;192.168.11.201;2014-07-06;Apple,_Inc.;;;5;;3600;;;
+442a60876372;gov;Gladys_Ntonya;gladysbanda2003@yahoo.co.uk;;192.168.11.202;2014-07-06;Apple,_Inc.;;;5;;3600;;;
+78e400fbb48a;gov;DAVIE_ITIMU;davieitimu@yahoo.com;Davie-PC;192.168.11.208;2014-07-07;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+70aab27e33ac;oth;henry_mkandawire;henzmkandawire@gmail.com;BLACKBERRY-1FD3;192.168.21.100;2014-07-07;Research_In_Motion;;;5;;3600;;;
+904e2b935d57;apzu;jordan;jordaanknight70@gmail.com;android_b81fa50acad83688;192.168.10.103;2014-07-07;;;;5;;3600;;;
+dcf110020548;oth;john_mhango;jomerlly@gmail.com;Windows-Phone;192.168.11.220;2014-07-07;;;;5;;3600;;;
+0073e09178c1;oth;mercy_mhango;jomerlly@gmail.com;android-c3359164df565dbb;192.168.11.221;2014-07-07;;;;5;;3600;;;
+f4f5a5d25792;gov;Patrick_Gomiwa;pgomiwa@outlook.com;Windows-Phone;192.168.10.108;2014-07-07;Nokia_corporation;;;5;;3600;;;
+b418d13d5f0d;apzu;Jeanel_Drake;jdrake@pih.org;Jeanels-Phone;192.168.13.169;2014-07-07;;;;5;;43200;;;
+00d90c0bbd4f;priv;J_Chidule;jchidule@pih.org;android-c714493f5b09e879;192.168.12.69;2014-07-08;;;;5;;3600;;;
+00bb3ad7b720;apzu;Tiwonge_Mwase-Vuma;tmwasevuma68@gmail.com;android-2f3e955b30074b0c;192.168.14.60;2014-07-08;_;;;5;;43200;;;
+74e50b08e22a;apzu;Patrick_Gomani;pgomani@pih.org;TBC-46;192.168.12.78;2014-07-08;Intel_Corporate;;;5;;43200;;;
+000ee8d83862;gov;Neno_District_Forest_Office;aubreymacheso@gmail.com;HP-PC;192.168.11.156;2014-07-08;zioncom;;;5;;3600;;;
+904ce58f1b34;priv;Mangani;suemangani@gmail.com;SUE-PC;192.168.21.126;2014-07-08;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+406aab869e4c;apzu;wezie_changaya;weziechangaya@gmail.com;BLACKBERRY-505C;192.168.21.128;2014-07-08;RIM;;;5;;43200;;;
+1c4bd6be043f;apzu;hilda;hilda.makuta@yahoo.com;Apzu42-PC;192.168.10.127;2014-07-08;AzureWave;;;5;;43200;;;
+0016eaeda260;oth;steven_chiputula;demobrey@yahoo.com;User-PC;192.168.11.239;2014-07-08;Intel_Corporate;;;5;;3600;;;
+cc89fd35c3cc;gov;Alexues_Chipendo;alexueschipendo@gmail.com;Windows-Phone;192.168.11.200;2014-07-09;;;;5;;3600;;;
+78e400c8d6ef;gov;Alex_Chitwere;chitwere@yahoo.com;KONLEX-PC;192.168.11.187;2014-07-09;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+0026c73e3566;apzu;maria_mdala;mmdala@pih.org;Apzu-38;192.168.14.70;2014-07-10;Intel_Corporate;;;5;;43200;;;
+a826d95f40f9;oth;kasamwa;kasamwa@yahoo.com;;192.168.10.151;2014-07-10;HTC_Corporation;;;5;;3600;;;
+9cb70d0e3c06;gov;latifa_iman;latifaiman18@yahoo.com;SHEIKH-PC;192.168.11.212;2014-07-10;Liteon_Technology_Corporation;;;5;;3600;;;
+74de2b18e7a9;priv;FRANCISCO_MADALITSO_NAMALOMBA;madalitsonamalomba@yahoo.com;Toshiba;192.168.11.124;2014-07-10;Liteon_Technology_Corporation;;;5;;3600;;;
+001f3c996915;apzu;george;gmalunga@pih.org;Azdytds-PC;192.168.10.153;2014-07-10;Intel_Corporate;;;5;;43200;;;
+001cd63c876c;priv;bob_mbwana;www.bobrob@gmai.coml;;192.168.21.162;2014-07-10;Nokia_Danmark_A/S;;;5;;3600;;;
+b8e8560399d4;apzu;Noel_Kalanga;nkalanga@pih.org;;192.168.21.165;2014-07-10;Apple;;;5;;43200;;;
+147dc54d18d8;oth;brian_muhimele;bmuhimele@gmail.com;android-767cf3fa0651c26b;192.168.10.107;2014-07-11;Murata_Manufacturing_Co.,_Ltd.;;;5;;3600;;;
+147411122d7d;oth;agritalinje;agritalinje@yahoo.com;BLACKBERRY-761D;192.168.10.144;2014-07-11;RIM;;;5;;3600;;;
+485b39645761;gov;alex_kambanga;aakambanga@medcol.mw;Gunnerz-PC;192.168.21.239;2014-07-11;ASUSTek_COMPUTER_INC.;;;5;;3600;;;
+5c5948a71a8b;oth;Marco;oliveram1337@gmail.com;Marcos-iPod;192.168.11.157;2014-07-11;Apple,_Inc.;;;5;;3600;;;
+0011f5e4a134;oth;Dr_Donnie_Mategula;dmategula@medcol.mw;DrDonnieMategul;192.168.21.243;2014-07-13;ASKEY_COMPUTER_CORP.;;;5;;3600;;;
+3c363d284e9b;priv;Edwin_kachale;edwinkachale@yahoo.com;;192.168.21.241;2014-07-13;Nokia_Corporation;;;5;;3600;;;
+001f3c9a2fa9;apzu;Aaron_kapachika;aaronkapachika@gmail.cm;Apzu-20;192.168.12.58;2014-07-14;Intel_Corporate;;;5;;43200;;;
+00164461b269;gov;Peter_Beni;pgbeni@gmail.com;Albert;192.168.11.220;2014-07-14;LITE-ON_Technology_Corp.;;;5;;3600;;;
+e83eb6862d0f;oth;chrispin_malikebu;chrispinmalikebu@gmail.com;BLACKBERRY-BE7B;192.168.10.143;2014-07-14;RIM;;;5;;3600;;;
+b4527e2d7f13;apzu;Gloria_chinguwo;gchinguwo@yahoo.co.com;android-326b82c90f74d684;192.168.11.244;2014-07-15;;;;5;;43200;;;
+94ce2c268a64;oth;thoko;thokonyaka@gmail.com;android_5ef336673b3ed98f;192.168.10.163;2014-07-15;Sony_Mobile_Communications_AB;;;5;;3600;;;
+30aabd5c4283;oth;pjjiya;pjackson443@yahoo.com;android-74ebe1342eb15178;192.168.21.223;2014-07-15;Shanghai_Reallytek_Information_Technology_Co.,Ltd;;;5;;3600;;;
+c462ea7ce899;gov;tinenenjj;tinenenjisitima@gmail.com;android-72bbd85c6d1664cb;192.168.13.205;2014-07-15;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+6c8336b5d037;oth;adys;akaponda@yahoo.com;;192.168.14.66;2014-07-16;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+d05162b08205;gov;McPherson;chidakwadavid@gmail.com;android-da94f3a82a2e6499;192.168.11.206;2014-07-16;Sony_Mobile_Communications_AB;;;5;;3600;;;
+94ce2c2668f6;apzu;edith_chihana;echihana@pih.org;android_25c8401727a6e03d;192.168.12.122;2014-07-16;Sony_Mobile_Communications_AB;;;5;;3600;;;
+ac811270dd2b;gov;listern_Tengatenga;listerntengatenga@gmail.com;ListernTengaten;192.168.10.183;2014-07-17;Gemtek_Technology_Co.,_Ltd.;;;5;;3600;;;
+e83eb6e271b2;apzu;Ernest_Nyirongo;nestobuoy@gmail.com;BLACKBERRY-9E44;192.168.12.132;2014-07-17;RIM;;;5;;43200;;;
+c064c628d35c;oth;oscarkasiyamphanje;oscarkasiyamphanje@yahoo.com;Windows-Phone;192.168.13.231;2014-07-17;;;;5;;3600;;;
+406aab7897a2;oth;Thokozani_Kumpolota;thokozanikumpolota@yahoo.com;BLACKBERRY-35EA;192.168.13.229;2014-07-17;RIM;;;5;;3600;;;
+183bd2975d8a;gov;Dominic_Amos;domieamos@gmail.com;android-dc483f8fc9a9636;192.168.11.176;2014-07-18;BYD_Precision_Manufacture_Company_Ltd.;;;5;;3600;;;
+8ca9826c9d24;apzu;Gloria_Mandala;gmandala@pih.org;APZU-51;192.168.14.67;2014-07-18;Intel_Corporate;;;5;;43200;;;
+48dcfbfdf73c;oth;Maggie_chatuwa;hchatuwa@gmail.com;;192.168.11.184;2014-07-18;Nokia_Corporation;;;5;;3600;;;
+001d0976c2f8;gov;EDMUND_KAMALONDA;ekamalonda@yahoo.com;HOSPITAL;192.168.21.217;2014-07-19;Dell_Inc;;;5;;3600;;;
+041e649e8b33;gov;Gladys_Banda;gladysbanda2003@yahoo.co.uk;rtyuios-iPhone;192.168.11.188;2014-07-20;Apple,_Inc;;;5;;3600;;;
+7cd1c36c0d28;apzu;Alex_Webb;arwebb90@gmail.com;Alexs-MBP;192.168.10.248;2014-07-20;Apple_Inc;;;5;;43200;;;
+74e543363a76;apzu;Tyler_Weinbrecht;tyler.weinbrecht@yahoo.com;Tyler-PC;192.168.10.190;2014-07-20;Liteon_Technology_Corporation;;;5;;43200;;;
+00173f522e67;gov;Nat_Reg.Bureau;demobreychiputulaa@yahoo.com;USER-PC;192.168.11.184;2014-07-20;Belkin_Corporation;;;5;;3600;;;
+6cc26b7f1371;apzu;Alex_Webb;arwebb90@gmail.com;;192.168.13.242;2014-07-20;Apple,_Inc.;;;5;;43200;;;
+b86ce8c4066b;apzu;Margot_Prendergast;margot.prendergast@gmail.com;android-b1dfde840ac6c778;192.168.11.165;2014-07-20;;;;5;;43200;;;
+b8e8564975ba;apzu;Margot_Prendergast;margot.prendergast@gmail.com;prenderm;192.168.11.167;2014-07-21;Apple;;;5;;43200;;;
+742f680b2812;oth;KNOWLEDGE_CHAIMA;chaimakonwledge@yahoo.com;KNOWLIREEN-PC;192.168.11.61;2014-07-21;Azurewave_Technologies,_Inc.;;;5;;3600;;;
+e0ca9466a96f;oth;kelvin;kwzingwangwa@gmail.com;KELVIN;192.168.13.233;2014-07-21;Askey_Computer;;;5;;3600;;;
+c462ea1072eb;apzu;Luckson_Dullie;ldullie@pih.org;android-ad0929e16ae1541c;192.168.21.137;2014-07-21;Samsung_Electronics_Co.,Ltd;;;5;;43200;;;
+c417fe4367c2;gov;Elias_Donsa;epdonsa@yahoo.com;user-PC;192.168.21.72;2014-07-22;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+b407f9afaa17;oth;Ganizani_Chateka;gchateka@yahoo.com;;192.168.21.222;2014-07-22;SAMSUNG_ELECTRO-MECHANICS;;;5;;3600;;;
+90a4de41ef80;oth;Henry;henrychitema@rocketmail.com;Henrystanleystc;192.168.11.237;2014-07-22;Wistron_Neweb_Corp.;;;5;;3600;;;
+14dae988fe02;apzu;Ernest_Nyirongo;nestobuoy@gmail.com;GHCorps-HP;192.168.21.224;2014-07-22;ASUSTek_COMPUTER_INC.;;;5;;43200;;;
+bc851feb9db0;oth;vera_shaba;shabavera@gail.com;android_7cd58071e4a48372;192.168.13.221;2014-07-22;Samsung_Electronics;;;5;;3600;;;
+e0757da07ed2;apzu;Tyler_Weinbrecht;tyler.weinbrecht@yahoo.com;android-bfccee1ca4452ba2;192.168.13.185;2014-07-22;Motorola_Mobility_LLC;;;5;;3600;;;
+9cb70d6108a1;apzu;dester_nakotwa;desternako@gmail.com;govala;192.168.13.224;2014-07-22;Liteon_Technology_Corporation;;;5;;3600;;;
+e0ca943c30a4;priv;KNOWLEDGE_CHAIMA;chaimaknowledge@yahoo.com;NA-TOSH-PC;192.168.11.197;2014-07-23;Askey_Computer;;;5;;3600;;;
+001b9e2d6fee;oth;Justine_Phiri;phirijusti@gmail.com;COPRED-PC;192.168.11.72;2014-07-23;ASKEY__COMPUTER__CORP;;;5;;3600;;;
+3cab8e5e605b;apzu;Cosmin_Ioan;cioan@pih.org;cos-iPhone;192.168.11.198;2014-07-23;;;;5;;43200;;;
+f4b7e2646eed;apzu;Yohane_Saezi;ysaezi@pih.org;APZU-76;192.168.12.72;2014-07-23;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+20c9d0b1f5bd;apzu;Cosmin;cioan@pih.org;cosmac;192.168.11.201;2014-07-23;Apple_Inc;;;5;;43200;;;
+ac7ba152477f;APZU-CHILD-XX;gov;;Intel_Corporate;192.168.21.175;2014-07-24;;;;5;;3600;;;
+ac7ba14f13a2;apzu;asimenye;pkatenje@gmail.com;Apzu-77-THINK;192.168.10.223;2014-07-24;Intel_Corporate;;;5;;43200;;;
+0014a56671de;apzu;henry;henry@gmail.com;org-c923ab1437f;192.168.10.226;2014-07-24;Gemtek_Technology_Co.,_Ltd.;;;5;;43200;;;
+38192fd557c4;oth;James_msiska;jeshmsiska@yahoo.com;;192.168.11.210;2014-07-24;Nokia_Corporation;;;5;;3600;;;
+000ce736e7da;apzu;martha_jallet;marthajallet@yahoo.co.uk;android-26313b99af8a969;192.168.10.212;2014-07-24;MediaTek_Inc.;;;5;;3600;;;
+10ae60ab8564;apzu;Tyler_Weinbrecht;tyler.weinbrecht@yahoo.com;;192.168.13.190;2014-07-24;;;;5;;43200;;;
+cc55ad5ba2d5;priv;Joel;joelngambi84@yahoo.com;BLACKBERRY-2525;192.168.21.155;2014-07-25;RIM;;;5;;3600;;;
+7c7a910d8d5b;gov;patrick_phiri;pphiri@medcol.mw;KHONJE-PC;192.168.10.241;2014-07-25;Intel_Corporate;;;5;;3600;;;
+e839df00706f;gov;Edward_Chado;edchado@hotmail.co.uk;sys1-PC;192.168.10.235;2014-07-25;Askey_Computer;;;5;;3600;;;
+6431509d1e8a;apzu;Ernest_Nyirongo;nestobuoy@gmail.com;GHCorps-HP;192.168.21.187;2014-07-25;Hewlett-Packard_Company;;;5;;43200;;;
+18f46a896550;gov;moses;kabunthu@gmail.com;kabunthumoses;192.168.10.242;2014-07-25;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+001644a9afed;priv;SHADRECK_GRAYSON_KALIT;shadkaliterag@gmail.com;SHADRECK;192.168.11.191;2014-07-25;LITE-ON_Technology_Corp.;;;5;;3600;;;
+d4206d83b5e1;apzu;Blessings_Banda;blessbanda@pih.org;android_d51b10dc55c91b90;192.168.11.205;2014-07-25;HTC_Corporation;;;5;;3600;;;
+d8b3771499a5;apzu;Henry;henrychitema@rocketmail.com;Android_356812047598022;192.168.10.176;2014-07-27;HTC_Corporation;;;5;;3600;;;
+f0e77e54edf6;apzu;Hennrie;henrychitema@rocketmail.com;android_559649c0c445f5c9;192.168.10.106;2014-07-27;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+1c4bd6aa5343;gov;alex_kambanga;aakambanga@medcol.mw;Gunnerz-PC;192.168.12.124;2014-07-27;AzureWave;;;5;;3600;;;
+74e54327b0fa;oth;Paul;pjjiya@medcol.mw;PaulJackJiya;192.168.21.60;2014-07-28;Liteon_Technology_Corporation;;;5;;3600;;;
+cc89fd35e368;oth;chrispine_mmeto;chrispinemmeto@yahoo.com;Windows-Phone;192.168.13.60;2014-07-28;;;;5;;3600;;;
+6ce90759bc5f;priv;jchidule;jchidule@pih.org;;192.168.13.67;2014-07-28;Nokia_Corporation;;;5;;43200;;;
+f4f5a5fe3afa;oth;Knowledge_Chaima;chaimaknowledge@yahoo.com;;192.168.11.107;2014-07-29;Nokia_corporation;;;5;;3600;;;
+0021cc5e3d48;apzu;jordaan_knight;jordaanknight70@gmail.com;Apzu-56;192.168.21.113;2014-07-30;Flextronics_International;;;5;;43200;;;
+98e79a212add;android-bcc2406e761b8422;;;Foxconn(NanJing)_Communication_Co.,Ltd.;192.168.11.125;2014-07-30;;;;5;;3600;;;
+a41731bc89e5;oth;EMMANUEL;emmanuelsoko@gmail.com;EMMANUEL;192.168.10.106;2014-07-30;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+34bb1f3ba3d4;gov;isaac_malenga;isaacmalenga@gmail.com;BLACKBERRY-7EB1;192.168.21.117;2014-07-30;Research_In_Motion;;;5;;3600;;;
+e0ca943e1e4b;gov;jordaanknight;jordaannknight@rocketmail.com;MatrildaNyambo;192.168.10.107;2014-07-30;Askey_Computer;;;5;;3600;;;
+e82aea294f5f;apzu;Luckson_Dullie;ldullie@pih.org;PIH-MAL-LDULLIE;192.168.21.120;2014-07-30;Intel_Corporate;;;5;;43200;;;
+70d4f228f7a4;oth;chisomo;ckanyenda@gmail.com;BLACKBERRY-9837;192.168.12.114;2014-07-30;RIM;;;5;;3600;;;
+d4206d7bb50d;oth;chisomo_kanyenda;ckanyenda@gmail.com;Android_358920040164631;192.168.12.113;2014-07-30;HTC_Corporation;;;5;;3600;;;
+1887963412ad;apzu;luka_byson;patricialuka100@gmail.com;Android_358920042883014;192.168.12.115;2014-07-30;HTC_Corporation;;;5;;3600;;;
+e0b2f19fea98;apzu;kumwenda;ajfchariskumwenda@yahoo.com;android-2b3a0df2797c311a;192.168.10.193;2014-07-31;FN-LINK_TECHNOLOGY_LIMITED;;;5;;3600;;;
+78ca39b0239f;apzu;Lauren_Marcell;lauren.marcell@gmail.com;;192.168.10.192;2014-07-31;Apple,_Inc.;;;5;;43200;;;
+f06bcace8ab1;gov;thokozani_chapomba;thokozanichapomba@yahoo.com;android-427f7a264952c606;192.168.10.197;2014-08-01;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+b8ff61075897;oth;Eleneo_kalemera;kalemeraeleneo@yahoo.com;iPad;192.168.13.216;2014-08-01;Apple,_Inc.;;;5;;3600;;;
+0024d2ef41bd;apzu;lawrence_phiri;lawrence3628@yahoo.com;Phiri;192.168.11.238;2014-08-01;Askey_Computer;;;5;;43200;;;
+980c82f59446;priv;Tiwonge_Mwase-Vuma;tmwasevuma68@gmail.com;;192.168.12.127;2014-08-02;Samsung_Electro_Mechanics;;;5;;3600;;;
+4c21d05ce9db;apzu;Luckson_Dullie_;ldullie@pih.org;android_7217b58db909d68f;192.168.21.219;2014-08-03;Sony_Mobile_Communications_AB;;;5;;43200;;;
+70aab225b58e;apzu;thoko_mandala;tmandala@pih.org;BLACKBERRY-BD0F;192.168.10.79;2014-08-04;Research_In_Motion;;;5;;43200;;;
+9c4a7bd6abb0;priv;Manason_mwandama;mwandamamanason@gmail.com;;192.168.10.85;2014-08-04;Nokia_Corporation;;;5;;3600;;;
+485d60699d3f;apzu;Dumisan_Mwale;dumisan3@gmail.com;APZU-44-PC;192.168.10.123;2014-08-05;Azurewave_Technologies,_Inc.;;;5;;43200;;;
+cc55adee38af;apzu;shadreck_chipapi;chipapishafreck@gmail.com;BLACKBERRY-9CEB;192.168.21.221;2014-08-06;RIM;;;5;;43200;;;
+d4bed9786735;apzu;john;osmpoha@yahoo.com;DEHO-PC;192.168.21.242;2014-08-06;Dell_Inc;;;5;;43200;;;
+701a04342251;oth;sara_banda;sarabanda5@yahoo.co.uk;Sarai-PC;192.168.11.241;2014-08-06;Liteon_Tech_Corp.;;;5;;3600;;;
+b8763f40e36d;oth;dalitso;dalitso@pih.org;HP-PC;192.168.11.237;2014-08-06;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+406aab431967;oth;killerbean;mwamba.killerbean@facebook.com;BLACKBERRY-1A52;192.168.21.230;2014-08-06;RIM;;;5;;3600;;;
+ac7ba194111e;apzu;Godfrey_;godfrey@pih.org;APZU-80-THINK;192.168.10.140;2014-08-06;Intel_Corporate;;;5;;43200;;;
+cca2237b4a62;gov;brian;briannkwinda@gmail.com;android-244db9ff68aad9;192.168.13.108;2014-08-06;;;;5;;3600;;;
+48d7056f1d94;apzu;Jessica_Lasky-fink;jlaskyfink@pih.org;iPhone;192.168.11.232;2014-08-06;;;;5;;43200;;;
+ac7ba14ee6e3;apzu;Regina_Banda;rbanda@pih.org;APZU-81-THINK;192.168.10.143;2014-08-07;Intel_Corporate;;;5;;43200;;;
+30aabd95763f;gov;davie;davieitimu@yahoo.com;android-2078c9a501d3bd23;192.168.11.203;2014-08-07;Shanghai_Reallytek_Information_Technology_Co.,Ltd;;;5;;3600;;;
+7c7a91bef532;apzu;Jessica_Lasky-Fink;jlaskyfink@pih.org;PIH-BOS-JLASKYF;192.168.10.145;2014-08-07;Intel_Corporate;;;5;;43200;;;
+ac7ba154600a;apzu;Pettronela_Lubinda;pettylubinda@gmail.com;APZU-82-THINK;192.168.10.150;2014-08-07;Intel_Corporate;;;5;;43200;;;
+784b871d861b;gov;hope_;hkautah@gmail.com;;192.168.21.147;2014-08-07;;;;5;;3600;;;
+e4ce8f8fb27f;apzu;Regina_banda;regbanda@pih.org;iPhone;192.168.12.237;2014-08-07;Apple,_Inc.;;;5;;3600;;;
+ac7ba14fc450;apzu;thoko_mandala;thokomandala@yahoo.co.uk;APZU-83-THINK;192.168.10.156;2014-08-07;Intel_Corporate;;;5;;43200;;;
+ac7ba14f3a3f;apzu;thoko_mandala;loshman@live.com;APZU-84-THINK;192.168.10.171;2014-08-08;Intel_Corporate;;;5;;43200;;;
+ac7ba1508a52;apzu;brian;shyleykondowe@yahoo.com;APZU;192.168.10.187;2014-08-08;Intel_Corporate;;;5;;43200;;;
+ac7ba14f521d;apzu;thoko;chipi83majamanda@yahoo.com;APZU;192.168.10.193;2014-08-08;Intel_Corporate;;;5;;43200;;;
+94dbc90f8462;gov;Linda_Mphande;nyagondwe25@yahoo.com;user-PC;192.168.10.198;2014-08-08;Azurewave;;;5;;3600;;;
+78ca040acff3;apzu;Gift_Ntaba;gpntaba@gmail.com;;192.168.21.164;2014-08-10;Nokia_Corporation;;;5;;43200;;;
+1867b082a357;priv;Fadwick_Makombe;makombefb@yahoo.co.uk;babyn;192.168.13.99;2014-08-10;Samsung_Electronics_Co.,LTD;;;5;;3600;;;
+d4206d7d961f;gov;paul_gondwe;paulogondwe@gmail.com;Android_357325042935791;192.168.21.151;2014-08-10;HTC_Corporation;;;5;;3600;;;
+4ceb428b8af8;gov;Law_Musa_Banda;law.musa@yahoo.com;USER-PC;192.168.11.67;2014-08-11;Intel_Corporate;;;5;;3600;;;
+c83a35ca9e18;gov;Law_Musa_Banda;law.musa@yahoo.com;MISO;192.168.11.75;2014-08-11;Tenda_Technology_Co.,_Ltd.;;;5;;3600;;;
+10a5d0546153;apzu;Blessings_Banda;blessbanda@pih.org;android-d91e1564eb010479;192.168.12.93;2014-08-11;;;;5;;3600;;;
+e8088b86183c;apzu;robert_manda;rmrobertmanda@gmail.com;android_8a5dcfd8f58f308a;192.168.12.94;2014-08-11;;;;5;;3600;;;
+ac7ba150bfae;apzu;isaac;apzuhelpdesk@gmail.com;APZU-88;192.168.10.104;2014-08-11;Intel_Corporate;;;5;;43200;;;
+0026378f730d;oth;chikondi;chicco@gmail.com;;192.168.10.70;2014-08-11;Samsung_Electro-Mechanics;;;5;;43200;;;
+ac7ba150ef88;apzu;ISRAEL;pkatenje@gmail.com;APZU;192.168.10.109;2014-08-11;Intel_Corporate;;;5;;43200;;;
+7c4fb513f93b;gov;levison_chiliminga;zagwa.chiliminga@gmail.com;jordaan;192.168.13.72;2014-08-11;Arcadyan_Technology_Corporation;;;5;;3600;;;
+c8d10b690758;oth;Aunt_love;auntlove@gmail.com;;192.168.13.84;2014-08-11;Nokia_Corporation;;;5;;3600;;;
+ac7ba1523f78;apzu;mary;vincentdutch@gmail.com;Apzu;192.168.10.117;2014-08-12;Intel_Corporate;;;5;;43200;;;
+ac7ba155596f;apzu;israel;chipizai@gmail.com;Apzu;192.168.10.126;2014-08-12;Intel_Corporate;;;5;;43200;;;
+cc52afd64167;priv;themba_wesley_nhlane;thembathe@yahoo.com;android_59ba2cd57d1ea9a2;192.168.13.67;2014-08-12;Universal_Global_Scientific_Industrial_Co.,_Ltd.;;;5;;3600;;;
+e8150ee78b6c;gov;george_ngwira;george58ngwira@gmail.com;Windows-Phone;192.168.10.134;2014-08-12;;;;5;;3600;;;
+0026c6cfed54;oth;kapangaza;ntonyakapa@yahoo.com;user-PC;192.168.11.127;2014-08-12;Intel_Corporate;;;5;;3600;;;
+4cedde1c1edd;gov;patrick;psipuni@gmail.com;himmler-TOSHiba;192.168.12.123;2014-08-12;Askey_Computer_Corp;;;5;;3600;;;
+a0f4197f2429;gov;Clive;mamvura007@gmail.com;;192.168.13.98;2014-08-12;Nokia_Corporation;;;5;;3600;;;
+68ed4333f4a7;gov;peter;petermuyila@yahoo.co.uk;BLACKBERRY-56ED;192.168.13.101;2014-08-12;Research_In_Motion;;;5;;3600;;;
+68a3c4cc5dc5;apzu;Ernest_Nyirongo;nestobuoy@gmail.com;GHCorps-HP;192.168.10.74;2014-08-13;Liteon_Technology_Corporation;;;5;;43200;;;
+30694b85057a;BLACKBERRY-B9DF;oth;;RIM;192.168.10.174;2014-08-13;;;;5;;3600;;;
+40f02f4fd684;gov;Samuel_Chitseko;samuelchitseko8@gmail.com;CHITSEKO;192.168.11.247;2014-08-13;;;;5;;3600;;;
+9c4a7bc878f9;oth;miguel;migueltomas50@yahoo.com;;192.168.13.247;2014-08-13;Nokia_Corporation;;;5;;3600;;;
+24e271ec469e;oth;bright_mailosi;brghtmls@gmail.com;android-aa21e6ec0da676b8;192.168.13.248;2014-08-13;Qingdao_Hisense_Communications_Co.,Ltd;;;5;;3600;;;
+30c7ae0ade76;priv;Sam_njolomole;snjolomole@pih.org;android-4d699d1baa13588d;192.168.12.233;2014-08-14;;;;5;;3600;;;
+446d579fdd7b;oth;george;jojimalunga@ymail.com;Chrispinl-PC;192.168.10.181;2014-08-14;Liteon_Technology_Corporation;;;5;;3600;;;
+4ceb429cf545;priv;mamvura_clive;mamvura007@gmail.com;Kerry-MSI;192.168.13.241;2014-08-14;Intel_Corporate;;;5;;3600;;;
+0026b6ec41fe;oth;Evason_;eversonviso@yahoo.com;Everson-TOSH;192.168.10.191;2014-08-14;Askey_Computer;;;5;;3600;;;
+3cf72a801b7b;oth;owen_magombo;owenmagombo@gmail.com;;192.168.21.238;2014-08-15;Nokia_Corporation;;;5;;3600;;;
+6879eda3f31e;oth;macbrian;macbrianjamu@gmail.com;android_ed2c771eb2ff7833;192.168.12.148;2014-08-17;SHARP_Corporation;;;5;;3600;;;
+9cd21e4de9e3;apzu;Victor_Gondwe;gm@western.mw;GONDWE;192.168.10.213;2014-08-18;;;;5;;43200;;;
+cc3a616b2ce4;other;Peter_Pindani;p.pindani@gmail.com;android-2e8dfcebf384d53e;192.168.11.216;2014-08-18;SAMSUNG_ELECTRO_MECHANICS_CO.,_LTD.;;;5;;3600;;;
+40f02fb33152;oth;peter_pindani;p.pindani@gmail.com;PeterPindani;192.168.11.245;2014-08-18;;;;5;;3600;;;
+904ce5571696;apzu;israel_kondowe;israelkondowe@gmail.com;APZU-67;192.168.10.56;2014-08-19;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+00197e792191;apzu;eleneo_kalemera;kalemeraeleneo@yahoo.com;Apzu-61;192.168.13.208;2014-08-19;Hon_Hai_Precision_Ind._Co.,_Ltd;;;5;;43200;;;
+dcc793db44b8;gov;sekanao_kapira;sekanawokapira@yahoo.com;Windows-Phone;192.168.10.125;2014-08-19;;;;5;;3600;;;
+809b20091510;oth;mussa_chimbiya;mussachimbiya@yahoo.uk;chimbiya;192.168.11.88;2014-08-19;Intel_Corporate;;;5;;3600;;;
+0025d363a110;gov;tizyo;tizyokumwenda@yahoo.com;MAGGIE-PC;192.168.21.140;2014-08-19;AzureWave_Technologies,_Inc;;;5;;3600;;;
+406f2ab7ded6;oth;sophie;sophiemacheka@gmail.com;BLACKBERRY-F307;192.168.11.248;2014-08-19;Research_In_Motion;;;5;;3600;;;
+10ae60f02c65;oth;lemie_banda;lemiebanda@yahoo.com;android-95d19791ba67f526;192.168.12.112;2014-08-19;;;;5;;3600;;;
+2c8158f759a2;apzu;Marco_Olivera;oliveram@onid.orst.edu;Marco-PC;192.168.13.50;2014-08-19;Hon_Hai_Precision_Ind._Co.,Ltd;;;5;;43200;;;
+0021e993cd9d;oth;Prisca;nelisanyangulu@yahoo.com;iPhone;192.168.13.203;2014-08-19;Apple,_Inc;;;5;;3600;;;
+847a88c5360b;oth;alfred_njoloma;njolomafred@gmail.com;android-3487600693adf309;192.168.21.239;2014-08-19;HTC_Corporation;;;5;;3600;;;
+544408297108;gov;master_mwafulirwa;mastermwafu@yahoo.com;Windows-Phone;192.168.13.130;2014-08-19;Nokia_Corporation;;;5;;3600;;;
+c44619a7a50e;gov;nego;abednegobanda@yahoo.com;Nego;192.168.10.80;2014-08-20;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+78e3b59ba201;gov;hope;hkautah@gmail.com;APZU-60-PC;192.168.21.93;2014-08-20;Hewlett-Packard_Company;;;5;;3600;;;
+002243322511;oth;richard;richardkachele@gmail.com;Richard-PC;192.168.21.92;2014-08-20;AzureWave_Technologies,_Inc.;;;5;;3600;;;
+844bf552badb;gov;alick;amapwe@gmail.com;Majiga-PC;192.168.21.241;2014-08-20;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+4cbca56ffd67;priv;susankamenya;suekamenya4@gmail.com;;192.168.13.137;2014-08-20;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+d8b377f1b421;oth;John_Paul_Bizimungu;jbizi@yahoo.fr;Android_357325040638686;192.168.13.200;2014-08-20;HTC_Corporation;;;5;;3600;;;
+ac7ba150ef79;apzu;Sam_Njolomole;snjolomole@pih.org;APZU;192.168.10.196;2014-08-21;Intel_Corporate;;;5;;43200;;;
+fc923b9da178;gov;Noria_Chinkunda;noriachinkunda@gmail.com;Windows-Phone;192.168.13.138;2014-08-21;;;;5;;3600;;;
+a0f4505555bc;apzu;jordaan_knight;jordaanknight70@gmail.com;Android_359144048244464;192.168.10.51;2014-08-21;HTC_Corporation;;;5;;43200;;;
+ac3c0bdb8f4a;apzu;amanda;aschwartz@pih.org;mands;192.168.13.141;2014-08-21;Apple;;;5;;43200;;;
+7c7a915de7d3;apzu;Amanda;aschwartz@pih.org;PIH-BOS-ASCHWAR;192.168.12.162;2014-08-22;Intel_Corporate;;;5;;43200;;;
+642737341f2b;apzu;mbuluma;emmambuluma82@gmail.com;Mbuluma-PC;192.168.10.137;2014-08-22;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+0cddefb7f6ce;;justice_mmeto;justicemmeto@gmail.com;Nokia_Corporation;192.168.13.156;2014-08-22;;;;5;;3600;;;
+002454f155fa;apzu;Emmanuel_Mkangama;manzyisasucka@outlook.com;Manzy-PC;192.168.11.146;2014-08-22;Samsung_Electronics_CO.,_LTD;;;5;;3600;;;
+c8d10b4bd0a8;oth;mussa_chimbiya;mchimbiya@gmail.com;;192.168.11.147;2014-08-23;Nokia_Corporation;;;5;;3600;;;
+001bb14ed486;priv;Harvey_Kachingwe;michaelharveyletkay@gmail.com;user-PC;192.168.13.163;2014-08-23;Wistron_Neweb_Corp.;;;5;;3600;;;
+a86a6f6ab069;oth;Esther_Kamenya;estherkamenya@yahoo.co.uk;BLACKBERRY-DBBC;192.168.13.165;2014-08-23;RIM;;;5;;3600;;;
+4cbca55a2f6c;apzu;Rose__Majawa;majawarose@gmail.com;;192.168.11.50;2014-08-25;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+0c37dce274cd;gov;Nelson_;nelchanukha@hotm.com;android_71262084b0aaf1a7;192.168.13.81;2014-08-25;Huawei_Technologies_Co.,_Ltd;;;5;;3600;;;
+20107a324907;oth;Samuel_Epiphi;ssepiphi@gmail.com;hp-HP;192.168.10.130;2014-08-26;Gemtek_Technology_Co.,_Ltd.;;;5;;3600;;;
+cc89fd2cc4c0;priv;Vera_shaba;shabavera@gmail.com;Windows-Phone;192.168.11.107;2014-08-26;;;;5;;3600;;;
+904ce55def14;apzu;Gani_Alabi;galabi@pih.org;DrGaniAlabi-PC;192.168.12.131;2014-08-26;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+38192f2bdd13;gov;flora;fnohito@gmail.com;;192.168.21.128;2014-08-26;Nokia_Corporation;;;5;;3600;;;
+001b77039bc3;apzu;jordaanknight;jordaanknight70@gmail.com;JosephMataya-PC;192.168.10.143;2014-08-26;Intel_Corporate;;;5;;43200;;;
+f4b7e2654063;apzu;israel;ikondowe@pih.org;APZU-02;192.168.10.88;2014-08-27;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+c064c6967300;oth;chisomo;ckanyenda@gmail.com;Windows-Phone;192.168.12.249;2014-08-27;;;;5;;3600;;;
+00262db8a14c;apzu;israel;wmwale@pih.org;APZU-35;192.168.21.239;2014-08-28;Wistron_Corporation;;;5;;43200;;;
+1cc1de365547;oth;kapangaza_ntonya;ntonyakapa@yahoo.com;Kapangaza;192.168.21.241;2014-08-28;Hewlett-Packard_Company;;;5;;3600;;;
+a0b3cc1f86d5;oth;Paul_Jiya;pjjiya@medcol.mw;PaulJackJiya;192.168.21.219;2014-08-29;Hewlett_Packard;;;5;;3600;;;
+001f3c170fd5;oth;charles;cchapalapata@gmail.com;martha-PC;192.168.13.226;2014-08-30;Intel_Corporate;;;5;;3600;;;
+20a99b84b200;gov;patrick_gomiwa;pgomiwa@outlook.com;Windows-Phone;192.168.10.64;2014-09-01;;;;5;;3600;;;
+00216a48ed4e;gov;Bertino_Mpapa;mpapabpa@gmail.com;BertinoPAMpapa;192.168.10.69;2014-09-01;Intel_Corporate;;;5;;3600;;;
+a49a58fbd6b8;oth;Albert_Chafunya;albertchafunya@yahoo.com;android-f97f13ecf0e7e0e4;192.168.10.100;2014-09-01;;;;5;;3600;;;
+3ca9f45fad4c;priv;Knowledge_E_Chaima;chaimaknowledge@yahoo.com;user-PC;192.168.10.111;2014-09-01;Intel_Corporate;;;5;;3600;;;
+001801fd7288;apzu;noel_kalanga;use@pih.org;android-394bd1f85ffc16ec;192.168.21.226;2014-09-01;Actiontec_Electronics,_Inc;;;5;;3600;;;
+94ce2c2666d2;apzu;Patrick_Gomani_;pgomani@pih.org;android-67459b58330afc7b;192.168.12.129;2014-09-02;Sony_Mobile_Communications_AB;;;5;;3600;;;
+0026828433ef;gov;chifundo_kajombo;chifundokajombo@gmail.com;chifundokajombo;192.168.10.140;2014-09-02;Gemtek_Technology_Co.,_Ltd.;;;5;;3600;;;
+0ace3e88cf7f;priv;Michael_Makaka;mikemakaka7684@gmail.com;android-47de7e2e1f646e78;192.168.11.191;2014-09-02;;;;5;;3600;;;
+001b7760f6db;apzu;Nkhani;jnkhani@gmail.com;NKHANI-PC;192.168.10.153;2014-09-03;Intel_Corporate;;;5;;43200;;;
+e094670a7c68;gov;Noria_;noriachinkunda@gmail.com;user-PC;192.168.10.154;2014-09-03;Intel_Corporate;;;5;;3600;;;
+70d4f2fdb47b;oth;agrita;agritalinje@yahoo.com;BLACKBERRY-62E8;192.168.10.250;2014-09-04;RIM;;;5;;3600;;;
+0024d667b10c;oth;kampondeni;pjackson443@yahoo.com;user-PC;192.168.10.155;2014-09-04;Intel_Corporate;;;5;;3600;;;
+6003089baee4;apzu;Emily_Wroe;emwroe@gmail.com;Emilys-MBP-2;192.168.11.145;2014-09-05;;;;5;;43200;;;
+c8bcc8f0dc74;apzu;Anna_Tavares;atavares@pih.org;;192.168.11.148;2014-09-06;Apple,_Inc.;;;5;;43200;;;
+c064c683d358;oth;Emily_;emwroe@gmail.com;Windows-Phone;192.168.10.246;2014-09-07;;;;5;;3600;;;
+f0d1a9c1361d;apzu;Emily;emwroe@gmail.com;EmilyWresiPhone;192.168.11.146;2014-09-07;Apple;;;5;;43200;;;
+e0cb1d6d92e5;priv;Anna_Tavares;atavares@pih.org;kindle-d41d0e75f;192.168.11.154;2014-09-07;_;;;5;;43200;;;
+d8e56dc76380;gov;Albert_chafunya;albertchafunya@yahoo.com;android-fd013ff0f93a225c;192.168.10.75;2014-09-08;;;;5;;3600;;;
+5444087f4cd0;priv;Rita_kawenda_phiri;rkawenda@yahoo.com;Windows-Phone;192.168.10.78;2014-09-08;Nokia_Corporation;;;5;;3600;;;
+e8150ee70c00;gov;tisunge_;coli@gmail.com;Windows-Phone;192.168.10.81;2014-09-08;;;;5;;3600;;;
+bcb1f3086cdf;oth;fadwick;makombefb@yahoo.co.uk;;192.168.10.161;2014-09-08;Samsung_Electronics;;;5;;43200;;;
+9cc7d14665b8;apzu;henry_makungwa;hmakungwa@pih.org;android_56c1b6e3af628dd2;192.168.12.109;2014-09-09;SHARP_Corporation;;;5;;3600;;;
+001fe185d2fa;gov;jeeves;jeeveslijenda85@gmail.com;MANZY-C-PC;192.168.10.107;2014-09-09;Hon_Hai_Precision_Ind._Co.,_Ltd.;;;5;;3600;;;
+bcc6dbc0626c;gov;Pchawinga;pchawinga@yahoo.com;;192.168.13.91;2014-09-09;Nokia_Corporation;;;5;;3600;;;
+f4f5a517d7aa;apzu;noel_kalanga;nkalanga@pih.org;Windows-Phone;192.168.21.108;2014-09-09;Nokia_corporation;;;5;;43200;;;
+c09f42720b0b;oth;Mcpherson;macchidakwa@gmail.com;Mcpherson;192.168.13.60;2014-09-09;Apple_Inc;;;5;;3600;;;
+485ab6e64a75;gov;Kondwani_Katundu;kkatundu@gmail.com;KondwaniKatundu;192.168.21.114;2014-09-09;;;;5;;3600;;;
+544408fe83e8;priv;Anna_Tavares;atavares@pih.org;Windows-Phone;192.168.11.125;2014-09-10;Nokia_Corporation;;;5;;43200;;;
+0024d7ee3120;gov;Herbert_Bolokonya_;chiwalo@outlook.com;Herbert;192.168.11.129;2014-09-10;Intel_Corporate;;;5;;3600;;;
+00271596870c;gov;Herbert_Bolokonya;chiwalo@outlook.com;android_16678dda20d4df30;192.168.11.135;2014-09-10;Rebound_Telecom._Co.,_Ltd;;;5;;3600;;;
+aaa411130604;gov;Allick;allickmilanzi@yahoo.com;Android_356357041432265;192.168.11.136;2014-09-10;;;;5;;3600;;;
+1040f316aa8c;oth;George_Malunga;gmalunga@pih.org;iPhone;192.168.10.128;2014-09-10;Apple,_Inc.;;;5;;43200;;;
+2c5a05a20cb4;apzu;Judith_Kanyema;judithkanyema@gmail.com;Windows-Phone;192.168.11.143;2014-09-10;;;;5;;43200;;;
+c446195f9552;gov;ken___Namuku;kennamuku@gmail.com;SURGIONKENNAMUK;192.168.21.138;2014-09-12;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+78e400cf3736;priv;rita_Kawenda;rkawenda@yahoo.com;ATUPERE-PC;192.168.10.231;2014-09-12;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+689423202ccb;oth;Chris;chrismazuwa@gmail.com;PRISCILLA;192.168.11.240;2014-09-12;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+083e8e36d6c2;oth;comfortmasinga;tonthozogama@gmail.com;MRSMASINGA-PC;192.168.11.230;2014-09-13;Hon_Hai_Precision_Ind.Co.Ltd;;;5;;3600;;;
+e0ca94670078;apzu;robert_manda;robertmanda16@yahoo.com;User-PC;192.168.12.250;2014-09-14;Askey_Computer;;;5;;43200;;;
+64a7699d7ad6;priv;chisomo_kanyenda;ckanyenda@gmail.com;Android_357814043267965;192.168.12.150;2014-09-14;HTC_Corporation;;;5;;3600;;;
+a47760ca474f;oth;Bright_Mailosi;brghtmls@gmail.com;;192.168.13.228;2014-09-14;;;;5;;3600;;;
+74de2be6b09a;gov;Jack;jakenota@gmail.com;TChapomba;192.168.13.231;2014-09-15;Liteon_Technology_Corporation;;;5;;3600;;;
+5cf8a1822b17;apzu;Ernest_Nyirongo;anystnyiro@yahoo.com;android-28903fdffec07ddc;192.168.11.207;2014-09-15;Murata_Manufactuaring_Co.,Ltd.;;;5;;43200;;;
+bcb1f336b1fc;;oth;;Samsung_Electronics;192.168.21.70;2014-09-16;;;;5;;3600;;;
+00197e4c1ccb;oth;stuart_lupale;stuartupale@yah.com;user-PC;192.168.13.247;2014-09-16;Hon_Hai_Precision_Ind._Co.,_Ltd;;;5;;3600;;;
+e83eb6ed2d25;oth;bornwell;wilimabornwell@gmail.com;BLACKBERRY-4F4D;192.168.21.218;2014-09-16;RIM;;;5;;3600;;;
+f04f7cf23569;oth;Margot_Prendergast;margot.prendergast@gmail.com;;192.168.11.223;2014-09-16;_;;;5;;3600;;;
+806007966f39;oth;harvey_kachingwe;michaelharveyletkay@gmail.com;BLACKBERRY-CC51;192.168.10.177;2014-09-17;RIM;;;5;;3600;;;
+a4e73123a10f;apzu;Mwai_tengatenga;mwaitengatenga@mail..com;;192.168.21.88;2014-09-17;Nokia_Corporation;;;5;;43200;;;
+102f6b7b529a;gov;Herbert_Bolokonya;chiwalo@outlook.com;Nokia_X2-2b4f5bfe402474d3;192.168.11.197;2014-09-17;;;;5;;3600;;;
+001e152e57b9;oth;Mkwapatira_;mkwapatira58@gmail.com;android_1786d09e75697d21;192.168.11.205;2014-09-18;Beech_Hill_Electronics;;;5;;3600;;;
+90004ed60a18;apzu;nenogirlsschool;nenogirlssecondary@gmail.com;plc-VPCYB16KG;192.168.11.192;2014-09-18;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+cc55ad0f46c8;apzu;wanangwa_kanyenda;waxykanye@gmail.com;BLACKBERRY-BDAD;192.168.12.153;2014-09-18;RIM;;;5;;43200;;;
+6ca78050f981;oth;Dixie_Chatuwa;chatuwadixie@yahoo.com;;192.168.11.220;2014-09-18;Nokia_Corporation;;;5;;3600;;;
+600308e8e5b6;priv;Melissa;billi_b0b@hotmail.com;Melissas-MBP;192.168.13.207;2014-09-18;;;;5;;3600;;;
+001f3b68fc51;oth;James_Tsogolani;jamietsogo@gmail.com;NGSS-PC;192.168.11.185;2014-09-18;Intel_Corporate;;;5;;3600;;;
+e8068851b5ff;oth;Evon;evonne.n@hotmail.com;Evonne-Nguyen;192.168.13.212;2014-09-18;Apple,_Inc.;;;5;;3600;;;
+e8068851b5ff;oth;Evon;evonne.n@hotmail.com;Evonne-Nguyen;192.168.13.212;2014-09-18;Apple,_Inc.;;;5;;3600;;;
+00215c7e8d47;priv;Neno_Girls_C.SchoolC.A.P_Secondary_;nenogirlssecondary@gmail.com;NGSS-PC;192.168.11.166;2014-09-19;Intel_Corporate;;;5;;3600;;;
+002163bb91cc;priv;Neno_Girls_C.C.A.P_Secondary_School;nenogirlssecondary@gmail.com;NGSS-PC;192.168.11.193;2014-09-19;ASKEY_COMPUTER_CORP;;;5;;3600;;;
+90489a05afd1;gov;AUGUSTINE;pphiri@medcol.mw;AUGUSTIN;192.168.13.129;2014-09-19;;;;5;;3600;;;
+e83eb67fa8c7;oth;chicco_manyozo;chiccomanyozo@gmail.com;BLACKBERRY-62A3;192.168.13.225;2014-09-20;RIM;;;5;;3600;;;
+3451c9d30ece;oth;Lu;21795@plcstudents.org.au;JAF-iPad;192.168.11.171;2014-09-21;Apple,_Inc.;;;5;;3600;;;
+b4527ee1b3cb;apzu;Bright_Mailosi_;brghtmls@gmail.com;android-470c0e4d56c3d9a1;192.168.10.53;2014-09-22;;;;5;;3600;;;
+20107a309fe3;oth;phillip;phil.linyama@gmail.com;Phillip-PC;192.168.11.73;2014-09-22;Gemtek_Technology_Co.,_Ltd.;;;5;;3600;;;
+f4b7e264c6b5;apzu;Rogers;rodgchikwenga@gmail.com;APZU-58;192.168.14.64;2014-09-23;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+70d4f286a102;priv;Dennis;ddsolomon@medcol.mw;BLACKBERRY-4775;192.168.21.203;2014-09-23;RIM;;;5;;3600;;;
+1c659da923ea;priv;dennis;densolo.11@gmail.com;Dennis-PC;192.168.10.229;2014-09-23;Liteon_Technology_Corporation;;;5;;3600;;;
+001f3a4cf0ee;oth;Richard_Kamwezi;rgkamwezi@gmail.com;RICHIE-PC;192.168.10.230;2014-09-23;Hon_Hai_Precision_Ind.Co.,_Ltd.;;;5;;43200;;;
+001e65b26060;apzu;moir_blackson;mbp1@rocketmail.com;APZU-47-PC;192.168.10.232;2014-09-23;Intel_Corporate;;;5;;43200;;;
+ac7ba14effc5;apzu;henry_makungwa;hmakungwa@pih.org;APZU-94;192.168.12.78;2014-09-23;Intel_Corporate;;;5;;43200;;;
+00216ba95094;oth;Romas_;romas.banda@savethechildren.org;save-c0c18f16ae;192.168.10.248;2014-09-24;Intel_Corporate;;;5;;3600;;;
+24ec991686af;apzu;Blessings_Banda;blesbanda@pih.org;CEWLN2521;192.168.10.184;2014-09-24;Askey_Computer_Corp;;;5;;3600;;;
+e0b2f159eb13;priv;James_Tsogolani;jamietsogo@gmail.com;android-f65ec0807719630f;192.168.11.155;2014-09-25;FN-LINK_TECHNOLOGY_LIMITED;;;5;;3600;;;
+e006e613a658;apzu;Fatsani_Banda;fatsieb@gmail.com;FATSANIBANDA-PC;192.168.12.205;2014-09-25;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+e0b2f195cb6d;priv;James_Tsogolani;jamietsogo@gmail.com;android-69897e2d49f7398a;192.168.11.149;2014-09-25;FN-LINK_TECHNOLOGY_LIMITED;;;5;;3600;;;
+20689d72d7ad;oth;threza_chitsamvu;tchitsamvu@gmail.com;Trezzer;192.168.21.236;2014-09-25;Liteon_Technology_Corporation;;;5;;3600;;;
+9cb70dd8cb5e;gov;msiku;brightnsiku@gmail.com;Nsiku;192.168.21.195;2014-09-25;Liteon_Technology_Corporation;;;5;;3600;;;
+e0b2f1b6733d;priv;James_Tsogolani;jamietsogo@gmail.com;android-f08963e9d9ca9847;192.168.11.193;2014-09-25;FN-LINK_TECHNOLOGY_LIMITED;;;5;;3600;;;
+08edb993222f;gov;Edna_Phiri;ednaphiri43@yahoo.com;CAMMALLAP17;192.168.11.74;2014-09-26;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+00166f18a769;gov;Dominic_Amos;domieamos@gmail.com;educatio-f01b0f;192.168.11.131;2014-09-26;Intel_Corporate;;;5;;3600;;;
+9852b1bb7410;gov;joe_chitimbe;joechitimbe@gmail.com;;192.168.21.157;2014-09-26;Samsung_Electronics;;;5;;3600;;;
+3431114015f0;oth;Mphatso_Sitolo;mphasitolo@gmail.com;android-ceba772775cd272e;192.168.11.172;2014-09-26;;;;5;;3600;;;
+00bb3a2f9d8d;apzu;emily;ewroe@pih.org;;192.168.13.182;2014-09-26;_;;;5;;43200;;;
+ac7ba155728d;apzu;musisi;imusisi@pih.org;APZU-93;192.168.13.216;2000-09-28;Intel_Corporate;;;5;;43200;;;
+5001bbe80d50;apzu;Godfrey;gmsowoya@pih.org;android-6025721d842c679d;192.168.11.176;2000-09-28;Samsung_Electronics;;;5;;43200;;;
+68a3c4e79216;gov;tadala_ngwende;tadyngwende@gmail.com;Tadala;192.168.11.178;2000-09-29;Liteon_Technology_Corporation;;;5;;3600;;;
+ac7ba19411ff;apzu;Benson;chabwerab81@gmail.com;APZU-ADMIN;192.168.12.57;2000-09-30;Intel_Corporate;;;5;;43200;;;
+e0b2f1f07ae9;priv;James_Tsogolani;jamietsogo@gmail.com;android-80bbc93df1a128fe;192.168.11.181;2014-09-30;FN-LINK_TECHNOLOGY_LIMITED;;;5;;3600;;;
+001f3b8b5cf3;oth;Auscar_Nkhoma;scarnkhoma@gmail.com;scar-PC;192.168.11.182;2014-09-30;Intel_Corporate;;;5;;3600;;;
+f81edfed3298;apzu;Lila_Kerr;lila.kerr@gmail.com;Lilas-MBP;192.168.11.133;2014-09-30;Apple,_Inc;;;5;;43200;;;
+f0cba1390f45;apzu;Kyla_Ellis;kellis@pih.org;Kys-iPhone;192.168.13.190;2014-09-30;Apple,_Inc.;;;5;;43200;;;
+0034a1caf6f8;apzu;robert_manda;rmrobertnanda@gmail.com;android_75d2b730b458dd92;192.168.12.216;2014-09-30;;;;5;;43200;;;
+00216a435074;gov;pilirani_Msambati;pmsambati@yahoo.com;PILIRANI-PC;192.168.10.114;2014-10-01;Intel_Corporate;;;5;;3600;;;
+f4b7e264c62d;oth;MICHAEL;mmakaka@pih.org;APZU-ADMIN-PC;192.168.14.55;2014-10-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+406186095f7d;oth;consolate_mahuka;consolatemahuka@gmail.com;DHO;192.168.21.65;2014-10-01;MICRO-STAR_INT'L_CO.,LTD;;;5;;3600;;;
+60fe1e1bfc06;apzu;charles_goliath;charlesgoliath2@gmail.com;android-8ff96ca8ac39b4e1;192.168.10.112;2014-10-01;China_Palms_Telecom.Ltd;;;5;;43200;;;
+3423871bf2e0;apzu;Kyla_Ellis;kellis@pih.org;PIH-BOS-LOAN9;192.168.12.249;2014-10-01;;;;5;;43200;;;
+407a80fcdb14;apzu;thoko_mandala;tmandala@pih.org;Windows-Phone;192.168.10.115;2014-10-01;Nokia_Corporation;;;5;;43200;;;
+ec55f933f42d;gov;gladys_ntonya;gladysbanda2003@yahoo.co.uk;Gladys-PC;192.168.11.143;2014-10-01;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;3600;;;
+a481eed95664;apzu;israel;israel.kondowe7@gmail.com;Windows-Phone;192.168.10.116;2014-10-01;;;;5;;43200;;;
+002314d00ce8;gov;Martin_Chithambo;njalachithambo@gmail.com;User-PC;192.168.10.119;2014-10-01;Intel_Corporate;;;5;;43200;;;
+0026378bd910;apzu;gloria_mandala;gloriamandala@outlook.com;;192.168.10.120;2014-10-01;Samsung_Electro-Mechanics;;;5;;43200;;;
+68a3c48de02b;apzu;Mc_Pherson_Mwakhwawa;khwawa@gmail.com;user-HP;192.168.11.232;2014-10-01;Liteon_Technology_Corporation;;;5;;43200;;;
+f4b7e2651be9;apzu;Sophie_Macheka;sophiemacheka@gmail.com;APZU-04-PC;192.168.14.61;2014-10-02;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+70188b151991;apzu;Cynthia_Carter;ccarter@pih.org;;192.168.14.79;2014-10-02;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+002436b715ca;apzu;limbani_panulo;artherarmstrong@gmail.com;Macs-MacBook;192.168.21.153;2014-10-02;Apple,_Inc;;;5;;43200;;;
+7cc3a1206c25;apzu;Arielle;arielle.eagan@gmail.com;iPhone;192.168.10.129;2014-10-02;Apple,_Inc.;;;5;;43200;;;
+c8855074b041;apzu;Bryan_;beustis@pih.org;Bryan-s-iPhone;192.168.10.125;2014-10-02;;;;5;;43200;;;
+645a04cd75ba;oth;emmie_kambeta;emmiemadalo@yahoo.com.sg;Nenoaccounts;192.168.11.129;2014-10-02;Chicony_Electronics_Co.,_Ltd.;;;5;;3600;;;
+28ef015985e5;priv;Lila_Kerr;lkerr@pih.org;;192.168.11.115;2014-10-02;_;;;5;;43200;;;
+b80305a06775;priv;zizwani_luhana;zizwaniluhana@yahoo.com;Rheetah-PC;192.168.13.200;2014-10-04;Intel_Corporate;;;5;;3600;;;
+68ed43be9cb7;oth;yankho_zolowere;ykzolowere@medcol.mw;BLACKBERRY-F981;192.168.11.79;2014-10-05;Research_In_Motion;;;5;;3600;;;
+70d4f2af93f5;BLACKBERRY-D963;oth;;RIM;192.168.13.167;2014-10-05;;;;5;;3600;;;
+7cd1c3eff9ef;apzu;Beth;bdunbar@pih.org;Beth-Dunbar-2;192.168.10.88;2014-10-06;Apple_Inc;;;5;;43200;;;
+148fc60a2434;apzu;Beth_d;dunbar.elizabeth.l@gmail.com;Beth;192.168.10.89;2014-10-06;Apple,_Inc.;;;5;;43200;;;
+001d600a5709;gov;Peter_Magomero;magomerosammie@yahoo.com;brunomars-NB;192.168.11.83;2014-10-06;ASUSTek_COMPUTER_INC.;;;5;;3600;;;
+6894230f2e07;apzu;shadreck_chipapi;chipapishadreck@gmail.com;user-HP;192.168.13.74;2014-10-06;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+2cd05a426f3b;apzu;david_kulapani;davidkulapani@gmail.com;davidking;192.168.11.224;2014-10-06;Liteon_Technology_Corporation;;;5;;43200;;;
+00e04c8d5200;gov;moses;kabunthu@gmail.com;kabunthumoses;192.168.11.98;2014-10-06;REALTEK_SEMICONDUCTOR_CORP.;;;5;;3600;;;
+74e50b0c1e08;apzu;salim_phiri;salimbrianphiri@yahoo.com;TBC-70;192.168.12.121;2014-10-07;Intel_Corporate;;;5;;43200;;;
+00225f49a7d0;gov;macpherson_Chidakwa;macchidakwa@gmail.com;Chidakwa;192.168.11.130;2014-10-07;Liteon_Technology_Corporation;;;5;;3600;;;
+001f3b8e0f29;oth;James_Tsogolani;tsogolanij@yahoo.com;JAMES-PC;192.168.11.178;2014-10-08;Intel_Corporate;;;5;;3600;;;
+3c77e6d7e1bd;gov;stanislous_kutsamba;stanislouskutsamba@yahoo.co.uk;VAIO;192.168.10.129;2014-10-08;Hon_Hai_Precision_Ind._Co.,Ltd.;;;5;;43200;;;
+0018de115e6e;gov;hope;hkautah@gmail.com;VIYAZHI;192.168.21.128;2014-10-08;Intel_Corporate;;;5;;3600;;;
+b8ac6fb95ac6;gov;jorddan_knight;jordaanknight70@gmail.com;Napham-PC;192.168.21.218;2014-10-08;Dell_Inc;;;5;;3600;;;
+00216a0c1e56;oth;precious;pchiumia@gmail.com;user-PC;192.168.13.235;2000-10-08;Intel_Corporate;;;5;;3600;;;
+b0358d853966;oth;Joel_kandiado;joeljkandiado@gmail.com;;192.168.12.61;2014-10-09;Nokia_Corporation;;;5;;3600;;;
+74e5439deddd;BlessingsTHINK;;;Liteon_Technology_Corporation;192.168.21.51;2014-10-09;;;;5;;3600;;;
+0026c73d75d4;apzu;shareen_iman;imanshareen@yahoo.com;APZU-07;192.168.10.62;2014-10-10;Intel_Corporate;;;5;;43200;;;
+bc52b73f30e6;gov;Innocent_jossam;innogj@yahoo.com;HPs-iPhone;192.168.11.105;2014-10-11;Apple_Inc;;;5;;3600;;;
+002710ea5e30;gov;ronald_mhango;ronmhango@gmail.com;DELL;192.168.11.206;2014-10-12;Intel_Corporate;;;5;;3600;;;
+b8a3e0374120;gov;annette_kalengamaliro;chifundokalengamaliro@gmail.com;android-23277e7e07dabf7e;192.168.11.191;2014-10-12;BenRui_Technology_Co.,Ltd;;;5;;3600;;;
+489d24c30c05;oth;makombe;makombefb@yahoo.co.uk;BLACKBERRY-39EF;192.168.10.250;2014-10-13;Research_In_Motion;;;5;;3600;;;
+002316be3ee0;priv;Charles_Goliath;charlesgoliath2@gmail.com;android-8ff96ca8ac39b4e1;192.168.10.66;2014-10-13;KISAN_ELECTRONICS_CO;;;5;;3600;;;
+b8ca3ae4794f;oth;norah;norahmwase@gmail.com;InnocentGuta;192.168.12.137;2014-10-13;Dell_PCBA_Test;;;5;;3600;;;
+82f390816c11;chawesichinga@gmail.com;chawezi;sichinga;android_fbace2b2d258f5a0;192.168.10.223;2014-10-13;;;;5;;43200;;;
+0026697cd90c;;oth;;Nokia_Danmark_A/S;192.168.11.227;2014-10-13;;;;5;;3600;;;
+247703d84168;gov;john;osmpoha@yahoo.com;DEHO-PC;192.168.10.228;2014-10-13;Intel_Corporate;;;5;;43200;;;
+68a3c494c5e6;apzu;thomas_chitete;thomaschitete@yahoo.com;user-HP;192.168.11.232;2014-10-14;Liteon_Technology_Corporation;;;5;;43200;;;
+8ca982ba342e;apzu;chiyembekezo_kachimanga;chembekachimanga@yahoo.co.uk;Apzu-77;192.168.12.169;2014-10-14;Intel_Corporate;;;5;;43200;;;
+6c8814ac518c;oth;Esnart_phiri;ephiri@unicef.org;992692APL42301X;192.168.10.99;2014-10-14;Intel_Corporate;;;5;;3600;;;
+020fb5896550;gov;moses;kabunthu@gmail.com;kabunthumoses;192.168.11.186;2014-10-14;;;;5;;3600;;;
+020fb54dffc5;gov;Moses;kabunthu@gmail.com;;192.168.11.126;2014-10-14;;;;5;;3600;;;
+020fb58d5200;gov;moses;kabunthu@gmail.com;Kabudulafamily;192.168.11.128;2014-10-14;;;;5;;3600;;;
+8096b1fbe2ba;apzu;Gloria_Chinguwo;gchinguwo@pih.org;android_9c48ba41747b3f74;192.168.12.86;2014-10-14;ARRIS_Group,_Inc.;;;5;;43200;;;
+10c37bad97d7;apzu;dr_emily;ewroe@pih.org;idaho;192.168.13.201;2014-10-14;;;;5;;43200;;;
+020fb5a5cd9f;gov;Moses;kabunthu@gmail.com;Kabudulas-ipad;192.168.11.134;2014-10-15;;;;5;;3600;;;
+c83a35cda251;apzu;thomas_chitete;thomaschitete@yahoo.com;user-HP;192.168.11.225;2014-10-15;Tenda_Technology_Co.,_Ltd.;;;5;;43200;;;
+a0f450b41e06;apzu;victor_kanyema;vkanyema@pih.org;Android_359144049249108;192.168.12.197;2014-10-16;HTC_Corporation;;;5;;43200;;;
+0c37dce27dd9;priv;Charles_Chapalapata_;cchapalapata@pih.org;android_2871577ad7715e04;192.168.14.72;2014-10-16;Huawei_Technologies_Co.,_Ltd;;;5;;43200;;;
+d0df9a0999ec;oth;Kondwani_Nyangulu;ksnyangulu@medcol.mw;nyanguru;192.168.12.212;2014-10-17;Liteon_Technology_Corporation;;;5;;3600;;;
+2cd05a9270d0;oth;judith_kanyema;judithkanyema@gmail.com;Victorkanyema;192.168.11.222;2014-10-17;Liteon_Technology_Corporation;;;5;;3600;;;
+24fd527674ac;gov;Elias_Sambani;ejsambani@gmail.com;LAB-01;192.168.10.126;2014-10-17;Liteon_Technology_Corporation;;;5;;3600;;;
+10d542a06bf7;gov;allick_milanzi;allickmilanzi@yahoo.com;;192.168.11.166;2014-10-17;Samsung_Electronics_Co.,Ltd;;;5;;3600;;;
+a06cece85a28;gov;joseph_lusaka;jlusaka@gmail.com;BLACKBERRY-5315;192.168.11.231;2014-10-18;RIM;;;5;;3600;;;
+002500486010;apzu;xian;cneumann@pih.org;xian;192.168.11.200;2014-10-18;Apple,_Inc;;;5;;43200;;;
+8400d239b01f;apzu;xian;cneumann@pih.org;android-4fce054de49c67b7;192.168.11.185;2014-10-18;Sony_Ericsson_Mobile_Communications_AB;;;5;;43200;;;
