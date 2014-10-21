@@ -4,6 +4,7 @@ USER=root
 PASSWD=pfsense
 
 # DALORADIUS 
+DR_IP=192.168.1.36
 DR_SERVER=http://192.168.1.36/
 DR_HTTP_USER_PASSWD=admin:admin
 DR_USER=administrator
