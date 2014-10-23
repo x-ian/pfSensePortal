@@ -27,6 +27,5 @@ if [ $? -eq 1 ]; then
   exit 2
 fi
 
-echo "assume addiitonal restrictions are applied"
+echo "Assume additional restrictions are applied"
 exit 3
-
