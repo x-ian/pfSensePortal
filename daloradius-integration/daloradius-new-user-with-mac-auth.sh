@@ -11,7 +11,7 @@ FIRSTNAME=`echo $2 | sed -f $BASEDIR/urlencode.sed`
 LASTNAME=`echo $3 | sed -f $BASEDIR/urlencode.sed`
 EMAIL=`echo $4 | sed -f $BASEDIR/urlencode.sed`
 COMPANY=`echo $5 | sed -f $BASEDIR/urlencode.sed`
-GROUP=`echo $6 | sed -f $BASEDIR/urlencode.sed`
+GROUP="$6" #`echo $6 | sed -f $BASEDIR/urlencode.sed`
 NOTES=`echo $7 | sed -f $BASEDIR/urlencode.sed`
 
 $BASEDIR/daloradius-login.sh
