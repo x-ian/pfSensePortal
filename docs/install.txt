@@ -23,11 +23,12 @@ Login with SSH as root and run these statement in the shell (to get to the shell
 #setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/amd64/packages-8.3-release/Latest/
 # for i386 use
 setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/i386/packages-8.3-release/Latest/
-/usr/sbin/pkg_add -r curl
-/usr/sbin/pkg_add -r wget
-/usr/sbin/pkg_add -r bash
-/usr/sbin/pkg_add -r python
-/usr/sbin/pkg_add -r git
+pkg_add -r curl
+pkg_add -r wget
+pkg_add -r bash
+pkg_add -r python
+pkg_add -r git
+pkg_add -r p5-Net-SMTP-TLS
 
 now reboot the system
 
@@ -35,6 +36,8 @@ cd /home
 git clone https://github.com/x-ian/pfSensePortal.git
 ln -s /usr/local/bin/bash /bin/bash
 cp /home/pfSensePortal/config.txt.sample /home/pfSensePortal/config.txt
+and adjust values as needed
+cp /home/pfSensePortal/config_gmail.txt.sample /home/pfSensePortal/config_gmail.txt
 and adjust values as needed
 
 
@@ -66,6 +69,13 @@ add a default firewall rule for every VLAN interface allowing any protocol to pa
 (might need to configure the VLAN IP as the local DNS server within the DHCP server of every VLAN interface)
 
 for the capitve portal enable all VLAN interfaces
+
+add these line to root crontab
+@reboot /home/pfSensePortal/send_gmail_after_startup.sh
+
+installing packages
+ntop
+- add firewall rules on wan interface to allow traffic on port 30
 
 daloradius
 reboot after adding new NAS
