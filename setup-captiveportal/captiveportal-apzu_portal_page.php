@@ -13,17 +13,17 @@
 		<td>
 				<?php
 					$ip=$_SERVER['REMOTE_ADDR'];
-					echo "<p>Please wait while your device is being identified...";
+					echo "<p>Please wait while your device is identified... ";
 					echo exec("/home/pfSensePortal/daloradius-integration/captive-portal-check_device_status.sh " . $ip, $output, $exitCode);
 								
-					echo "<p/><p>Device status: $output</p>";
 					echo "</td></tr><tr><td>";
 					if ($exitCode == 0) {
 						// device enabled and no restrictions apply. should not happen as the captive portal should have automattically logged it in before this check
 					}  
 					if ($exitCode == 1) {
 						// device disabled
-						echo "</td><td><p>Your device is disabled. Please see the IT team for further explanation.</p></td>";
+						echo "</td><td><p>Your device is disabled. Please see the IT team for further explanation.</p>";
+						echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
 					}  
 					if ($exitCode == 2) {
 						// not yet registered
@@ -31,7 +31,8 @@
 					}
 					  if ($exitCode == 3) {
 						// access denied with additional restrictions
-						echo "<p>access denied with additional restrictions.</p>";
+						echo "</td><td><p>Your device has used up your available data volume. Either check back tomorrow or next week.</p>";
+						echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
 						//} else {
 						// unknwon return status
 						//echo "<p>Error in Captive Portal. Please see the IT team.</p>"

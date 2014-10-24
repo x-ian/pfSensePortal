@@ -1,35 +1,44 @@
 
 
 Quick / default isnstallation of pfSense
+i386 vs amd64 bit
+might be necessary to disable ACPI via boot option (2) - https://doc.pfsense.org/index.php/Booting_Options#pfSense_2.0
+might be necessary to enable boot from USB drive via boot option (3) - https://doc.pfsense.org/index.php/Boot_Troubleshooting#Booting_from_USB
+
+When booting from LiveCD stops in the middle (or stop with a mount error as here https://doc.pfsense.org/index.php/Boot_Troubleshooting), choose 'Boot from USB drive (option 3) at the first pfSense selection screen
 (press I at the beginning of the boot process when asked for input to invoke the installation, otherwise it will start the LiveCD after 10 seconds)
 (remove CD after installation, otherwise it boots up again from the CD instead of the newly created installation on the hard disk)
 configure network interface em0 as WAN (172.16.1.X/24) and em1 as LAN (IP 192.168.1.1/24 with DHCP services enabled)
 connect with a cable to the LAN port, wait until your computer receives an IP address from the pfSense and open the web borwser pointing to http://192.168.1.1
 finish the installation process by following the instructions of the wizard
 
-enable remote access on WAN interface for SSH and web management through Firewall rules
+enable remote access on WAN interface for SSH, web management and ICMP pings through Firewall rules
 
 Admin advanced
 Activate HTTPS for WebConfigurator
 Enable SSH (Secure Shell)
 
 Login with SSH as root and run these statement in the shell (to get to the shell press 8)
-setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/amd64/packages-8.3-release/Latest/
+# for AMD64 used 
+#setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/amd64/packages-8.3-release/Latest/
+# for i386 use
+setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/i386/packages-8.3-release/Latest/
 /usr/sbin/pkg_add -r curl
 /usr/sbin/pkg_add -r wget
 /usr/sbin/pkg_add -r bash
 /usr/sbin/pkg_add -r python
 /usr/sbin/pkg_add -r git
+
+now reboot the system
+
 cd /home
 git clone https://github.com/x-ian/pfSensePortal.git
-
+ln -s /usr/local/bin/bash /bin/bash
 cp /home/pfSensePortal/config.txt.sample /home/pfSensePortal/config.txt
 and adjust values as needed
 
-/home/pfSensePortal/daloradius-integration(16): ln -s /usr/local/bin/bash /bin/bash
 
 pfSense config
-(confirm intel NIC license agreement - optional: https://forum.pfsense.org/index.php?topic=40355.0)
 Create and enable new Captive portal zone on the internal LAN interfaces
 Configure RADIUS server with RADIUS authentication
 Set IP of primary RADIUS server to the daloRADIUS server
@@ -41,6 +50,8 @@ MAC address format 'unformatted'
 Choose file 'setup-captiveportal/captiveportal-apzu_portal_page.html' for 'Portal page content'
 Choose file 'setup-captiveportal/captiveportal-apzu_portal_error_page.html' for 'Authentication error page contents'
 disable concurrent logins
+add 172.16.1.0 as allowed IP addresses (to bypass captiv portal registration and traffic accounting for local servers)
+add pih.org as allowed hostname
 
 
 upload all files from directory pfSensePort/setup-captiveportal/filemanager through captive portal - file manager
@@ -48,6 +59,13 @@ upload all files from directory pfSensePort/setup-captiveportal/filemanager thro
 install 'freeradius2' from 'system - packages - available packages'
 stop service freeradius from status - services
 
+add vlan interfaces to em1 starting from 192.168.11.x upwards
+disable LAN (em1) interface
+configure DHCP server for every VLAN interface
+add a default firewall rule for every VLAN interface allowing any protocol to pass
+(might need to configure the VLAN IP as the local DNS server within the DHCP server of every VLAN interface)
+
+for the capitve portal enable all VLAN interfaces
 
 daloradius
 reboot after adding new NAS
