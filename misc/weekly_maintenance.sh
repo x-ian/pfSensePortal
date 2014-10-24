@@ -6,10 +6,10 @@
 
 BASEDIR=/home/pfSensePortal
 
-source $BASEDIR/credentials.config
+source $BASEDIR/config.txt
  
 # reset ntop traffic stats
-/usr/local/bin/wget --user `echo $USER` --password `echo $PASSWD` http://172.16.1.2:3000/resetStats.html
+/usr/local/bin/wget --user `echo $NTOP_USER` --password `echo $NTOP_PASSWD` http://`echo $IP`:3000/resetStats.html
 
 # do some accounting and clean it up
 echo BIG_TIME_TODO
@@ -18,13 +18,13 @@ echo BIG_TIME_TODO
 #/usr/local/sbin/squid -k rotate
 
 # clearing out and recreating the whole squid cache dir
-/usr/local/sbin/squid -k shutdown
-/bin/sleep 10
-/bin/rm -rf /var/squid/cache/*
-/usr/local/sbin/squid -z
+#/usr/local/sbin/squid -k shutdown
+#/bin/sleep 10
+#/bin/rm -rf /var/squid/cache/*
+#/usr/local/sbin/squid -z
 
 # some internal backup
-#/home/pfSensePortal/download_backup.sh
+/home/pfSensePortal/misc/do-backup.sh
 
 # clean up DHCP leases as they seem to be never removed. ideally this should maybe be done monthly or quarterly
 /bin/rm -f /var/dhcpd/var/db/dhcpd.leases
