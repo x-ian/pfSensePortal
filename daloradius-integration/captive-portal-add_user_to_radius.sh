@@ -44,7 +44,7 @@ $MAC
 $NAME
 $EMAIL
 $IP
-$HOSTNAME
+$DHCPHOSTNAME
 $DATE
 $MAC_VENDOR
 http://172.16.1.7/daloradius/mng-edit.php?username=$MAC
