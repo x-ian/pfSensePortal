@@ -1,5 +1,9 @@
 #!/usr/local/bin/bash
 
+# ntop
+USER=admin
+PASSWD=admin
+
 # pfSense
 IP=172.16.1.8
 USER=root
