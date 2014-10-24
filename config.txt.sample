@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
 
+# pfSense
+IP=172.16.1.8
 USER=root
 PASSWD=pfsense
 

@@ -73,9 +73,25 @@ for the capitve portal enable all VLAN interfaces
 add these line to root crontab
 @reboot /home/pfSensePortal/send_gmail_after_startup.sh
 
+configure pfSense emailing
+Go to System - Advanced - Notifications and enter
+E-Mail server: smtp.gmail.com
+SMTP Port of E-Mail server: 465
+Secure SMTP Connection	Enable SMTP over SSL/TLS
+Enable STARTTLS
+From e-mail address: mail@apzu.pih.org
+Notification E-Mail address: apzu-it@apzu.pih.org
+Notification E-Mail auth username (optional): mail@apzu.pih.org	
+Notification E-Mail auth password: <specify password here>
+Add 'Weekly Network Utilization' under Status - Email Reports with settings
+weekly, on Sunday at 23:00
+with RRD Graphs captive portal :: concurrent and a weekly time span and RRD Graph WAN :: Traffic
+
+
+
 installing packages
 ntop
-- add firewall rules on wan interface to allow traffic on port 30
+- add firewall rules on wan interface to allow traffic on port 3000
 
 daloradius
 reboot after adding new NAS
