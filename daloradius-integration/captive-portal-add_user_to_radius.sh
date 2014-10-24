@@ -5,6 +5,8 @@ NAME=$2
 EMAIL=$(echo $3 | awk '{print tolower($0)}')
 OWNER=$4
 
+DATE=`date +%Y%m%d-%H%M`
+
 BASEDIR=`dirname $0`
 
 MAC=$($BASEDIR/resolve_mac_address.sh $IP)
@@ -35,4 +37,9 @@ if [ $? -eq 0 ]; then
 fi
 
 $BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" $OWNER $GROUP "$IP $DHCPHOSTNAME $MAC_VENDOR"
-#perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/send_gmail.perl "$MAC" "$NAME" "$EMAIL" "$IP" "$OWNER" "$DHCPHOSTNAME" "$MAC_VENDOR"
+
+$SUBJECT="pfSense: New user: $OWNER $NAME $EMAIL";
+$BODY="$OWNER \n $MAC \n $NAME \n $EMAIL \n $IP \n $HOSTNAME \n $DATE \n $MAC_VENDOR \n http://172.16.1.7/daloradius/mng-edit.php?username=$MAC";
+
+# send mail in the background
+perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/../send_gmail.perl "$SUBJECT" "$BODY"
