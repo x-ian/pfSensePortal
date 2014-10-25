@@ -36,7 +36,7 @@ if [ $? -eq 0 ]; then
 	GROUP=APZUnet-user
 fi
 
-$BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" $OWNER $GROUP "$IP $DHCPHOSTNAME $MAC_VENDOR"
+$BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" "$OWNER" "$GROUP" "$IP" "$DHCPHOSTNAME" "$MAC_VENDOR"
 
 SUBJECT="pfSense: New user: $OWNER $NAME $EMAIL"
 BODY="$OWNER

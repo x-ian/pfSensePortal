@@ -40,6 +40,7 @@ and adjust values as needed
 cp /home/pfSensePortal/config_gmail.txt.sample /home/pfSensePortal/config_gmail.txt
 and adjust values as needed
 
+mkdir /home/local_backup_sequences
 
 pfSense config
 Create and enable new Captive portal zone on the internal LAN interfaces
@@ -54,7 +55,7 @@ Choose file 'setup-captiveportal/captiveportal-apzu_portal_page.html' for 'Porta
 Choose file 'setup-captiveportal/captiveportal-apzu_portal_error_page.html' for 'Authentication error page contents'
 disable concurrent logins
 add 172.16.1.0 as allowed IP addresses (to bypass captiv portal registration and traffic accounting for local servers)
-add pih.org as allowed hostname
+add pih.org, email.pih.org, owa.pih.org, exch2007pih.pih.org as allowed hostname
 
 
 upload all files from directory pfSensePort/setup-captiveportal/filemanager through captive portal - file manager
@@ -71,7 +72,12 @@ add a default firewall rule for every VLAN interface allowing any protocol to pa
 for the capitve portal enable all VLAN interfaces
 
 add these line to root crontab
+
 @reboot /home/pfSensePortal/send_gmail_after_startup.sh
+55 23 * * Sun /home/pfSensePortal/misc/weekly_maintenance.sh
+5 7 * * * /home/pfSensePortal/misc/monitor_network_devices.sh
+
+copy private SSH key id_rsa for system dev.pih-emr.org to /root/.ssh
 
 configure pfSense emailing
 Go to System - Advanced - Notifications and enter
