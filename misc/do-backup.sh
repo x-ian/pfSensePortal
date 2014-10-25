@@ -11,11 +11,11 @@ source $BASEDIR/config.txt
 # login
 wget -qO/dev/null --keep-session-cookies --save-cookies cookies.txt \
  --post-data "login=Login&usernamefld=`echo $USER`&passwordfld=`echo $PASSWD`" \
- --no-check-certificate http://$IP/diag_backup.php
+ --no-check-certificate http://$PF_IP/diag_backup.php
 
 # get the stuff
 wget --keep-session-cookies --load-cookies cookies.txt \
- --post-data 'Submit=download&donotbackuprrd=yes' $IP/diag_backup.php \
+ --post-data 'Submit=download&donotbackuprrd=yes' $PF_IP/diag_backup.php \
  --no-check-certificate -O $CONFIG_FILE
 
 rm cookies.txt

@@ -5,7 +5,7 @@ USER=admin
 PASSWD=admin
 
 # pfSense
-IP=172.16.1.8
+PF_IP=172.16.1.8
 USER=root
 PASSWD=pfsense
 

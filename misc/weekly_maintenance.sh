@@ -9,7 +9,7 @@ BASEDIR=/home/pfSensePortal
 source $BASEDIR/config.txt
  
 # reset ntop traffic stats
-/usr/local/bin/wget --user `echo $NTOP_USER` --password `echo $NTOP_PASSWD` http://`echo $IP`:3000/resetStats.html
+/usr/local/bin/wget --user `echo $NTOP_USER` --password `echo $NTOP_PASSWD` http://`echo $PF_IP`:3000/resetStats.html
 
 # do some accounting and clean it up
 echo BIG_TIME_TODO
