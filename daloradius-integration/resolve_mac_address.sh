@@ -4,6 +4,8 @@
 
 IP=$1
 
-MAC=$(ping -t 2 $IP > /dev/null; arp $IP | awk '{print $4}' | sed s/://g)
+# skip the ping and see if we can speed it up and still have it working reliably
+#MAC=$(ping -t 2 $IP > /dev/null; arp $IP | awk '{print $4}' | sed s/://g)
+MAC=$(arp $IP | awk '{print $4}' | sed s/://g)
 
 echo $MAC
