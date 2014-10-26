@@ -17,26 +17,34 @@
 					echo exec("/home/pfSensePortal/daloradius-integration/captive-portal-check_device_status.sh " . $ip, $output, $exitCode);
 								
 					echo "</td></tr><tr><td>";
-					if ($exitCode == 0) {
-						// device enabled and no restrictions apply. should not happen as the captive portal should have automattically logged it in before this check
+					switch ($exitCode) {
+						case 0:
+							// device enabled and no restrictions apply. should not happen as the captive portal should have automattically logged it in before this check
+							break;
+						case 1:
+							// not yet registered
+							include '/usr/local/captiveportal/captiveportal-device_registration.html';
+							break;
+						case 2:
+							// device disabled
+							echo "</td><td><p><b>Too many user. Please try again later.</b></p>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
+							break;
+						case 3:
+							// access denied with additional restrictions
+							echo "</td><td><p><b>Your device has used up your available data volume. Either check back tomorrow or next week.</b></p>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
+							break;
+						case 4:
+							// device disabled
+							echo "</td><td><p><b>Your device is disabled. Please see the IT team for further explanation.</b></p>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
+							break;
+						default:
+							// unknown response or server down
+							echo "</td><td><p><b>Network not available. Please see the IT team if this message remains for a few hours.</b></p>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
 					}  
-					if ($exitCode == 1) {
-						// device disabled
-						echo "</td><td><p><b>Your device is disabled. Please see the IT team for further explanation.</b></p>";
-						echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
-					}  
-					if ($exitCode == 2) {
-						// not yet registered
-						include '/usr/local/captiveportal/captiveportal-device_registration.html';
-					}
-					  if ($exitCode == 3) {
-						// access denied with additional restrictions
-						echo "</td><td><p><b>Your device has used up your available data volume. Either check back tomorrow or next week.</b></p>";
-						echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
-						//} else {
-						// unknwon return status
-						//echo "<p>Error in Captive Portal. Please see the IT team.</p>"
-					}
 				?>
 		</td>
 	</tr>

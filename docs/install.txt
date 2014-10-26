@@ -101,5 +101,20 @@ ntop
 
 posibly increase intervall of interim updates from pfSense NAS to radius server: https://redmine.pfsense.org/issues/1492
 
+
+when temporarily deactivating a network interface pfSense needs to be rebooted
+
 daloradius
 reboot after adding new NAS
+	# checking for concurrently active users of same user group / profile
+	# copy/paste into daloradius /etc/freeradius/sites-enabled/default
+	# below the counterChilliSpot entries
+	if ("%{check:Lucent-Max-Shared-Users}") {
+		if("%{check:Lucent-Max-Shared-Users}" <= "%{sql:select count(*) from radacct where acctstoptime is null and username in (select username from radusergroup where groupname in (select groupname from radusergroup where username='%{User-Name}'));}") {
+			update reply {
+				Reply-Message := "Too many users - please try again later (%{sql:select count(*) from radacct where acctstoptime is null and username in (select username from radusergroup where groupname in (select groupname from radusergroup where username='%{User-Name}'))} of %{check:Lucent-Max-Shared-Users})"
+			}
+			reject
+		}
+	}
+run dpkg-reconfigure tzdata from command line as root and set timezone
