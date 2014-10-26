@@ -9,14 +9,6 @@ MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 
 RADTEST=$(radtest $MAC radius $DR_IP 0 radius)
 
-echo $RADTEST | grep "Access-Accept"
-if [ $? -eq 0 ]; then
-  # will not happen for calls from captive portal as this will already send an auth packet before
-  echo "device enabled and active"
-  echo "$MAC $IP - 0 - enabled and active - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
-  exit 0
-fi
-
 echo $RADTEST | grep "Reply-Message"
 CHECK_REPLY=$?
 echo $RADTEST | grep "Access-Reject"
@@ -46,6 +38,14 @@ if [ $? -eq 0 ]; then
   echo "Device permanently disabled."
   echo "$MAC $IP - 4 - Device permanently disabled - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
   exit 4
+fi
+
+echo $RADTEST | grep "Access-Accept"
+if [ $? -eq 0 ]; then
+  # will not happen for calls from captive portal as this will already send an auth packet before
+  echo "device enabled and active"
+  echo "$MAC $IP - 0 - enabled and active - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
+  exit 0
 fi
 
 # unknown response from radcheck - either radius server is down or unknown restrictions active

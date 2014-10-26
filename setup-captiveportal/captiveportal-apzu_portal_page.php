@@ -27,7 +27,7 @@
 							break;
 						case 2:
 							// device disabled
-							echo "</td><td><p><b>Too many user. Please try again later.</b></p>";
+							echo "</td><td><p><b>Too many users. Please try again later.</b></p>";
 							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
 							break;
 						case 3:
