@@ -99,5 +99,7 @@ installing packages
 ntop
 - add firewall rules on wan interface to allow traffic on port 3000
 
+posibly increase intervall of interim updates from pfSense NAS to radius server: https://redmine.pfsense.org/issues/1492
+
 daloradius
 reboot after adding new NAS
