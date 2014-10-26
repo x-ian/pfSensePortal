@@ -9,6 +9,13 @@ MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 
 RADTEST=$(radtest $MAC radius $DR_IP 0 radius)
 
+echo $RADTEST | grep "no response from server"
+if [ $? -eq 0 ]; then
+  echo "RADIUS server offline. Please contact the IT team."
+  echo "$MAC $IP - -1 - RADIUS offline - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
+  exit -1
+fi
+
 echo $RADTEST | grep "Access-Accept"
 if [ $? -eq 0 ]; then
   echo "device enabled and active"
