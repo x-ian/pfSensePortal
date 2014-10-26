@@ -22,7 +22,7 @@
 					}  
 					if ($exitCode == 1) {
 						// device disabled
-						echo "</td><td><p>Your device is disabled. Please see the IT team for further explanation.</p>";
+						echo "</td><td><p><b>Your device is disabled. Please see the IT team for further explanation.</b></p>";
 						echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
 					}  
 					if ($exitCode == 2) {
@@ -31,7 +31,7 @@
 					}
 					  if ($exitCode == 3) {
 						// access denied with additional restrictions
-						echo "</td><td><p>Your device has used up your available data volume. Either check back tomorrow or next week.</p>";
+						echo "</td><td><p><b>Your device has used up your available data volume. Either check back tomorrow or next week.</b></p>";
 						echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
 						//} else {
 						// unknwon return status
