@@ -33,7 +33,7 @@ if [ $? -eq 0 ]; then
   exit 3
 fi
 
-echo $RADTEST | grep "Reply-Message = \"Your device is permanently disabled.\""
+echo $RADTEST | grep "Your device is permanently disabled"
 if [ $? -eq 0 ]; then
   echo "Device permanently disabled."
   echo "$MAC $IP - 4 - Device permanently disabled - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
