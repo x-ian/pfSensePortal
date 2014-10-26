@@ -9,12 +9,12 @@ MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 
 RADTEST=$(radtest $MAC radius $DR_IP 0 radius)
 
-echo $RADTEST | grep "no response from server"
-if [ $? -eq 0 ]; then
-  echo "RADIUS server offline. Please contact the IT team."
-  echo "$MAC $IP - -1 - RADIUS offline - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
-  exit -1
-fi
+#echo $RADTEST | grep "no response from server"
+#if [ $? -eq 0 ]; then
+#  echo "RADIUS server offline. Please contact the IT team."
+#  echo "$MAC $IP - -1 - RADIUS offline - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
+#  exit -1
+#fi
 
 echo $RADTEST | grep "Access-Accept"
 if [ $? -eq 0 ]; then
@@ -36,6 +36,8 @@ if [ $? -eq 1 ]; then
   echo "$MAC $IP - 2 - device not yet registere - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
   exit 2
 fi
+
+# add check for Too many users - please try again later 
 
 echo "Additional restrictions active"
 echo "$MAC $IP - 3 - Additional restrictions active - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
