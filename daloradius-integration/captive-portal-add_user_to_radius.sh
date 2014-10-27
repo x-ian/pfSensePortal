@@ -38,6 +38,8 @@ fi
 
 $BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" "$OWNER" "$GROUP" "$IP" "$DHCPHOSTNAME" "$MAC_VENDOR"
 
+echo "$MAC - $IP - x - newly registered - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
+
 SUBJECT="pfSense: New user: $OWNER $NAME $EMAIL"
 BODY="$OWNER
 $MAC
