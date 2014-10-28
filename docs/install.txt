@@ -56,7 +56,7 @@ Choose file 'setup-captiveportal/captiveportal-apzu_portal_error_page.html' for 
 disable concurrent logins
 add 172.16.1.0 as allowed IP addresses (to bypass captiv portal registration and traffic accounting for local servers)
 add pih.org, email.pih.org, owa.pih.org, exch2007pih.pih.org as allowed hostname
-
+Services - DNS forwarder - add new host override with host = pfsense, domain = apzunet, IP = 172.16.1.8 and description = to make pfsense.apzunet locally available (e.g. required for radcheck)
 
 upload all files from directory pfSensePort/setup-captiveportal/filemanager through captive portal - file manager
 
