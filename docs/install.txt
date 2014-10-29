@@ -63,6 +63,9 @@ upload all files from directory pfSensePort/setup-captiveportal/filemanager thro
 install 'freeradius2' from 'system - packages - available packages'
 stop service freeradius from status - services
 
+change default passwords in Web UI - System - User manager - admin
+
+
 add vlan interfaces to em1 starting from 192.168.11.x upwards
 disable LAN (em1) interface
 configure DHCP server for every VLAN interface
@@ -93,7 +96,7 @@ Add 'Weekly Network Utilization' under Status - Email Reports with settings
 weekly, on Sunday at 23:00
 with RRD Graphs captive portal :: concurrent and a weekly time span and RRD Graph WAN :: Traffic
 
-
+for some installations the local console is not shown - it stops with the 'bootup complete' message, unclear how to solve this: https://forum.pfsense.org/index.php?topic=34814.0. in my case the file /etc/ttys was corrupt and was replaced with a working file from another system. this file is checked in under misc/ttys.example.
 
 installing packages
 ntop

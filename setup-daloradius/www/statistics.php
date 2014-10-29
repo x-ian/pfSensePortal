@@ -57,6 +57,13 @@ mysql_free_result($active_7daysago);
 mysql_free_result($active_30daysago);
 
 
+
+// denied access
+echo "<tr>";
+echo "<td>todo: devices denied access</td>";
+echo "</tr>";
+
+
   // newly registered
   function registered($startday, $endday) {
 	return 'SELECT radusergroup.groupname as groupname, count(distinct(radcheck.username)) as count FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username where creationdate > "' . $startday . '" and creationdate <  date(date_add("' . $endday . '", INTERVAL +1 DAY)) GROUP by groupname;';
@@ -229,11 +236,19 @@ while ($row = mysql_fetch_assoc($result)) {
 }
 echo "</table>";
 */
+/*
+select groupname, 
+  (select value from radgroupcheck r2 where attribute="Lucent-Max-Shared-Users" and r2.groupname = r1.groupname)  "Max Concurrent Users", (select (value/1000000) from radgroupcheck r5 where attribute="CS-Output-Octets-Daily" and r5.groupname = r1.groupname)  "Max Daily Down", (select (value/1000000) from radgroupcheck r6 where attribute="CS-Input-Octets-Daily" and r6.groupname = r1.groupname)  "Max Daily Up", (select (value/1000000) from radgroupcheck r7 where attribute="CS-Output-Octets-Weekly" and r7.groupname = r1.groupname)  "Max Weekly Down", (select (value/1000000) from radgroupcheck r8 where attribute="CS-Input-Octets-Weekly" and r8.groupname = r1.groupname)  "Max Weekly Up" from radgroupcheck r1 group by groupname;
 
+select groupname, 
+  (select value from radgroupreply r3 where attribute='WISPr-Bandwidth-Max-Up' and r3.groupname = r1.groupname)  'Max Bandwidth Up',
+  (select value from radgroupreply r4 where attribute='WISPr-Bandwidth-Max-Down' and r4.groupname = r1.groupname)  'Max Bandwidth Down', 
+  ((select (value/1000000) from radgroupreply r5 where attribute='Session-Timeout' and r5.groupname = r1.groupname) * 1000000 / 3600)  'Session Timeout (h)'
+from radgroupreply r1 group by groupname;
 
+*/
 
-
-$result = mysql_query('select groupname, (select value from radgroupcheck r2 where attribute="Lucent-Max-Shared-Users" and r2.groupname = r1.groupname)  "Max Concurrent Users", (select value from radgroupcheck r3 where attribute="WISPr-Bandwidth-Max-Up" and r3.groupname = r1.groupname)  "Max Bandwidth Up", (select value from radgroupcheck r4 where attribute="WISPr-Bandwidth-Max-Down" and r4.groupname = r1.groupname)  "Max Bandwidth Down", (select (value/1000000) from radgroupcheck r5 where attribute="CS-Output-Octets-Daily" and r5.groupname = r1.groupname)  "Max Daily Down", (select (value/1000000) from radgroupcheck r6 where attribute="CS-Input-Octets-Daily" and r6.groupname = r1.groupname)  "Max Daily Up", (select (value/1000000) from radgroupcheck r7 where attribute="CS-Output-Octets-Weekly" and r7.groupname = r1.groupname)  "Max Weekly Down", (select (value/1000000) from radgroupcheck r8 where attribute="CS-Input-Octets-Weekly" and r8.groupname = r1.groupname)  "Max Weekly Up" from radgroupcheck r1 group by groupname;');
+$result = mysql_query('select groupname, (select value from radgroupcheck r2 where attribute="Lucent-Max-Shared-Users" and r2.groupname = r1.groupname)  "Max Concurrent Users", (select (value/1000000) from radgroupcheck r5 where attribute="CS-Output-Octets-Daily" and r5.groupname = r1.groupname)  "Max Daily Down", (select (value/1000000) from radgroupcheck r6 where attribute="CS-Input-Octets-Daily" and r6.groupname = r1.groupname)  "Max Daily Up", (select (value/1000000) from radgroupcheck r7 where attribute="CS-Output-Octets-Weekly" and r7.groupname = r1.groupname)  "Max Weekly Down", (select (value/1000000) from radgroupcheck r8 where attribute="CS-Input-Octets-Weekly" and r8.groupname = r1.groupname)  "Max Weekly Up" from radgroupcheck r1 group by groupname;');
   
 $group_settings = mysql_fetch_assoc($result);
 echo "<pre>";
