@@ -9,6 +9,7 @@ PRIMARY_DEVICE=$5
 DATE=`date +%Y%m%d-%H%M`
 
 BASEDIR=`dirname $0`
+source $BASEDIR/../config.txt
 
 MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 MAC_FIRST_DIGITS=$(echo $MAC | cut -c 1-6 | awk '{print toupper($0)}')
