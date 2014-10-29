@@ -20,7 +20,7 @@ MAC_VENDOR=$(grep "(base 16)" $BASEDIR/ieee_oui.txt | grep $MAC_FIRST_DIGITS | a
 DHCPHOSTNAME=$($BASEDIR/resolve_hostname.sh $IP)
 
 GROUP=APZUnet-guest
-# auto elevate all @pih.org users
+# auto elevate all @pih.org and partners.org users
 echo $EMAIL | grep "@pih.org"
 if [ $? -eq 0 ]; then
 	GROUP=APZUnet-user
@@ -34,8 +34,12 @@ fi
 #if [ $? -eq 0 ]; then
 #	GROUP=APZUnet-user
 #fi
-# auto elevate all APZU- computers
-echo $DHCPHOSTNAME | grep "apzu-" --ignore-case
+# auto elevate all APZU- and PIH computers
+echo $DHCPHOSTNAME | grep "apzu" --ignore-case
+if [ $? -eq 0 ]; then
+	GROUP=APZUnet-user
+fi
+echo $DHCPHOSTNAME | grep "pih" --ignore-case
 if [ $? -eq 0 ]; then
 	GROUP=APZUnet-user
 fi
