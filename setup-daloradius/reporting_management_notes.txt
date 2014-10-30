@@ -28,7 +28,7 @@ SELECT distinct(radcheck.username),radusergroup.groupname as groupname, userinfo
 # by group
 SELECT radusergroup.groupname, count(distinct(radcheck.username)) FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username where creationdate < date_add(@endday, INTERVAL +1 DAY) GROUP by radusergroup.groupname order by groupname;
 # breakdown
-SELECT distinct(radcheck.username),radusergroup.groupname as groupname, userinfo.lastname, userinfo.email, userinfo.company, userinfo.address, userinfo.city  FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username GROUP by radcheck.Username order by groupname;
+SELECT distinct(radcheck.username),radusergroup.groupname as groupname, userinfo.lastname, userinfo.email, userinfo.company, userinfo.address, userinfo.city, userinfo.creationdate  FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username GROUP by radcheck.Username order by groupname;
 
 
 # devices active in period 
