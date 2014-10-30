@@ -72,3 +72,25 @@
 									</tr>
 								</table>
 							</td>
+
+
+<script type="text/javascript">
+function validateMacAuth() {
+    if(document.getElementById('iagree').checked == false) {
+        alert("Please read and agree to the Acceptable Use Policy!");
+        return false;
+    }
+    document.getElementById('name').value = document.getElementById('name').value.split(' ').join('_');
+    if (document.getElementById('name').value == null || document.getElementById('name').value == "") {
+        alert("Please provide a name!");
+        return false;
+    }
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    var address = document.getElementById('email').value;
+    if(reg.test(address) == false) {
+        alert('Please specify a valid Email Address!');
+        return false;
+    }
+    return true;
+}
+</script>
