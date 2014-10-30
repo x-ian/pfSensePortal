@@ -10,7 +10,7 @@ my $SUBJECT=$ARGV[0];
 my $BODY=$ARGV[1];
 
 my $SENDER='mail@apzu.pih.org';
-my $RECEIVER='cneumann@pih.org';
+my $RECEIVER='apzu-it@apzu.pih.org';
 
 #my $PASSWORD='changeme';
 open FILE, "</home/pfSensePortal/config_gmail.txt";
