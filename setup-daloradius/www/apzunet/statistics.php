@@ -1,7 +1,7 @@
 <span style="font-variant:small-caps; font-size:200%">
 	<p align="center">
-		Usage statistics (only accurate when accounting is active)
-	</p>>
+		Usage Statistics (only accurate when accounting is active)
+	</p>
 	<br/>
 </span>
 
@@ -19,14 +19,18 @@
 	return $result;
   }
   
+  function userdetailslink($mac, $name) {
+	  return '<a href="http://172.16.1.3/daloradius/mng-edit.php?username=' . $mac . '">' . $name . '</a>';
+  }
   
-  $today = '2014-10-29';
-  $yesterday = '2014-10-28';
-  $daysago7 = '2014-10-22';
-  $daysago30 = '2014-9-30';
+//  $today = '2014-10-29';
+$today = date('Y-m-d', strtotime('-0 day'));
+  $yesterday = date('Y-m-d', strtotime('-1 day'));
+  $daysago7 = date('Y-m-d', strtotime('-6 days'));
+  $daysago30 = date('Y-m-d', strtotime('-29 days'));
   
   
-echo "<table><tr><th>User statistics</th><th>Today</th><th>Yesterday</th><th>Last 7 days</th><th>Last 30 days</th></tr>";
+echo "<table><tr><th>User statistics</th><th>Today ($today)</th><th>Yesterday ($yesterday)</th><th>Last 7 days (from $daysago7)</th><th>Last 30 days (from $daysago30)</th></tr>";
   // active
   function active($startday, $endday) {
 	return 'select radusergroup.groupname as groupname, count(distinct(radacct.username)) as count from radacct left join  radusergroup ON radacct.username=radusergroup.username where  ((acctstarttime < date(date_add("' . $endday . '", INTERVAL +1 DAY)) and acctstoptime > "' . $startday . '") or (acctstarttime < date(date_add("' . $endday . '", INTERVAL +1 DAY)) and acctstoptime is null)) group by groupname;';
@@ -147,34 +151,67 @@ mysql_free_result($ever_30daysago);
   
   // download
   function top_download($startday, $endday, $topX) {
-return 'SELECT distinct(radacct.UserName) as username, radusergroup.groupname as groupname, userinfo.lastname as name, userinfo.email as email, userinfo.company as company, userinfo.address as address, userinfo.city as city, (sum(radacct.AcctOutputOctets)/1000000) as download FROM radacct     LEFT JOIN radusergroup ON radacct.username=radusergroup.username LEFT JOIN userinfo ON radacct.username=userinfo.username    WHERE (AcctStopTime > "0000-00-00 00:00:01" AND AcctStartTime>"' . $startday . '" AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) OR ((radacct.AcctStopTime IS NULL OR radacct.AcctStopTime = "0000-00-00 00:00:00") AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) group by UserName order by download desc limit ' . $topX . ';';  
+return 'SELECT distinct(radacct.UserName) as username, radusergroup.groupname as groupname, userinfo.lastname as name, userinfo.email as email, userinfo.company as company, userinfo.address as address, userinfo.city as city, ROUND((sum(radacct.AcctOutputOctets)/1000000)) as download FROM radacct     LEFT JOIN radusergroup ON radacct.username=radusergroup.username LEFT JOIN userinfo ON radacct.username=userinfo.username    WHERE (AcctStopTime > "0000-00-00 00:00:01" AND AcctStartTime>"' . $startday . '" AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) OR ((radacct.AcctStopTime IS NULL OR radacct.AcctStopTime = "0000-00-00 00:00:00") AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) group by UserName order by download desc limit ' . $topX . ';';  
   }
-$down_today = query(top_download($today, $today, 5));
-$down_yesterday = query(top_download($yesterday, $yesterday, 5));
-$down_last7days = query(top_download($daysago7, $today, 5));
-$down_last30days = query(top_download($daysago30, $today, 5));
+$down_today = query(top_download($today, $today, 10));
+$down_yesterday = query(top_download($yesterday, $yesterday, 10));
+$down_last7days = query(top_download($daysago7, $today, 10));
+$down_last30days = query(top_download($daysago30, $today, 10));
+
+  function total_download($startday, $endday) {
+return 'SELECT ROUND((sum(radacct.AcctOutputOctets)/1000000)) as download FROM radacct WHERE (AcctStopTime > "0000-00-00 00:00:01" AND AcctStartTime>"' . $startday . '" AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) OR ((radacct.AcctStopTime IS NULL OR radacct.AcctStopTime = "0000-00-00 00:00:00") AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) ;';  
+  }
+$down_total_today = query(total_download($today, $today));
+$down_total_yesterday = query(total_download($yesterday, $yesterday));
+$down_total_last7days = query(total_download($daysago7, $today));
+$down_total_last30days = query(total_download($daysago30, $today));
 echo "<table><tr><th>Download (MB)</th><th>Today</th><th>Yesterday</th><th>Last 7 days</th><th>Last 30 days</th></tr>";
-for ($i=1; $i<=5; $i++) {
+echo '<tr><td>Total</td><td>';
+if ($row = mysql_fetch_assoc($down_total_today)) {
+	echo $row['download'];
+}	
+echo '</td>';
+echo '<td>';
+if ($row = mysql_fetch_assoc($down_total_yesterday)) {
+	echo $row['download'];
+}	
+echo '</td>';
+echo '<td>';
+if ($row = mysql_fetch_assoc($down_total_last7days)) {
+	echo $row['download'];
+}	
+echo '</td>';
+echo '<td>';
+if ($row = mysql_fetch_assoc($down_total_last30days)) {
+	echo $row['download'];
+}	
+echo '</td></tr>';
+mysql_free_result($down_total_today);
+mysql_free_result($down_total_yesterday);
+mysql_free_result($down_total_last7days);
+mysql_free_result($down_total_last30days);
+
+for ($i=1; $i<=10; $i++) {
 	echo "<tr>";
 	echo "<td>Top #" . $i . "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($down_today)) {
-	    echo $row['download'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['download'] . " (" . userdetailslink($row['username'], $row['name']). " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($down_yesterday)) {
-	    echo $row['download'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['download'] . " (" . userdetailslink($row['username'], $row['name']) . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($down_last7days)) {
-	    echo $row['download'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['download'] . " (" . userdetailslink($row['username'], $row['name']) . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($down_last30days)) {
-	    echo $row['download'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['download'] . " (" . userdetailslink($row['username'], $row['name']) . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "</tr>";
@@ -188,34 +225,67 @@ mysql_free_result($down_last30days);
 
 // upload
   function top_upload($startday, $endday, $topX) {
-return 'SELECT distinct(radacct.UserName) as username, radusergroup.groupname as groupname, userinfo.lastname as name, userinfo.email as email, userinfo.company as company, userinfo.address as address, userinfo.city as city, (sum(radacct.AcctInputOctets)/1000000) as upload FROM radacct     LEFT JOIN radusergroup ON radacct.username=radusergroup.username LEFT JOIN userinfo ON radacct.username=userinfo.username    WHERE (AcctStopTime > "0000-00-00 00:00:01" AND AcctStartTime>"' . $startday . '" AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) OR ((radacct.AcctStopTime IS NULL OR radacct.AcctStopTime = "0000-00-00 00:00:00") AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) group by UserName order by upload desc limit ' . $topX . ';';  
+return 'SELECT distinct(radacct.UserName) as username, radusergroup.groupname as groupname, userinfo.lastname as name, userinfo.email as email, userinfo.company as company, userinfo.address as address, userinfo.city as city, ROUND((sum(radacct.AcctInputOctets)/1000000)) as upload FROM radacct     LEFT JOIN radusergroup ON radacct.username=radusergroup.username LEFT JOIN userinfo ON radacct.username=userinfo.username    WHERE (AcctStopTime > "0000-00-00 00:00:01" AND AcctStartTime>"' . $startday . '" AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) OR ((radacct.AcctStopTime IS NULL OR radacct.AcctStopTime = "0000-00-00 00:00:00") AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) group by UserName order by upload desc limit ' . $topX . ';';  
   }
-$up_today = query(top_upload($today, $today, 5));
-$up_yesterday = query(top_upload($yesterday, $yesterday, 5));
-$up_last7days = query(top_upload($daysago7, $today, 5));
-$up_last30days = query(top_upload($daysago30, $today, 5));
+$up_today = query(top_upload($today, $today, 10));
+$up_yesterday = query(top_upload($yesterday, $yesterday, 10));
+$up_last7days = query(top_upload($daysago7, $today, 10));
+$up_last30days = query(top_upload($daysago30, $today, 10));
 echo "<table><tr><th>Upload (MB)</th><th>Today</th><th>Yesterday</th><th>Last 7 days</th><th>Last 30 days</th></tr>";
-for ($i=1; $i<=5; $i++) {
+
+  function total_upload($startday, $endday) {
+return 'SELECT ROUND((sum(radacct.AcctInputOctets)/1000000)) as upload FROM radacct WHERE (AcctStopTime > "0000-00-00 00:00:01" AND AcctStartTime>"' . $startday . '" AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) OR ((radacct.AcctStopTime IS NULL OR radacct.AcctStopTime = "0000-00-00 00:00:00") AND AcctStartTime<date(date_add("' . $endday . '", INTERVAL +1 DAY))) ;';  
+  }
+$up_total_today = query(total_upload($today, $today));
+$up_total_yesterday = query(total_upload($yesterday, $yesterday));
+$up_total_last7days = query(total_upload($daysago7, $today));
+$up_total_last30days = query(total_upload($daysago30, $today));
+echo '<tr><td>Total</td><td>';
+if ($row = mysql_fetch_assoc($up_total_today)) {
+	echo $row['upload'];
+}	
+echo '</td>';
+echo '<td>';
+if ($row = mysql_fetch_assoc($up_total_yesterday)) {
+	echo $row['upload'];
+}	
+echo '</td>';
+echo '<td>';
+if ($row = mysql_fetch_assoc($up_total_last7days)) {
+	echo $row['upload'];
+}	
+echo '</td>';
+echo '<td>';
+if ($row = mysql_fetch_assoc($up_total_last30days)) {
+	echo $row['upload'];
+}	
+echo '</td></tr>';
+mysql_free_result($up_total_today);
+mysql_free_result($up_total_yesterday);
+mysql_free_result($up_total_last7days);
+mysql_free_result($up_total_last30days);
+
+for ($i=1; $i<=10; $i++) {
 	echo "<tr>";
 	echo "<td>Top #" . $i . "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($up_today)) {
-	    echo $row['upload'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['upload'] . " (" . userdetailslink($row['username'], $row['name']). " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($up_yesterday)) {
-	    echo $row['upload'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['upload'] . " (" . userdetailslink($row['username'], $row['name']) . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($up_last7days)) {
-	    echo $row['upload'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['upload'] . " (" . userdetailslink($row['username'], $row['name']) . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "<td>";
 	if ($row = mysql_fetch_assoc($up_last30days)) {
-	    echo $row['upload'] . " (" . $row['name'] . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
+	    echo $row['upload'] . " (" . userdetailslink($row['username'], $row['name']) . " " . $row['email'] . " " . $row['username'] . " " . $row['groupname'] . " " . $row['company'] . " " . $row['address'] . " " . $row['city'] . ")";
 	}
 	echo "</td>";
 	echo "</tr>";
