@@ -12,13 +12,15 @@ wget -qO/dev/null --keep-session-cookies --save-cookies cookies.txt \
  --post-data "login=Login&usernamefld=`echo $USER`&passwordfld=`echo $PASSWD`" \
  --no-check-certificate https://$PF_IP/diag_backup.php
 
-ssh root@172.16.1.3 'mysql --silent -u radius -pradius radius -e "select username from radacct WHERE (radacct.AcctStopTime IS NULL);"' > /tmp/active_users.txt
-cat /tmp/active_users.txt | while read -r line
-do 
-echo $line
+wget --keep-session-cookies --load-cookies cookies.txt --no-check-certificate --output-document=all.html \
+  "https://$PF_IP/status_captiveportal.php?zone=apzunet&order=&showact=&act=del&id=4c72b958c5d2dee1"
+
+cat all.html | grep '<a href="?zone=apzunet&order=&showact=&act=del&id' | cut -c11-67 | while read -r url
+do
+  wget --keep-session-cookies --load-cookies cookies.txt --no-check-certificate  --output-document=all2.html \
+    "https://$PF_IP/status_captiveportal.php$url"
 done
 
-# get the stuff
-#wget --keep-session-cookies --load-cookies cookies.txt --no-check-certificate \
- #https://$PF_IP/status_captiveportal.php?zone=apzunet&order=&showact=&act=del&id=6894230f2e07
- 
+rm all.html
+rm all2.html
+rm cookies.txt
