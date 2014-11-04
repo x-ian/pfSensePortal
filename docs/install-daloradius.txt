@@ -43,6 +43,7 @@ Modify /etc/freeradius/sites-enabled/default as follows:
 		}
 	}
 
+Copy all files from setup-daloradius/www/apzunet to daloradius system under /var/www/apzunet
 
 Additional information & usage notes
 ------------------------------------
