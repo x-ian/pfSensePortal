@@ -13,7 +13,7 @@ source $BASEDIR/config.txt
 # disable accounting
 tee disable.pfSsh <<EOF
 parse_config(true);
-\$config[\'captiveportal\'][\'$ZONE\'][\'radacct_enable\'] = true;
+\$config["captiveportal"]["$ZONE"]["radacct_enable"] = true;
 write_config();
 exec
 exit

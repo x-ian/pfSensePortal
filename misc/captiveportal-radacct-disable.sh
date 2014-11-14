@@ -13,13 +13,13 @@ source $BASEDIR/config.txt
 # disable accounting
 tee disable.pfSsh <<EOF
 parse_config(true);
-unset(\$config[\'captiveportal\'][\'$ZONE\'][\'radacct_enable\']);
+unset(\$config["captiveportal"]["$ZONE"]["radacct_enable"]);
 write_config();
 exec
 exit
 EOF
 
 /usr/local/sbin/pfSsh.php < disable.pfSsh
-#rm disable.pfSsh
+rm disable.pfSsh
 
 $BASEDIR/misc/captiveportal-disconnect-all-users.sh
