@@ -1,13 +1,15 @@
 #!/usr/local/bin/bash
 
 # ntop
-USER=admin
-PASSWD=admin
+NTOP_USER=admin
+NTOP_PASSWD=admin
 
 # pfSense
 PF_IP=172.16.1.8
+PF_SERVER=http://172.16.1.8/
 USER=root
 PASSWD=pfsense
+ZONE=everything
 
 # DALORADIUS 
 DR_IP=192.168.1.36
