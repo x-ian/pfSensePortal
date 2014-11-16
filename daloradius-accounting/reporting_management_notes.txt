@@ -1,0 +1,137 @@
+DROP TABLE `daily_accounting`;
+CREATE TABLE `daily_accounting` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `day` date NOT NULL,
+  `day_beg` datetime,
+  `inputoctets_day_beg` bigint(20) DEFAULT 0,
+  `outputoctets_day_beg` bigint(20) DEFAULT 0,
+  `work_beg` datetime,
+  `inputoctets_work_beg` bigint(20) DEFAULT 0,
+  `outputoctets_work_beg` bigint(20) DEFAULT 0,
+  `work_end` datetime,
+  `inputoctets_work_end` bigint(20) DEFAULT 0,
+  `outputoctets_work_end` bigint(20) DEFAULT 0,
+  `day_end` datetime,
+  `inputoctets_day_end` bigint(20) DEFAULT 0,
+  `outputoctets_day_end` bigint(20) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE `unique` (`username`, `day`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+set @today = date_format(now(), '%Y-%m-%d');
+
+-- beginning of day
+-- make sure all sessions are ended at midnight
+INSERT INTO daily_accounting (username, day, day_beg, inputoctets_day_beg, outputoctets_day_beg)
+  SELECT DISTINCT(radacct.username), @today, SUM(radacct.acctinputoctets), SUM(radacct.acctoutputoctets)
+  FROM radacct WHERE acctstarttime > @today GROUP BY username
+ON DUPLICATE KEY UPDATE username=VALUES(username), day=VALUES(day), inputoctets_day_beg=VALUES(inputoctets_day_beg), outputoctets_day_beg=VALUES(outputoctets_day_beg);
+  
+-- beginning of working hours
+INSERT INTO daily_accounting (username, day, inputoctets_work_beg, outputoctets_work_beg)
+  SELECT DISTINCT(radacct.username), @today, SUM(radacct.acctinputoctets), SUM(radacct.acctoutputoctets)
+  FROM radacct WHERE acctstarttime > @today GROUP BY username
+ON DUPLICATE KEY UPDATE username=VALUES(username), day=VALUES(day), inputoctets_work_beg=VALUES(inputoctets_work_beg), outputoctets_work_beg=VALUES(outputoctets_work_beg);
+  
+-- end of working hours
+INSERT INTO daily_accounting (username, day, inputoctets_work_end, outputoctets_work_end)
+  SELECT DISTINCT(radacct.username), @today, SUM(radacct.acctinputoctets), SUM(radacct.acctoutputoctets)
+  FROM radacct WHERE acctstarttime > @today GROUP BY username
+ON DUPLICATE KEY UPDATE username=VALUES(username), day=VALUES(day), inputoctets_work_end=VALUES(inputoctets_work_end), outputoctets_work_end=VALUES(outputoctets_work_end);
+  
+-- end of day
+INSERT INTO daily_accounting (username, day, inputoctets_day_end, outputoctets_day_end)
+  SELECT DISTINCT(radacct.username), @today, SUM(radacct.acctinputoctets), SUM(radacct.acctoutputoctets)
+  FROM radacct WHERE acctstarttime > @today GROUP BY username
+ON DUPLICATE KEY UPDATE username=VALUES(username), day=VALUES(day), inputoctets_day_end=VALUES(inputoctets_day_end), outputoctets_day_end=VALUES(outputoctets_day_end);
+  
+  
+  
+
+
+
+conditional accounting
+enabling/disabling captive portal accounting together with kicking out all sessions seems to do the trick. it however terminates all active sessions and connections. in case someone would like to work around this, these are potential places to look at
+https://doc.pfsense.org/index.php/Captive_Portal_Troubleshooting
+https://github.com/pfsense/pfsense/blob/27c2e32e28f871adf036b666e8e3ae1bf54ea7a2/etc/inc/captiveportal.inc
+https://github.com/pfsense/pfsense/blob/9775c69d65dd629f29bf3daa0b1efa277719f0d0/usr/local/captiveportal/radius_accounting.inc
+https://github.com/pfsense/pfsense/search?utf8=%E2%9C%93&q=pfSense_ipfw_getTablestats
+
+
+another attempt to externaize accounting out of radius
+http://www.netexpertise.eu/en/freeradius/daily-accounting.html
+
+
+hook from radius to terminate NAS sessions
+http://osdir.com/ml/freeradius.devel/2007-01/msg00070.html
+http://stackoverflow.com/questions/9542268/freeradius-and-php-auth-script
+http://freeradius.1045715.n5.nabble.com/custom-script-for-access-td2788275.html
+
+
+
+# snipplets for reporting and statistics
+
+# get number of unique devices being blocked because of data volume limit
+grep "\- 3 \-" /tmp/check_device_status.log | awk -F'-' '{print $1}' | sort -u
+
+# get number of unique device newly being registered
+grep "\- x \-" /tmp/check_device_status.log | awk -F'-' '{print $1}' | sort -u
+
+
+reset volume counter for a system
+big TODO: only reset todays counter
+disconnect pfsense sessions
+select * from radacct where username = '74e543363a76';
+update radacct set acctinputoctets = 0 where username = '74e543363a76';
+update radacct set acctoutputoctets = 0 where username = 'c417fe96167d';
+
+
+# devices registered in period
+set @startday = '2014-10-24';
+set @endday = '2014-10-27'; # including
+# by group
+SELECT radusergroup.groupname, count(distinct(radcheck.username)) FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username where creationdate > @startday and creationdate <  date(date_add(@endday, INTERVAL +1 DAY)) GROUP by radusergroup.groupname;
+# breakdown
+SELECT distinct(radcheck.username),radusergroup.groupname as groupname, userinfo.lastname, userinfo.email, userinfo.company, userinfo.address, userinfo.city  FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username where creationdate > @startday and creationdate <  date(date_add(@endday, INTERVAL +1 DAY)) GROUP by radcheck.Username order by groupname;
+
+
+# devices ever registered
+# by group
+SELECT radusergroup.groupname, count(distinct(radcheck.username)) FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username where creationdate < date_add(@endday, INTERVAL +1 DAY) GROUP by radusergroup.groupname order by groupname;
+# breakdown
+SELECT distinct(radcheck.username),radusergroup.groupname as groupname, userinfo.lastname, userinfo.email, userinfo.company, userinfo.address, userinfo.city, userinfo.creationdate  FROM radcheck LEFT JOIN radusergroup ON radcheck.username=radusergroup.username LEFT JOIN userinfo ON radcheck.username=userinfo.username GROUP by radcheck.Username order by groupname;
+
+
+# devices active in period 
+set @startday = '2014-10-26';
+set @endday = '2014-10-27'; # including
+# by group
+select radusergroup.groupname, count(distinct(radacct.username)) from radacct left join  radusergroup ON radacct.username=radusergroup.username where  ((acctstarttime < date(date_add(@endday, INTERVAL +1 DAY)) and acctstoptime > @startday) or (acctstarttime < date(date_add(@endday, INTERVAL +1 DAY)) and acctstoptime is null)) group by groupname;
+# breakdown
+select (distinct(username)), groupname from radacct where  ((acctstarttime < date(date_add(@endday, INTERVAL +1 DAY)) and acctstoptime > @startday) or (acctstarttime < date(date_add(@endday, INTERVAL +1 DAY)) and acctstoptime is null)) group by groupname;
+
+
+# attributes per group
+select groupname, attribute, value from radgroupcheck order by groupname;
+
+select groupname, 
+  (select value from radgroupcheck r2 where attribute='Lucent-Max-Shared-Users' and r2.groupname = r1.groupname)  'Max Concurrent Users', 
+  (select (value/1000000) from radgroupcheck r5 where attribute='CS-Output-Octets-Daily' and r5.groupname = r1.groupname)  'Max Daily Down', 
+  (select (value/1000000) from radgroupcheck r6 where attribute='CS-Input-Octets-Daily' and r6.groupname = r1.groupname)  'Max Daily Up', 
+  (select (value/1000000) from radgroupcheck r7 where attribute='CS-Output-Octets-Weekly' and r7.groupname = r1.groupname)  'Max Weekly Down',
+  (select (value/1000000) from radgroupcheck r8 where attribute='CS-Input-Octets-Weekly' and r8.groupname = r1.groupname)  'Max Weekly Up'
+from radgroupcheck r1 group by groupname;
+
+select groupname, 
+  (select value from radgroupreply r3 where attribute='WISPr-Bandwidth-Max-Up' and r3.groupname = r1.groupname)  'Max Bandwidth Up',
+  (select value from radgroupreply r4 where attribute='WISPr-Bandwidth-Max-Down' and r4.groupname = r1.groupname)  'Max Bandwidth Down', 
+  ((select (value/1000000) from radgroupreply r5 where attribute='Session-Timeout' and r5.groupname = r1.groupname) * 1000000 / 3600)  'Session Timeout (h)'
+from radgroupreply r1 group by groupname;
+
+
+# top users
+set @startday = '2014-10-28';
+set @endday = '2014-10-28'; # including
+SELECT distinct(radacct.UserName), radusergroup.groupname, userinfo.lastname, userinfo.email, userinfo.company, userinfo.address, userinfo.city, (sum(radacct.AcctOutputOctets)/1000000) as Download FROM radacct     LEFT JOIN radusergroup ON radacct.username=radusergroup.username LEFT JOIN userinfo ON radacct.username=userinfo.username    WHERE (AcctStopTime > '0000-00-00 00:00:01' AND AcctStartTime>@startday AND AcctStartTime<date(date_add(@endday, INTERVAL +1 DAY))) OR ((radacct.AcctStopTime IS NULL OR radacct.AcctStopTime = '0000-00-00 00:00:00') AND AcctStartTime<date(date_add(@endday, INTERVAL +1 DAY))) group by UserName order by download desc limit 5;
