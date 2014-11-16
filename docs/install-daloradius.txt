@@ -24,9 +24,9 @@ Create user groups as required APZUnet-users, -guests, -leadership, -temp-unrest
 
 Create a NAS with the IP of pfSense (requires a reboot afterwards)
 
-SSH into the system and run 'dpkg-reconfigure tzdata' from command line as root and set timezone
+SSH into the system and run 'dpkg-reconfigure tzdata' from command line as root and set phone
 
-Set timezone for PHP to date.timezone = 'Africa/Blantyre' in /etc/php5/apache2/php.ini
+Set timezone for PHP to date.timezone = 'Africa/Blantyre' (or 'Europe/Berlin') in /etc/php5/apache2/php.ini
 
 Deactivate /etc/cron.d/cron-apt in cron (to avoid system load while checking for updates)
 
@@ -50,7 +50,7 @@ Additional information & usage notes
 
 Mapping of APZUnet attributes to daloRADIUS user attributes (APZUnet attribute : daloRADIUS attribute)
 mac: username
-name: lastname
+name: lastnames
 email: email
 primary device: mobile phone
 initial_ip: state

@@ -20,6 +20,25 @@ CREATE TABLE `daily_accounting` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
+crontab 
+5 0 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
+0 7 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
+*/10 7-19 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
+50 23 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
+
+
+
+select username, day, 
+  ROUND((inputoctets_day_end - inputoctets_day_beg) / 1000000) as total_input, 
+  ROUND((outputoctets_day_end - outputoctets_day_beg) / 1000000) as total_output, 
+  ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) as work_input, 
+  ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) as work_output, 
+  ROUND((inputoctets_work_beg - inputoctets_day_beg + inputoctets_day_end - inputoctets_work_end) / 1000000) as non_work_input, 
+  ROUND((outputoctets_work_beg - outputoctets_day_beg + outputoctets_day_end - outputoctets_work_end) / 1000000) as non_work_output
+from daily_accounting where username like '%' group by username, day;
+
+
+
 set @today = date_format(now(), '%Y-%m-%d');
 
 -- beginning of day
