@@ -7,7 +7,7 @@ NTOP_PASSWD=admin
 # pfSense
 PF_IP=172.16.1.8
 PF_SERVER=http://172.16.1.8/
-USER=root
+USER=admin
 PASSWD=pfsense
 ZONE=everything
 
@@ -17,3 +17,5 @@ DR_SERVER=http://192.168.1.36/
 DR_HTTP_USER_PASSWD=admin:admin
 DR_USER=administrator
 DR_PASSWD=radius
+DR_MYSQL_USER=radius
+DR_MYSQL_PASSWD=radius
