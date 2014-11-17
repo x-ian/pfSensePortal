@@ -21,15 +21,15 @@ MAC_VENDOR=$(grep "(base 16)" $BASEDIR/ieee_oui.txt | grep $MAC_FIRST_DIGITS | a
 #NETBIOS=$($BASEDIR/resolve_netbios_name.sh $IP)
 DHCPHOSTNAME=$($BASEDIR/resolve_hostname.sh $IP)
 
-GROUP=APZUnet-guest
+GROUP=Guests
 # auto elevate all @pih.org and partners.org users
 echo $EMAIL | grep "@pih.org"
 if [ $? -eq 0 ]; then
-	GROUP=APZUnet-user
+	GROUP=Users
 fi
 echo $EMAIL | grep "@partners.org"
 if [ $? -eq 0 ]; then
-	GROUP=APZUnet-user
+	GROUP=Users
 fi
 # auto elevate all APZU users
 #echo $OWNER | grep "apzu"
@@ -39,11 +39,11 @@ fi
 # auto elevate all APZU- and PIH computers
 echo $DHCPHOSTNAME | grep "apzu" --ignore-case
 if [ $? -eq 0 ]; then
-	GROUP=APZUnet-user
+	GROUP=Users
 fi
 echo $DHCPHOSTNAME | grep "pih" --ignore-case
 if [ $? -eq 0 ]; then
-	GROUP=APZUnet-user
+	GROUP=Users
 fi
 
 $BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" "$OWNER" "$GROUP" "$IP" "$DHCPHOSTNAME" "$MAC_VENDOR" "$PRIMARY_DEVICE"
