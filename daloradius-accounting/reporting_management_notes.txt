@@ -27,6 +27,15 @@ crontab
 50 23 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
 
 
+ATTRIBUTE xian-Input-Octets-Daily-Work-Hours 1 integer
+
+
+select IFNULL((select ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d')), '0');
+
+select ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) as work_output
+from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d');
+
+
 
 select username, day, 
   ROUND((inputoctets_day_end - inputoctets_day_beg) / 1000000) as total_input, 
@@ -36,6 +45,7 @@ select username, day,
   ROUND((inputoctets_work_beg - inputoctets_day_beg + inputoctets_day_end - inputoctets_work_end) / 1000000) as non_work_input, 
   ROUND((outputoctets_work_beg - outputoctets_day_beg + outputoctets_day_end - outputoctets_work_end) / 1000000) as non_work_output
 from daily_accounting where username like '%' group by username, day;
+
 
 
 
