@@ -10,6 +10,9 @@ BASEDIR=.. #/home/pfSensePortal
 # get pfSense login details
 source $BASEDIR/config.txt
 
+# disconnect users while radacct is still enable to ensure accounting stop packets are sent
+$BASEDIR/misc/captiveportal-disconnect-all-users.sh
+
 # disable accounting
 tee disable.pfSsh <<EOF
 parse_config(true);
@@ -22,4 +25,5 @@ EOF
 /usr/local/sbin/pfSsh.php < disable.pfSsh
 rm disable.pfSsh
 
+# make sure really all users are disconnected and no one 'sneaked in' 
 $BASEDIR/misc/captiveportal-disconnect-all-users.sh

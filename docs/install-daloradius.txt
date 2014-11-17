@@ -24,9 +24,9 @@ Create user groups as required APZUnet-users, -guests, -leadership, -temp-unrest
 
 Create a NAS with the IP of pfSense (requires a reboot afterwards)
 
-SSH into the system and run 'dpkg-reconfigure tzdata' from command line as root and set timezone
+SSH into the system and run 'dpkg-reconfigure tzdata' from command line as root and set phone
 
-Set timezone for PHP to date.timezone = 'Africa/Blantyre' in /etc/php5/apache2/php.ini
+Set timezone for PHP to date.timezone = 'Africa/Blantyre' (or 'Europe/Berlin') in /etc/php5/apache2/php.ini
 
 Deactivate /etc/cron.d/cron-apt in cron (to avoid system load while checking for updates)
 
@@ -45,12 +45,46 @@ Modify /etc/freeradius/sites-enabled/default as follows:
 
 Copy all files from setup-daloradius/www/apzunet to daloradius system under /var/www/apzunet
 
+Add lines to /etc/freeradius/dictionary
+ATTRIBUTE       xian-Input-Megabytes-Daily-Work-Hours   3000    integer
+ATTRIBUTE       xian-Output-Megabytes-Daily-Work-Hours  3001    integer
+
+Add additional attributes via Management - Attributes - New Vendor Attribute
+xian
+xian-Input-Megabytes-Daily-Work-Hours and xian-Output-Megabytes-Daily-Work-Hours
+integer
+:=
+check
+
+add to /etc/freeradius/sites-enabled/default in authroize section
+
+	# check for daily volume restrictions during business hours
+	if ("%{check:xian-Output-Megabytes-Daily-Work-Hours}") {
+		if ("%{check:xian-Output-Megabytes-Daily-Work-Hours}" < "%{sql:select IFNULL((select ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d')), '0')}") {
+			update reply {
+				Reply-Message := "Data bundle during business hours exceed. Used (download/upload): %{sql:select IFNULL((select ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d')), '0')}/%{sql:select IFNULL((select ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d')), '0')} MB - Granted (download/upload): %{check:xian-Output-Megabytes-Daily-Work-Hours}/%{check:xian-Input-Megabytes-Daily-Work-Hours} MB"
+			}
+			reject
+		}	
+	}
+
+	# check for daily volume restrictions during business hours
+	if ("%{check:xian-Input-Megabytes-Daily-Work-Hours}") {
+		if ("%{check:xian-Input-Megabytes-Daily-Work-Hours}" < "%{sql:select IFNULL((select ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d')), '0')}") {
+			update reply {
+				Reply-Message := "Data bundle during business hours exceed. Used (download/upload): %{sql:select IFNULL((select ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d')), '0')}/%{sql:select IFNULL((select ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) from daily_accounting where username like '%{SQL-User-Name}' and day = date_format(now(), '%Y-%m-%d')), '0')} MB - Granted (download/upload): %{check:xian-Output-Megabytes-Daily-Work-Hours}/%{check:xian-Input-Megabytes-Daily-Work-Hours} MB"
+			}
+			reject
+		}	
+	}
+
+
 Additional information & usage notes
 ------------------------------------
 
 Mapping of APZUnet attributes to daloRADIUS user attributes (APZUnet attribute : daloRADIUS attribute)
 mac: username
-name: lastname
+name: lastnames
 email: email
 primary device: mobile phone
 initial_ip: state

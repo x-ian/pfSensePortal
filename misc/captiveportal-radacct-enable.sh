@@ -10,8 +10,8 @@ BASEDIR=.. #/home/pfSensePortal
 # get pfSense login details
 source $BASEDIR/config.txt
 
-# disable accounting
-tee disable.pfSsh <<EOF
+# enable accounting
+tee enable.pfSsh <<EOF
 parse_config(true);
 \$config["captiveportal"]["$ZONE"]["radacct_enable"] = true;
 write_config();
@@ -20,6 +20,6 @@ exit
 EOF
 
 /usr/local/sbin/pfSsh.php < disable.pfSsh
-#rm disable.pfSsh
+rm enable.pfSsh
 
 $BASEDIR/misc/captiveportal-disconnect-all-users.sh
