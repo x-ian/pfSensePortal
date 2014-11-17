@@ -18,14 +18,15 @@ wget --keep-session-cookies --load-cookies cookies.txt --no-check-certificate --
   "$PF_SERVER/status_captiveportal.php?zone=$ZONE&order=&showact=&act=del&id=4c72b958c5d2dee1"
 
 # loop over users and terminate all sessions
+# should only be one, but I cloned the disconnect-all-users script
 cat all.html | grep -A3 `echo $MAC` | tail -1  | cut -d "\"" -f2 | while read -r url
 do
   wget --keep-session-cookies --load-cookies cookies.txt --no-check-certificate  --output-document=all2.html \
     "$PF_SERVER/status_captiveportal.php$url"
 done
 
-#rm all.html
-#rm all2.html
-#rm cookies.txt
+rm all.html
+rm all2.html
+rm cookies.txt
 
 
