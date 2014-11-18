@@ -1,6 +1,8 @@
+<?php $username = $_GET['username']; ?>
+
 <span style="font-variant:small-caps; font-size:200%">
 	<p align="center">
-		Data volume for registered device <?php echo date('Y-m-d H:i:s'); ?>
+		Data volume for device <?php echo $username . ' at ' . date('Y-m-d H:i:s')?>
 	</p>
 	<br/>
 </span>
@@ -27,14 +29,10 @@
 echo "<table><tr><th/><th>Business down</th><th>Business up</th><th>Non-Business down</th><th>Non-Business up</th><th>Total down</th><th>Total up</th></tr>";
 
   function user($username, $start) {
-return 'select username, day, ROUND((inputoctets_day_end - inputoctets_day_beg) / 1000000) as total_input, ROUND((outputoctets_day_end - outputoctets_day_beg) / 1000000) as total_output, ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) as work_input, ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) as work_output, ROUND((inputoctets_work_beg - inputoctets_day_beg + inputoctets_day_end - inputoctets_work_end) / 1000000) as non_work_input, ROUND((outputoctets_work_beg - outputoctets_day_beg + outputoctets_day_end - outputoctets_work_end) / 1000000) as non_work_output from daily_accounting where username = "' . $username . '" and day > "' . $start . '" group by username, day order by day desc;';  
+return 'select username, day, ROUND((IF(inputoctets_day_end = 0, inputoctets_work_end, inputoctets_day_end) - inputoctets_day_beg) / 1000000) as total_input, ROUND((IF(outputoctets_day_end = 0, outputoctets_work_end, outputoctets_day_end) - outputoctets_day_beg) / 1000000) as total_output, ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) as work_input, ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) as work_output, ROUND((inputoctets_work_beg - inputoctets_day_beg + IF(inputoctets_day_end = 0, 0, inputoctets_day_end - inputoctets_work_end)) / 1000000) as non_work_input, ROUND((outputoctets_work_beg - outputoctets_day_beg + IF(outputoctets_day_end = 0, 0, outputoctets_day_end - outputoctets_work_end)) / 1000000) as non_work_output from daily_accounting where username = "' . $username . '" and day > "' . $start . '" group by username, day order by day desc;';  
   }
-  
-  $username = '080027d7d7e9';
-  
-  $username = $_GET['username'];
-  
-$all_traffic = query(user($username, $daysago7));
+    
+$all_traffic = query(user($username, $daysago30));
 while ($row = mysql_fetch_assoc($all_traffic)) {
 	echo "<tr>";
 	echo '<td>' . $row['day'] . '</td>';
@@ -47,5 +45,7 @@ while ($row = mysql_fetch_assoc($all_traffic)) {
 	echo "</tr>";
 }
 mysql_free_result($all_traffic);
-
 ?>
+</table>
+
+<p>(Values for today only accurate after begin of working hours.)</p>

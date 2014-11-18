@@ -21,10 +21,10 @@ CREATE TABLE `daily_accounting` (
 
 
 crontab 
-5 0 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
-0 7 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
-1,9,19,29,39,49,59 7-18 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
-0,10,20,30,40,50 19-23 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
+5 0 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
+0 7 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
+1,9,19,29,39,49,59 7-17 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
+0,10,20,30,40,50,59 18-23 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
 
 
 ATTRIBUTE xian-Input-Octets-Daily-Work-Hours 1 integer
@@ -38,14 +38,25 @@ from daily_accounting where username like '%{SQL-User-Name}' and day = date_form
 
 
 select username, day, 
-  ROUND((inputoctets_day_end - inputoctets_day_beg) / 1000000) as total_input, 
-  ROUND((outputoctets_day_end - outputoctets_day_beg) / 1000000) as total_output, 
+  ROUND((IF(inputoctets_day_end = 0, inputoctets_work_end, inputoctets_day_end) - inputoctets_day_beg) / 1000000) as total_input, 
+  ROUND((IF(outputoctets_day_end = 0, outputoctets_work_end, outputoctets_day_end) - outputoctets_day_beg) / 1000000) as total_output, 
   ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) as work_input, 
   ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) as work_output, 
-  ROUND((inputoctets_work_beg - inputoctets_day_beg + inputoctets_day_end - inputoctets_work_end) / 1000000) as non_work_input, 
-  ROUND((outputoctets_work_beg - outputoctets_day_beg + outputoctets_day_end - outputoctets_work_end) / 1000000) as non_work_output
+  ROUND((inputoctets_work_beg - inputoctets_day_beg + IF(inputoctets_day_end = 0, 0, inputoctets_day_end - inputoctets_work_end)) / 1000000) as non_work_input, 
+  ROUND((outputoctets_work_beg - outputoctets_day_beg + IF(outputoctets_day_end = 0, 0, outputoctets_day_end - outputoctets_work_end)) / 1000000) as non_work_output
 from daily_accounting where username like '%' group by username, day;
 
+select username,
+  ROUND((SUM(inputoctets_work_end) - SUM(inputoctets_work_beg)) / 1000000) as work_input, 
+  ROUND((SUM(outputoctets_work_end) - SUM(outputoctets_work_beg)) / 1000000) as work_output
+from daily_accounting where day >= '2014-11-16' and day <= '2014-11-18' group by username order by work_output DESC limit 10;
+
+SELECT daily_accounting.username, radusergroup.groupname as groupname, userinfo.lastname as name, userinfo.email as email, userinfo.company as company, userinfo.address as address, userinfo.city as city,
+  ROUND((SUM(inputoctets_work_end) - SUM(inputoctets_work_beg)) / 1000000) as work_upload, 
+  ROUND((SUM(outputoctets_work_end) - SUM(outputoctets_work_beg)) / 1000000) as work_download
+FROM daily_accounting 
+LEFT JOIN radusergroup ON daily_accounting.username=radusergroup.username LEFT JOIN userinfo ON daily_accounting.username=userinfo.username   
+WHERE daily_accounting.day >= '2014-11-16' and daily_accounting.day <= '2014-11-18' GROUP BY  daily_accounting.username ORER BY work_download DESC limit 10;
 
 
 
