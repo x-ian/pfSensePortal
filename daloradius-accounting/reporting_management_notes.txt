@@ -23,8 +23,8 @@ CREATE TABLE `daily_accounting` (
 crontab 
 5 0 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
 0 7 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
-*/10 7-19 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
-50 23 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
+1,9,19,29,39,49,59 7-18 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
+0,10,20,30,40,50 19-23 * * * /root/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
 
 
 ATTRIBUTE xian-Input-Octets-Daily-Work-Hours 1 integer

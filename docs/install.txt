@@ -90,6 +90,7 @@ pkg_add -r p5-Net-SMTP-TLS
 
 now reboot the system and log again in with SSH and run these commands
 
+mkdir /home/device_status_log
 mkdir /home/local_backup_sequences
 cd /home
 git clone https://github.com/x-ian/pfSensePortal.git
