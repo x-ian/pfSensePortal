@@ -70,6 +70,7 @@ add to /etc/freeradius/sites-enabled/default in authroize section
 		update reply {
 			Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:xian-Output-Megabytes-Daily-Work-Hours} / %{check:xian-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
 		}
+		reject
 	}
 
 add in accounting section
