@@ -5,7 +5,7 @@ IP=$1
 BASEDIR=`dirname $0`
 source $BASEDIR/../config.txt
 
-STATUS_LOG=/home/device_status_log/status-`date date +%Y%m%d`.log
+STATUS_LOG=/home/device_status_log/status-`date +%Y%m%d`.log
 
 MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 
