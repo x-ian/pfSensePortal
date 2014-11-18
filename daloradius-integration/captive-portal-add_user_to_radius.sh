@@ -45,6 +45,10 @@ echo $DHCPHOSTNAME | grep "pih" --ignore-case
 if [ $? -eq 0 ]; then
 	GROUP=Users
 fi
+echo $DHCPHOSTNAME | grep "tbc" --ignore-case
+if [ $? -eq 0 ]; then
+	GROUP=Users
+fi
 
 $BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" "$OWNER" "$GROUP" "$IP" "$DHCPHOSTNAME" "$MAC_VENDOR" "$PRIMARY_DEVICE"
 
