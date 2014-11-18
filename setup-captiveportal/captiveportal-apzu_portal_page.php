@@ -28,22 +28,27 @@
 						case 2:
 							// device disabled
 							echo "</td><td><p><b>Too many users. Please try again later.</b></p>";
-							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . ")</p></td>";
 							break;
 						case 3:
 							// access denied with additional restrictions
 							echo "</td><td><p><b>Your device has used up your available data volume. Either check back tomorrow or next week.</b></p>";
-							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . ")</p></td>";
 							break;
 						case 4:
 							// device disabled
-							echo "</td><td><p><b>Your device is disabled. Please see the IT team for further explanation.</b></p>";
-							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
+							echo "</td><td><b>Your device is disabled. Please see the IT team for further explanation.</b>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . ")</p></td>";
+							break;
+						case 5:
+							// data bundle during business hours exceeded
+							echo "</td><td><p><b>Your device has reached the maximum daily data bundle during business hours. Please try again tomorrow.</b></p>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . ")</p></td>";
 							break;
 						default:
 							// unknown response or server down
 							echo "</td><td><p><b>Network not available. Please see the IT team if this message remains for a few hours.</b></p>";
-							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . "</p></td>";
+							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . ")</p></td>";
 					}  
 				?>
 		</td>
