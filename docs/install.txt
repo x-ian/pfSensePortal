@@ -88,6 +88,8 @@ pkg_add -r python
 pkg_add -r git
 pkg_add -r p5-Net-SMTP-TLS
 
+edit file /usr/local/lib/perl5/site_perl/5.12.4/Net/SMTP/TLS.pm and add a new line 370 $offset += $w; (e.g. with vi, then :369 $ a <RETURN> <TAB> <TAB> <TAB> $offset += $w; <ESC> :wq!) (http://www.perlmonks.org/?node_id=929055)
+
 now reboot the system and log again in with SSH and run these commands
 
 mkdir /home/device_status_log

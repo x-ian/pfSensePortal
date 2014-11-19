@@ -1,8 +1,9 @@
 #!/usr/bin/perl
 
 # install perl module under pfSense with
-# 1. setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/old-releases/i386/8.1-RELEASE/packages/Latest/
+# 1. setenv PACKAGESITE to matching pfSense version
 # 2. pkg_add -r p5-Net-SMTP-TLS
+# edit /usr/local/lib/perl5/site_perl/5.12.4/Net/SMTP/TLS.pm as in http://www.perlmonks.org/?node_id=929055
 
 use Net::SMTP::TLS;
 
