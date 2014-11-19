@@ -20,7 +20,7 @@ Configuration of daloRADIUS
 
 After starting the VM and (re-) configure the network interface (typically a static IP in the 'server subnet') the Web UI is accessible through the network.
 
-Create user groups as required APZUnet-users, -guests, -leadership, -temp-unrestricted (note that these names are part of some automated scripts, so do not simply change them here). For each of these groups the following reply or check attributes can be added to determine the characteristics of the group Possible RADIUS attributes for each group: CS-Output-Octets-Daily, CS-Intput-Octets-Daily, CS-Output-Octets-Weekly, CS-Input-Octets-Weekly, Session-Timeout, Lucent-Max-Shared-Users, WISpr-Max-Down (pending exact name), WISpr-MaxUp (pending exact name)
+Create user groups as required Users, Guests, Leadership, XYZ-open-for-today (note that these names are part of some automated scripts, so do not simply change them here). For each of these groups the following reply or check attributes can be added to determine the characteristics of the group Possible RADIUS attributes for each group: CS-Output-Octets-Daily, CS-Intput-Octets-Daily, CS-Output-Octets-Weekly, CS-Input-Octets-Weekly, Session-Timeout, Lucent-Max-Shared-Users, WISpr-Max-Down (pending exact name), WISpr-MaxUp (pending exact name)
 
 Create a NAS with the IP of pfSense (requires a reboot afterwards)
 
@@ -43,18 +43,6 @@ Modify /etc/freeradius/sites-enabled/default as follows:
 		}
 	}
 
-Copy all files from setup-daloradius/www/statistics to daloradius system under /var/www/statistics
-
-Add lines to /etc/freeradius/dictionary
-ATTRIBUTE	xian-Input-Megabytes-Daily-Work-Hours	3000	integer
-ATTRIBUTE	xian-Output-Megabytes-Daily-Work-Hours	3001	integer
-
-Add additional attributes via Management - Attributes - New Vendor Attribute
-xian
-xian-Input-Megabytes-Daily-Work-Hours and xian-Output-Megabytes-Daily-Work-Hours
-integer
-:=
-check
 
 add to /etc/freeradius/sites-enabled/default in authroize section
 
@@ -97,6 +85,70 @@ exec captiveportal-disconnect-user {
 	shell_escape = yes
 	output = none
 }
+
+Copy all files from setup-daloradius/www/statistics to daloradius system under /var/www/statistics
+
+Add lines to /etc/freeradius/dictionary
+ATTRIBUTE       xian-Input-Megabytes-Daily-Work-Hours   3003    integer
+ATTRIBUTE       xian-Output-Megabytes-Daily-Work-Hours  3004    integer
+ATTRIBUTE       My-Local-Input          3005    integer
+ATTRIBUTE       My-Local-Output         3006    integer
+
+Add additional attributes via Management - Attributes - New Vendor Attribute
+xian
+xian-Input-Megabytes-Daily-Work-Hours and xian-Output-Megabytes-Daily-Work-Hours
+integer
+:=
+check
+
+
+Manual configs
+--------------
+
+cd /home
+git clone https://github.com/x-ian/pfSensePortal.git
+
+DROP TABLE `daily_accounting`;
+CREATE TABLE `daily_accounting` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `day` date NOT NULL,
+  `day_beg` datetime,
+  `inputoctets_day_beg` bigint(20) DEFAULT 0,
+  `outputoctets_day_beg` bigint(20) DEFAULT 0,
+  `work_beg` datetime,
+  `inputoctets_work_beg` bigint(20) DEFAULT 0,
+  `outputoctets_work_beg` bigint(20) DEFAULT 0,
+  `work_end` datetime,
+  `inputoctets_work_end` bigint(20) DEFAULT 0,
+  `outputoctets_work_end` bigint(20) DEFAULT 0,
+  `day_end` datetime,
+  `inputoctets_day_end` bigint(20) DEFAULT 0,
+  `outputoctets_day_end` bigint(20) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE `unique` (`username`, `day`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+crontab 
+45 23 * * * /home/pfSensePortal/daloradius-accounting/reset-groups-open-for-today.sh
+5 0 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
+0 7 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
+1,9,19,29,39,49,59 7-17 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
+0,10,20,30,40,50,59 18-23 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
+
+  
+
+conditional accounting
+enabling/disabling captive portal accounting together with kicking out all sessions seems to do the trick. it however terminates all active sessions and connections. in case someone would like to work around this, these are potential places to look at
+https://doc.pfsense.org/index.php/Captive_Portal_Troubleshooting
+https://github.com/pfsense/pfsense/blob/27c2e32e28f871adf036b666e8e3ae1bf54ea7a2/etc/inc/captiveportal.inc
+https://github.com/pfsense/pfsense/blob/9775c69d65dd629f29bf3daa0b1efa277719f0d0/usr/local/captiveportal/radius_accounting.inc
+https://github.com/pfsense/pfsense/search?utf8=%E2%9C%93&q=pfSense_ipfw_getTablestats
+
+
+another attempt to externaize accounting out of radius
+http://www.netexpertise.eu/en/freeradius/daily-accounting.html
 
 
 Additional information & usage notes

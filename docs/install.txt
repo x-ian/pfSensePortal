@@ -120,11 +120,14 @@ Additional notes
 ----------------
 On some installations the local console is not shown - it stops with the 'bootup complete' message, unclear how to solve this: https://forum.pfsense.org/index.php?topic=34814.0. In my case the file /etc/ttys was corrupt and was replaced with a working file from another system. This file is checked in under misc/ttys.example of this Github project.
 
-Possibly increase intervall of interim updates from pfSense NAS to radius server: https://redmine.pfsense.org/issues/1492
-
 When temporarily deactivating a network interface to shutdown a certain area of the network, pfSense needs to be rebooted
 
 speed testing httpf or 10 mb: wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip
 for 500 mb change to test500
 
 Test RADIUS connectivity with radtest 002500486010 radius 172.16.1.7 0 radius
+
+
+Open issues
+-----------
+Possibly increase intervall of interim updates from pfSense NAS to radius server as it may create plenty of interim update messages https://redmine.pfsense.org/issues/1492
