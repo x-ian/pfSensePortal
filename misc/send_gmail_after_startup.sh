@@ -3,8 +3,9 @@
 BASEDIR=/home/pfSensePortal
 
 # checking for system crashes
+# for some reasons it seems as at least in the logs the systems gets signal 15 twice
 # check for the last kernel boot message and see if directly before a signal 15 was invoked
-/usr/local/sbin/clog /var/log/system.log | /usr/bin/grep "kernel boot file is /boot/kernel/kernel" -B 1 | /usr/bin/tail -2 | /usr/bin/grep 'exiting on signal 15'
+/usr/local/sbin/clog /var/log/system.log | /usr/bin/grep "kernel boot file is /boot/kernel/kernel" -B 1 | /usr/bin/tail -5 | /usr/bin/head -2 | /usr/bin/grep 'exiting on signal 15'
 CRASH=$?
 
 if [ $CRASH -eq 0 ]; then
