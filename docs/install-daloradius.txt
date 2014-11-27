@@ -46,14 +46,14 @@ Modify /etc/freeradius/sites-enabled/default as follows:
 
 add to /etc/freeradius/sites-enabled/default in authroize section
 
-	# accounting during business hours
+	# accounting during working hours
 	update control {
 		# based on content in table daily_accounting, which is updated by cronjobs
 		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
 		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
 	}
 	
-	# check for daily volume restrictions during business hours
+	# check for daily volume restrictions during working hours
 	if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
 		update reply {
 			Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:xian-Output-Megabytes-Daily-Work-Hours} / %{check:xian-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
@@ -63,14 +63,14 @@ add to /etc/freeradius/sites-enabled/default in authroize section
 
 add in accounting section
 
-	# accounting during business hours
+	# accounting during working hours
 	update control {
 		# based on content in table daily_accounting, which is updated by cronjobs
 		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
 		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
 	}
 
-	# check for daily volume restrictions during business hours
+	# check for daily volume restrictions during working hours
 	if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
 		captiveportal-disconnect-user
 	}
@@ -78,6 +78,7 @@ add in accounting section
 
 add to /etc/freeradius/modules/exec
 
+# enforce user disconnect from pfSense 
 exec captiveportal-disconnect-user {
 	wait = no
 	program = "/bin/bash /home/pfSensePortal/misc/captiveportal-disconnect-user.sh %{User-Name}"
@@ -131,7 +132,7 @@ CREATE TABLE `daily_accounting` (
 
 
 crontab 
-45 23 * * * /home/pfSensePortal/daloradius-accounting/reset-groups-open-for-today.sh
+59 23 * * * /home/pfSensePortal/daloradius-accounting/reset-groups-open-for-today.sh
 5 0 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
 0 7 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
 1,9,19,29,39,49,59 7-17 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh

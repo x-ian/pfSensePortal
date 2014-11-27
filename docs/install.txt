@@ -107,14 +107,17 @@ Go back to Captive Portal and
 - Choose file 'setup-captiveportal/captiveportal-apzu_portal_page.html' for 'Portal page content'
 
 add these line to root crontab
-@reboot /home/pfSensePortal/send_gmail_after_startup.sh
-55 23 * * Sun /home/pfSensePortal/misc/weekly_maintenance.sh
+@reboot /home/pfSensePortal/misc/send_gmail_after_startup.sh
+59 23 * * Sun /home/pfSensePortal/misc/weekly_maintenance.sh
 5 7 * * * /home/pfSensePortal/misc/monitor_network_devices.sh
+50 23 * * * /home/pfSensePortal/misc/captiveportal-disconnect-all-users.sh
+55 23 * * * /home/pfSensePortal/misc/daloradius-mail-statistics.sh
 
 copy private SSH key id_rsa for system dev.pih-emr.org to /root/.ssh for automatic offline backup
 ssh-keygen -t rsa
 scp .ssh/id_rsa.pub root@172.16.1.3:.ssh/authorized_keys
 
+Edit files /home/pfSensePortal/send_gmail_*.perl and adjust sender and receiver of mails as needed
 
 Additional notes
 ----------------
