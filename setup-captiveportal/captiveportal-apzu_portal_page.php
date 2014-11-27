@@ -42,7 +42,7 @@
 							break;
 						case 5:
 							// data bundle during business hours exceeded
-							echo "</td><td><p><b>Your device has reached the maximum daily data bundle during business hours. Please try again tomorrow.</b></p>";
+							echo "</td><td><p><b>Your device has reached the maximum daily data bundle during working hours (Monday to Friday from 7 am to 6 pm). Please try again tomorrow.</b></p>";
 							echo "<p>Exit code: $exitCode - (Reason: " . implode(" ", $output) . ")</p>";
 							exec("/home/pfSensePortal/daloradius-integration/echo-user-data-statistics-link.sh " . $ip, $out, $exit);
 							echo "In doubt, check your data usage of the last 7 days: " . implode(" ", $out) . "</td>";

@@ -152,7 +152,7 @@ mysql_free_result($ever_7daysago);
 mysql_free_result($ever_30daysago);
 
   
-echo "<hr/><p>Top downloads during business hours (Mo-Fr 7:00 to 18:00)</p>";
+echo "<hr/><p>Top downloads during working hours (Mo-Fr 7:00 to 18:00)</p>";
 	
   // download work
   function top_download_work($startday, $endday, $topX) {
@@ -229,7 +229,7 @@ mysql_free_result($down_work_last7days);
 mysql_free_result($down_work_last30days);
 
 
-echo "<hr/><p>Top uploads during business hours (Mo-Fr 7:00 to 18:00)</p>";
+echo "<hr/><p>Top uploads during working hours (Mo-Fr 7:00 to 18:00)</p>";
 	
   // upload work
   function top_upload_work($startday, $endday, $topX) {
@@ -460,7 +460,7 @@ echo "<hr/><p>Current group settings</p>";
 
 $result = mysql_query('select rr1.groupname, (select value from radgroupcheck r2 where attribute="Lucent-Max-Shared-Users" and r2.groupname = r1.groupname)  "Max Concurrent Users", (select (value/1000000) from radgroupcheck r5 where attribute="CS-Output-Octets-Daily" and r5.groupname = r1.groupname)  "Max Daily Down", (select (value/1000000) from radgroupcheck r6 where attribute="CS-Input-Octets-Daily" and r6.groupname = r1.groupname)  "Max Daily Up", (select (value/1000000) from radgroupcheck r7 where attribute="CS-Output-Octets-Weekly" and r7.groupname = r1.groupname)  "Max Weekly Down", (select (value/1000000) from radgroupcheck r8 where attribute="CS-Input-Octets-Weekly" and r8.groupname = r1.groupname)  "Max Weekly Up", (select value from radgroupcheck r9 where attribute="xian-Output-Megabytes-Daily-Work-Hours" and r9.groupname = r1.groupname)  "Max Business Hours Down", (select value from radgroupcheck r10 where attribute="xian-Input-Megabytes-Daily-Work-Hours" and r10.groupname = r1.groupname)  "Max Business Hours Up", (select value from radgroupreply rr2 where attribute ="Session-Timeout" and rr2.groupname = rr1.groupname) "Session Timeout", (select value from radgroupreply rr3 where attribute ="WISPr-Bandwidth-Max-Up" and rr3.groupname = rr1.groupname) "WISPr-Bandwidth-Max-Up", (select value from radgroupreply rr4 where attribute ="WISPr-Bandwidth-Max-Down" and rr4.groupname = rr1.groupname) "WISPr-Bandwidth-Max-Down" from radgroupreply rr1 left join radgroupcheck r1 on rr1.groupname = r1.groupname group by rr1.groupname;');  
   
-echo "<table><tr><th>Group</th><th>Business Hours Up</th><th>Business Hours Down</th><th>Bandwidth Up</th><th>Bandwidth Down</th><th>Session Timeout</th><th>Concurrent Users</th><th>Daily Up</th><th>Daily Down</th><th>Weekly Up</th><th>Weekly Down</th></tr>";
+echo "<table><tr><th>Group</th><th>Working Hours Up</th><th>Working Hours Down</th><th>Bandwidth Up</th><th>Bandwidth Down</th><th>Session Timeout</th><th>Concurrent Users</th><th>Daily Up</th><th>Daily Down</th><th>Weekly Up</th><th>Weekly Down</th></tr>";
 while ($row = mysql_fetch_assoc($result)) {
 	echo "<tr>";
 	echo "<td>" . $row['groupname'] . "</td>";
