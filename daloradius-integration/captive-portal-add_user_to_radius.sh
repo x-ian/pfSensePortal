@@ -11,6 +11,8 @@ DATE=`date +%Y%m%d-%H%M`
 BASEDIR=`dirname $0`
 source $BASEDIR/../config.txt
 
+STATUS_LOG=/home/device_status_log/status-`date +%Y%m%d`.log
+
 MAC=$($BASEDIR/resolve_mac_address.sh $IP)
 MAC_FIRST_DIGITS=$(echo $MAC | cut -c 1-6 | awk '{print toupper($0)}')
 # check in the local copy of the IEEE OUI database
@@ -52,7 +54,7 @@ fi
 
 $BASEDIR/daloradius-new-user-with-mac-auth.sh $MAC "" "$NAME" "$EMAIL" "$OWNER" "$GROUP" "$IP" "$DHCPHOSTNAME" "$MAC_VENDOR" "$PRIMARY_DEVICE"
 
-echo "$MAC - $IP - x - newly registered - `date +%Y%m%d-%H%M%S`" >> /tmp/check_device_status.log
+echo "$MAC - $IP - x - newly registered - `date +%Y%m%d-%H%M%S`" >> $STATUS_LOG
 
 SUBJECT="pfSense: New user: $OWNER $NAME $EMAIL"
 BODY="$OWNER
