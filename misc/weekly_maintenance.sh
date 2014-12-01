@@ -11,9 +11,6 @@ source $BASEDIR/config.txt
 # reset ntop traffic stats
 /usr/local/bin/wget --user `echo $NTOP_USER` --password `echo $NTOP_PASSWD` http://`echo $PF_IP`:3000/resetStats.html
 
-# do some accounting and clean it up
-echo BIG_TIME_TODO
-
 # compacting squid cache (http://doc.pfsense.org/index.php/Squid_Package_Tuning)
 #/usr/local/sbin/squid -k rotate
 
