@@ -2,6 +2,8 @@
 
 # remotely download latest backup file
 
+PATH=$PATH:/usr/local/bin
+
 TMP_LOGFILE=`mktemp /tmp/output.XXXXXX`
 echo -e  "\n\n-- stdout and stderr of script --" > $TMP_LOGFILE
 {
