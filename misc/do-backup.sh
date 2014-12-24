@@ -9,7 +9,7 @@ echo -e  "\n\n-- stdout and stderr of script --" > $TMP_LOGFILE
 {
 
 BASEDIR=/home/pfSensePortal
-CONFIG_FILE=config-router-`date +%Y%m%d%H%M%S`.xml
+CONFIG_FILE=/tmp/config-router-`date +%Y%m%d%H%M%S`.xml
 
 # get pfSense login details
 source $BASEDIR/config.txt
@@ -26,8 +26,8 @@ wget --keep-session-cookies --load-cookies cookies.txt \
 
 rm cookies.txt
 
-scp /home/pfSensePortal/misc/$CONFIG_FILE backup@dev.pih-emr.org:malawi/pfsense-21
-mv /home/pfSensePortal/misc/$CONFIG_FILE /home/local_backup_sequences
+scp $CONFIG_FILE backup@dev.pih-emr.org:malawi/pfsense-21
+mv $CONFIG_FILE /home/local_backup_sequences
 
 # take care of daloradius stuff as well
 
