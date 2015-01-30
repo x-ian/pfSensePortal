@@ -49,16 +49,18 @@ add to /etc/freeradius/sites-enabled/default in authroize section
 	# accounting during working hours
 	update control {
 		# based on content in table daily_accounting, which is updated by cronjobs
-		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
-		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
 	}
 	
 	# check for daily volume restrictions during working hours
-	if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
-		update reply {
-			Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:xian-Output-Megabytes-Daily-Work-Hours} / %{check:xian-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
+	if ("%{check:xian-Output-Megabytes-Daily-Work-Hours}" && "%{check:xian-Input-Megabytes-Daily-Work-Hours}") {
+		if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
+			update reply {
+				Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:xian-Output-Megabytes-Daily-Work-Hours} / %{check:xian-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
+			}
+			reject
 		}
-		reject
 	}
 
 add in accounting section
@@ -66,13 +68,15 @@ add in accounting section
 	# accounting during working hours
 	update control {
 		# based on content in table daily_accounting, which is updated by cronjobs
-		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
-		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_beg IS NOT NULL AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
 	}
 
 	# check for daily volume restrictions during working hours
-	if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
-		captiveportal-disconnect-user
+	if ("%{check:xian-Output-Megabytes-Daily-Work-Hours}" && "%{check:xian-Input-Megabytes-Daily-Work-Hours}") {
+		if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
+			captiveportal-disconnect-user
+		}
 	}
 
 
