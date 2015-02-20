@@ -3,9 +3,9 @@ NOTES ON INSTALLATION OF PFSENSE
 
 Installation
 ------------
-pfSense requieres a system with 2 physical network interfaces
+pfSense requires a system with 2 physical network interfaces
 Choose quick / default installation of pfSense
-On the old Baobab servers the 64 Bit version AMD64 had some performance issues with PHP. Switching back to the  i386 32 Bit version solved them.
+On the old Baobab servers the 64 Bit version AMD64 had some performance issues with PHP. Switching back to the i386 32 Bit version solved them.
 During boot it might be necessary to disable ACPI via boot option (2) (https://doc.pfsense.org/index.php/Booting_Options#pfSense_2.0)
 When booting from LiveCD stops in the middle of the boot process (or stops with a mount error as described here https://doc.pfsense.org/index.php/Boot_Troubleshooting), choose 'Boot from USB drive (option 3) at the first pfSense selection screen
 When performing an installation to the hard disk from a bootable CD, pay attention to the messages and input screens. You need to press I at the beginning of the boot process when asked for input to invoke the installation, otherwise it will start the LiveCD after 10 seconds.
@@ -14,20 +14,18 @@ Once the installation and the copying process is done, remove the Boot CD before
 
 Initial configuration
 ---------------------
-Configure network interface em0 as WAN (172.16.1.X/24) and em1 as LAN (IP 192.168.1.1/24 with DHCP services enabled)
-Connect with a cable to the LAN port (em1), wait until your computer receives an IP address from the pfSense and open the web borwser pointing to http://192.168.1.1
+Configure network interface em0 as WAN (e.g. with 172.16.1.X/24) and em1 as LAN (e.g. with 192.168.1.1/24 and DHCP services enabled)
+Connect with a cable to the LAN port (em1), wait until your computer receives an IP address from the pfSense and open the web browser pointing to above http://192.168.1.1
 Finish the installation wizard by following the instructions on the screen
 
 
 Configuration
 -------------
-Enable remote access on WAN interface for SSH, web management through Admin - Advanced - Activate HTTPS for WebConfigurator and - Enable SSH (Secure Shell)
+Enable remote access on WAN interface for SSH, web management through Admin - Advanced - Activate HTTPS for WebConfigurator and Enable SSH (Secure Shell)
 Install 'freeradius2', 'ntop', 'squid3', 'lightsquid', 'mailreport' from 'system - packages - available packages'
 stop service freeradius from status - services
-Change and add network interfaces as needed, e.g. add vlan interfaces to em1 starting from 192.168.11.x upwards
-Disable LAN (em1) interface
-Configure DHCP server for every VLAN interface
-(might need to configure the VLAN IP as the local DNS server within the DHCP server of every VLAN interface)
+Change and add network interfaces as needed, e.g. add vlan interfaces to em1 starting from 192.168.11.x upwards, don't forget to disable the parent interface for VLANs (e.g. em1)
+Configure DHCP server for every inside network/VLAN interface as required (might require to configure the VLAN IP as the local DNS server within the DHCP server of every VLAN interface)
 Enable transparent Squid for HTTP and activate logging
 Enable Lightsquid reporting
 Change default passwords in Web UI - System - User manager - admin
@@ -37,8 +35,8 @@ Adjust timezone if needed
 Firewall
 --------
 Add firewall rules to allow ICMP pings
-Add a default firewall rule for every VLAN interface allowing any protocol to pass
-Add firewall rules on wan interface to allow traffic on port 3000
+Add a default firewall rule for every inside network/VLAN interface allowing any protocol to pass
+Add firewall rules on wan interface to allow traffic on port 3000 (for ntop)
 
 
 Captive Portal
@@ -52,10 +50,10 @@ set 'MAC authentication secret' to radius
 enable 'Use RADIUS Session-Timeout attributes'
 MAC address format 'unformatted'
 disable concurrent logins
-add 172.16.1.0 as allowed IP addresses (to bypass captiv portal registration and traffic accounting for local servers)
-add pih.org, email.pih.org, owa.pih.org, exch2007pih.pih.org as allowed hostname
-Services - DNS forwarder - add new host override with host = pfsense, domain = apzunet, IP = 172.16.1.8 and description = to make pfsense.apzunet locally available (e.g. required for radcheck)
-Enable all VLAN interfaces
+add 172.16.1.0 as allowed IP addresses (to bypass captive portal registration and traffic accounting for local servers)
+add other external hostname as allowed hostname in case they should be accessed without captive portal
+Services - DNS forwarder - add new host override with host = pfsense, domain = mars, IP = 172.16.1.8 and description = to make pfsense.mars locally available (e.g. required for radcheck)
+Enable all VLAN interfaces if available
 
 
 Automatic pfSense mails
@@ -65,17 +63,17 @@ E-Mail server: smtp.gmail.com
 SMTP Port of E-Mail server: 465
 Secure SMTP Connection	Enable SMTP over SSL/TLS
 Enable STARTTLS
-From e-mail address: mail@apzu.pih.org
-Notification E-Mail address: apzu-it@apzu.pih.org
-Notification E-Mail auth username (optional): mail@apzu.pih.org	
+From e-mail address: <...>
+Notification E-Mail address: <...<>
+Notification E-Mail auth username (optional): <...>
 Notification E-Mail auth password: <specify password here>
 Add 'Weekly Network Utilization' under Status - Email Reports with settings
 weekly, on Sunday at 23:00
 with RRD Graphs captive portal :: concurrent and a weekly time span and RRD Graph WAN :: Traffic
 
 
-APZUnet Customization
----------------------
+marsPortal Customization
+------------------------
 Login with SSH as root and run these statement in the shell (to get to the shell press 8)
 # for AMD64 used 
 #setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/amd64/packages-8.3-release/Latest/
@@ -95,16 +93,14 @@ now reboot the system and log again in with SSH and run these commands
 mkdir /home/device_status_log
 mkdir /home/local_backup_sequences
 cd /home
-git clone https://github.com/x-ian/pfSensePortal.git
+
+TODO git clone https://github.com/x-ian/pfSensePortal.git
+
 ln -s /usr/local/bin/bash /bin/bash
 cp /home/pfSensePortal/config.txt.sample /home/pfSensePortal/config.txt
 cp /home/pfSensePortal/config_gmail.txt.sample /home/pfSensePortal/config_gmail.txt
 
 Now open config.txt and config_gmail.txt and adjust the config values as needed
-
-Go back to Captive Portal and 
-- Upload all files from directory pfSensePort/setup-captiveportal/filemanager through captive portal - file manager
-- Choose file 'setup-captiveportal/captiveportal-apzu_portal_page.html' for 'Portal page content'
 
 add these line to root crontab
 @reboot /home/pfSensePortal/misc/send_gmail_after_startup.sh
@@ -113,22 +109,14 @@ add these line to root crontab
 50 23 * * * /home/pfSensePortal/misc/captiveportal-disconnect-all-users.sh
 55 23 * * * /home/pfSensePortal/misc/daloradius-mail-statistics.sh
 
-copy private SSH key id_rsa for system dev.pih-emr.org to /root/.ssh for automatic offline backup
-ssh-keygen -t rsa
-scp .ssh/id_rsa.pub root@172.16.1.3:.ssh/authorized_keys
-
 Edit files /home/pfSensePortal/send_gmail_*.perl and adjust sender and receiver of mails as needed
+
 
 Additional notes
 ----------------
 On some installations the local console is not shown - it stops with the 'bootup complete' message, unclear how to solve this: https://forum.pfsense.org/index.php?topic=34814.0. In my case the file /etc/ttys was corrupt and was replaced with a working file from another system. This file is checked in under misc/ttys.example of this Github project.
 
 When temporarily deactivating a network interface to shutdown a certain area of the network, pfSense needs to be rebooted
-
-speed testing httpf or 10 mb: wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip
-for 500 mb change to test500
-
-Test RADIUS connectivity with radtest 002500486010 radius 172.16.1.7 0 radius
 
 
 Open issues

@@ -1,0 +1,25 @@
+Troubleshooting
+===============
+
+Misc
+----
+
+speed testing httpf or 10 mb: wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip (for 500 mb change to test500)
+
+Test RADIUS connectivity with radtest 002500486010 radius 172.16.1.7 0 radius
+
+
+pfSense Log files
+-----------------
+clog -f /var/log/system.log
+clog -f /var/log/portalauth.log
+
+
+daloRADIUS
+----------
+Debugging/logging radius messages
+incoming msg log: /var/log/freeradius/radacct/<192.168.11.188>/detail-XXX
+uncomment auth_log in sites-enabled/default: /var/log/freeradius/radacct/<192.168.11.188>/auth-XXX
+/var/log/freeradius/radius.log
+
+Avoid running freeradius -X from the command line. it will permanently crash the free radius installation as it seems to activate an additional set of config files which will fail as a default (mainly EAP). Better increase the logging level by adding this line to /etc/freeradius/radiusd.conf: "debug_level = 2". Run '/etc/init.d/freeradius force-reload' to re-apply config changes

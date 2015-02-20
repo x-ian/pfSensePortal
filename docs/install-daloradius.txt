@@ -20,17 +20,24 @@ Configuration of daloRADIUS
 
 After starting the VM and (re-) configure the network interface (typically a static IP in the 'server subnet') the Web UI is accessible through the network.
 
-Create user groups as required Users, Guests, Leadership, XYZ-open-for-today (note that these names are part of some automated scripts, so do not simply change them here). For each of these groups the following reply or check attributes can be added to determine the characteristics of the group Possible RADIUS attributes for each group: CS-Output-Octets-Daily, CS-Intput-Octets-Daily, CS-Output-Octets-Weekly, CS-Input-Octets-Weekly, Session-Timeout, Lucent-Max-Shared-Users, WISpr-Max-Down (pending exact name), WISpr-MaxUp (pending exact name)
+Create user groups as required, e.g. Users, Guests, Leadership. For every user group, create a matching XYZ-open-for-today group (these names are part of some automated scripts, so do not simply change them here). For each of these groups the following reply or check attributes can be added to determine the characteristics of the group Possible RADIUS attributes for each group: CS-Output-Octets-Daily, CS-Intput-Octets-Daily, CS-Output-Octets-Weekly, CS-Input-Octets-Weekly, Session-Timeout, Lucent-Max-Shared-Users, WISpr-Max-Down (pending exact name), WISpr-MaxUp (pending exact name)
 
-Create a NAS with the IP of pfSense (requires a reboot afterwards)
+Create a NAS with the IP of pfSense (requires a reboot of freeRADIUS afterwards)
 
-SSH into the system and run 'dpkg-reconfigure tzdata' from command line as root and set phone
+SSH into the system and run 'dpkg-reconfigure tzdata' from command line as root and set correct timezone
 
 Set timezone for PHP to date.timezone = 'Africa/Blantyre' (or 'Europe/Berlin') in /etc/php5/apache2/php.ini
 
 Deactivate /etc/cron.d/cron-apt in cron (to avoid system load while checking for updates)
 
+Copy all files from setup-daloradius/www/mars to daloradius system to /var/www/mars
+
+
+Configuration of freeRADIUS
+---------------------------
+
 Modify /etc/freeradius/sites-enabled/default as follows:
+
 	# checking for concurrently active users of same user group / profile
 	# copy/paste into daloradius /etc/freeradius/sites-enabled/default
 	# below the counterChilliSpot entries
@@ -44,9 +51,8 @@ Modify /etc/freeradius/sites-enabled/default as follows:
 	}
 
 
-add to /etc/freeradius/sites-enabled/default in authroize section
-
 	# accounting during working hours
+	# needs to go in authorize section
 	update control {
 		# based on content in table daily_accounting, which is updated by cronjobs
 		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
@@ -54,18 +60,18 @@ add to /etc/freeradius/sites-enabled/default in authroize section
 	}
 	
 	# check for daily volume restrictions during working hours
-	if ("%{check:xian-Output-Megabytes-Daily-Work-Hours}" && "%{check:xian-Input-Megabytes-Daily-Work-Hours}") {
-		if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
+	if ("%{check:mars-Output-Megabytes-Daily-Work-Hours}" && "%{check:mars-Input-Megabytes-Daily-Work-Hours}") {
+		if (("%{control:My-Local-Output}" > "%{check:mars-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:mars-Input-Megabytes-Daily-Work-Hours}")) {
 			update reply {
-				Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:xian-Output-Megabytes-Daily-Work-Hours} / %{check:xian-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
+				Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:mars-Output-Megabytes-Daily-Work-Hours} / %{check:mars-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
 			}
 			reject
 		}
 	}
 
-add in accounting section
-
+	# ---
 	# accounting during working hours
+	# needs to go in accounting section
 	update control {
 		# based on content in table daily_accounting, which is updated by cronjobs
 		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
@@ -73,8 +79,8 @@ add in accounting section
 	}
 
 	# check for daily volume restrictions during working hours
-	if ("%{check:xian-Output-Megabytes-Daily-Work-Hours}" && "%{check:xian-Input-Megabytes-Daily-Work-Hours}") {
-		if (("%{control:My-Local-Output}" > "%{check:xian-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:xian-Input-Megabytes-Daily-Work-Hours}")) {
+	if ("%{check:mars-Output-Megabytes-Daily-Work-Hours}" && "%{check:mars-Input-Megabytes-Daily-Work-Hours}") {
+		if (("%{control:My-Local-Output}" > "%{check:mars-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:mars-Input-Megabytes-Daily-Work-Hours}")) {
 			captiveportal-disconnect-user
 		}
 	}
@@ -91,17 +97,15 @@ exec captiveportal-disconnect-user {
 	output = none
 }
 
-Copy all files from setup-daloradius/www/statistics to daloradius system under /var/www/statistics
-
-Add lines to /etc/freeradius/dictionary
-ATTRIBUTE       xian-Input-Megabytes-Daily-Work-Hours   3003    integer
-ATTRIBUTE       xian-Output-Megabytes-Daily-Work-Hours  3004    integer
+Add to /etc/freeradius/dictionary
+ATTRIBUTE       mars-Input-Megabytes-Daily-Work-Hours   3003    integer
+ATTRIBUTE       mars-Output-Megabytes-Daily-Work-Hours  3004    integer
 ATTRIBUTE       My-Local-Input          3005    integer
 ATTRIBUTE       My-Local-Output         3006    integer
 
 Add additional attributes via Management - Attributes - New Vendor Attribute
-xian
-xian-Input-Megabytes-Daily-Work-Hours and xian-Output-Megabytes-Daily-Work-Hours
+mars
+mars-Input-Megabytes-Daily-Work-Hours and mars-Output-Megabytes-Daily-Work-Hours
 integer
 :=
 check
@@ -142,7 +146,9 @@ crontab
 1,9,19,29,39,49,59 7-17 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
 0,10,20,30,40,50,59 18-23 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
 
-  
+
+Notes/ideas
+-----------
 
 conditional accounting
 enabling/disabling captive portal accounting together with kicking out all sessions seems to do the trick. it however terminates all active sessions and connections. in case someone would like to work around this, these are potential places to look at
@@ -159,25 +165,6 @@ http://www.netexpertise.eu/en/freeradius/daily-accounting.html
 Additional information & usage notes
 ------------------------------------
 
-Mapping of APZUnet attributes to daloRADIUS user attributes (APZUnet attribute : daloRADIUS attribute)
-mac: username
-name: lastnames
-email: email
-primary device: mobile phone
-initial_ip: state
-owner: company 
-hostname: address
-mac_vendor: city
-registration_date: creation_date
-notes: notes reserved for manual comments
-
 freeradius daloradius sql counter module: https://web.archive.org/web/20120428165635/http://sourceforge.net/projects/daloradius/forums/forum/684102/topic/3307738
 
 Apply backups from another installation: http://sourceforge.net/p/daloradius/discussion/684102/thread/cc248889/
-
-Avoid running freeradius -X from the command line. it will permanently crash the free radius installation as it seems to activate an additional set of config files which will fail as a default (mainly EAP). Better increase the logging level by adding this line to /etc/freeradius/radiusd.conf: "debug_level = 2". Run '/etc/init.d/freeradius force-reload' to re-apply config changes
-
-Debugging/logging radius messages
-incoming msg log: /var/log/freeradius/radacct/192.168.11.188/detail-XXX
-uncomment auth_log in sites-enabled/default: /var/log/freeradius/radacct/192.168.11.188/auth-XXX
-on pfsense: clog -f /var/log/portalauth.log &

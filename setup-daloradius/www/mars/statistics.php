@@ -22,7 +22,7 @@
   }
   
   function userdetailslink($mac, $name) {
-	  return '<a href="http://172.16.1.3/daloradius/mng-edit.php?username=' . $mac . '">' . $name . '</a>';
+	  return '<a href="/daloradius/mng-edit.php?username=' . $mac . '">' . $name . '</a>';
   }
   
 //  $today = '2014-10-29';

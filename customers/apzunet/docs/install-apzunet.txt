@@ -1,0 +1,28 @@
+APZUnet additional install notes
+================================
+
+pfSense
+-------
+Go back to Captive Portal and 
+- Upload all files from directory pfSensePort/setup-captiveportal/filemanager through captive portal - file manager
+- Choose file 'setup-captiveportal/captiveportal-apzu_portal_page.html' for 'Portal page content'
+
+copy private SSH key id_rsa for system dev.pih-emr.org to /root/.ssh for automatic offline backup
+ssh-keygen -t rsa
+scp .ssh/id_rsa.pub root@172.16.1.3:.ssh/authorized_keys
+
+
+daloRADIUS
+----------
+Mapping of APZUnet attributes to daloRADIUS user attributes (APZUnet attribute : daloRADIUS attribute)
+mac: username
+name: lastnames
+email: email
+primary device: mobile phone
+initial_ip: state
+owner: company 
+hostname: address
+mac_vendor: city
+registration_date: creation_date
+notes: notes reserved for manual comments
+

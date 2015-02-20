@@ -20,7 +20,7 @@
   }
   
   function userdetailslink($mac) {
-	  return '<a href="http://172.16.1.3/daloradius/mng-edit.php?username=' . $mac . '">' . $mac . '</a>';
+	  return '<a href="/daloradius/mng-edit.php?username=' . $mac . '">' . $mac . '</a>';
   }
   
   $today = date('Y-m-d', strtotime('-0 day'));
