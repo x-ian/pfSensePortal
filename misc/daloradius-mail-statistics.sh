@@ -4,7 +4,7 @@ BASEDIR=/home/pfSensePortal
 source $BASEDIR/config.txt
 
 FILE=/tmp/statistics-`date +%Y%m%d`.html
-/usr/local/bin/curl --retry 2 -s -o $FILE `echo $DR_SERVER`/statistics/statistics.php
+/usr/local/bin/curl --retry 2 -s -o $FILE `echo $DR_SERVER`/mars/statistics.php
 echo $? > $FILE.exitcode
 
 SUBJECT="`echo "172.16.1.2 - pfSense: Users statistics: "` `date +%Y%m%d-%H%M`"
