@@ -1,0 +1,71 @@
+RADIUS configuration
+====================
+
+RADIUS groups
+-------------
+...
+...-open-for-today
+daloRADIUS-Disabled-Users
+
+
+Changing restrictions of groups
+-------------------------------
+
+WISPr-Bandwidth-Max-Down
+WISPr-Bandwidth-Max-Up
+
+Session Timeout
+
+mars-Max-Concurrent-Devices
+
+mars-Input-Megabytes-Daily-Work-Hours
+mars-Output-Megabytes-Daily-Work-Hours
+
+CS-Input-Octets-Daily
+CS-Output-Octets-Daily
+
+CS-Input-Octets-Weekly
+CS-Output-Octets-Weekly
+
+
+Changing work hour times
+------------------------
+
+
+Device management
+=================
+
+Registering new device
+----------------------
+
+
+Changing group of a device
+--------------------------
+Remember: Disconnect this device from the captive portal session to make sure the changes are immidiately applied
+
+
+Opening blocked device for the rest of today
+--------------------------------------------
+
+
+Reporting
+=========
+
+Top 10 devices
+
+All registered devices
+
+All devices with total data volume for last 7 days
+
+Data volume of one device last 7 days
+
+
+Maintenance
+===========
+
+Backup & Restore
+----------------
+
+Import existing users/devices
+-----------------------------
+

@@ -38,17 +38,18 @@ Configuration of freeRADIUS
 
 Modify /etc/freeradius/sites-enabled/default as follows:
 
-	# checking for concurrently active users of same user group / profile
-	# copy/paste into daloradius /etc/freeradius/sites-enabled/default
-	# below the counterChilliSpot entries
-	if ("%{check:Lucent-Max-Shared-Users}") {
-		if("%{check:Lucent-Max-Shared-Users}" <= "%{sql:select count(*) from radacct where acctstoptime is null and username in (select username from radusergroup where groupname in (select groupname from radusergroup where username='%{User-Name}'));}") {
-			update reply {
-				Reply-Message := "Too many users - please try again later (%{sql:select count(*) from radacct where acctstoptime is null and username in (select username from radusergroup where groupname in (select groupname from radusergroup where username='%{User-Name}'))} of %{check:Lucent-Max-Shared-Users})"
-			}
-			reject
-		}
-	}
+        # checking for concurrently active users of same user group / profile
+        # copy/paste into daloradius /etc/freeradius/sites-enabled/default
+        # below the counterChilliSpot entries
+        if ("%{check:mars-Max-Concurrent-Devices}") {
+                if("%{check:mars-Max-Concurrent-Devices}" <= "%{sql:select count(*) from radacct where acctstoptime is null and username in (select username from radusergroup where groupname in (select groupname from radusergroup where username='%{User-Name}'));}") {
+                        update reply {
+                                Reply-Message := "Too many users - please try again later (%{sql:select count(*) from radacct where acctstoptime is null and username in (select username from radusergroup where groupname in (select groupname from radusergroup where username='%{User-Name}'))} of %{check:mars-Max-Concurrent-Devices})"
+                        }
+                        reject
+                }
+        }
+
 
 
 	# accounting during working hours
@@ -85,9 +86,7 @@ Modify /etc/freeradius/sites-enabled/default as follows:
 		}
 	}
 
-
 add to /etc/freeradius/modules/exec
-
 # enforce user disconnect from pfSense 
 exec captiveportal-disconnect-user {
 	wait = no
@@ -100,12 +99,13 @@ exec captiveportal-disconnect-user {
 Add to /etc/freeradius/dictionary
 ATTRIBUTE       mars-Input-Megabytes-Daily-Work-Hours   3003    integer
 ATTRIBUTE       mars-Output-Megabytes-Daily-Work-Hours  3004    integer
-ATTRIBUTE       My-Local-Input          3005    integer
-ATTRIBUTE       My-Local-Output         3006    integer
+ATTRIBUTE       My-Local-Input                          3005    integer
+ATTRIBUTE       My-Local-Output                         3006    integer
+ATTRIBUTE       mars-Max-Concurrent-Devices             3007    integer
 
 Add additional attributes via Management - Attributes - New Vendor Attribute
-mars
-mars-Input-Megabytes-Daily-Work-Hours and mars-Output-Megabytes-Daily-Work-Hours
+marsPortal
+mars-Max-Concurrent-Devices, mars-Input-Megabytes-Daily-Work-Hours and mars-Output-Megabytes-Daily-Work-Hours
 integer
 :=
 check
