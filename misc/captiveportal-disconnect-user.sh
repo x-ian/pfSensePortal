@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASEDIR=/home/pfSensePortal
+BASEDIR=/home/marsPortal
 MAC=$1
 
 TMP_COOKIES=`mktemp`-cookies.txt
@@ -30,5 +30,3 @@ done
 rm $TMP_ALL
 rm $TMP_ALL2
 rm $TMP_COOKIES
-
-

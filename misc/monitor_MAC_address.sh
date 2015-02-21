@@ -4,7 +4,7 @@
 MAC="b8:e8:56:03:99:d4"
 
 if [ $? -eq 0 ]; then
-  BASEDIR=/home/pfSensePortal
+  BASEDIR=/home/marsPortal
   SUBJECT="MAC found"
   BODY="SYSTEM ALIVE"
   /usr/bin/perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I   /usr/local/lib/perl5/site_perl/5.10.1/mach send_gmail.perl "$SUBJECT" "$BODY"

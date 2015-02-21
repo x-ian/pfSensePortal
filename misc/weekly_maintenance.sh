@@ -4,7 +4,7 @@
 # let's say right before midnight
 # 55 23 * * Sun ...
 
-BASEDIR=/home/pfSensePortal
+BASEDIR=/home/marsPortal
 
 source $BASEDIR/config.txt
  
@@ -21,7 +21,7 @@ source $BASEDIR/config.txt
 #/usr/local/sbin/squid -z
 
 # some internal backup
-/home/pfSensePortal/misc/do-backup.sh
+/home/marsPortal/misc/do-backup.sh
 
 # clean up DHCP leases as they seem to be never removed. ideally this should maybe be done monthly or quarterly
 /bin/rm -f /var/dhcpd/var/db/dhcpd.leases

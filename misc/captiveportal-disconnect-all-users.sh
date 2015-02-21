@@ -2,7 +2,7 @@
 
 # remotely download latest backup file
 
-BASEDIR=/home/pfSensePortal
+BASEDIR=/home/marsPortal
 
 # get pfSense login details
 source $BASEDIR/config.txt

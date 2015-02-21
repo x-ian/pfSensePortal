@@ -9,7 +9,7 @@ PF_IP=172.16.1.8
 PF_SERVER=http://172.16.1.8/
 USER=admin
 PASSWD=pfsense
-ZONE=everything
+ZONE=mars
 
 # DALORADIUS 
 DR_IP=192.168.1.36

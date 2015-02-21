@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASEDIR=/home/pfSensePortal
+BASEDIR=/home/marsPortal
 source $BASEDIR/config.txt
 
 IP=$1

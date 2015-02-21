@@ -16,7 +16,7 @@ my $SENDER='mail@apzu.pih.org';
 my $RECEIVER='apzu-it@apzu.pih.org';
 
 #my $PASSWORD='changeme';
-open FILE, "</home/pfSensePortal/send_gmail_config.txt";
+open FILE, "</home/marsPortal/send_gmail_config.txt";
 $PASSWORD = do { local $/; <FILE> };
 
 my $SMTP='smtp.gmail.com';

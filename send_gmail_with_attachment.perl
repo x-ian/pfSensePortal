@@ -25,11 +25,11 @@ while (($n = read DATA, $data, 4) != 0) {
 close(DATA);
 
 
-my $SENDER='mail@apzu.pih.org';
-my $RECEIVER='cneumann@pih.org';
+my $SENDER='cneumann@marsgeneral.com';
+my $RECEIVER='cneumann@marsgeneral.com';
 
 #my $PASSWORD='changeme';
-open FILE, "</home/pfSensePortal/config_gmail.txt";
+open FILE, "</home/marsPortal/config_gmail.txt";
 $PASSWORD = do { local $/; <FILE> };
 
 my $SMTP='smtp.gmail.com';

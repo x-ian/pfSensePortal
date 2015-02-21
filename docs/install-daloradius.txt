@@ -91,7 +91,7 @@ add to /etc/freeradius/modules/exec
 # enforce user disconnect from pfSense 
 exec captiveportal-disconnect-user {
 	wait = no
-	program = "/bin/bash /home/pfSensePortal/misc/captiveportal-disconnect-user.sh %{User-Name}"
+	program = "/bin/bash /home/marsPortal/misc/captiveportal-disconnect-user.sh %{User-Name}"
 	input_pairs = request
 	shell_escape = yes
 	output = none
@@ -115,7 +115,7 @@ Manual configs
 --------------
 
 cd /home
-git clone https://github.com/x-ian/pfSensePortal.git
+git clone https://github.com/x-ian/marsPortal.git
 
 DROP TABLE `daily_accounting`;
 CREATE TABLE `daily_accounting` (
@@ -140,11 +140,11 @@ CREATE TABLE `daily_accounting` (
 
 
 crontab 
-59 23 * * * /home/pfSensePortal/daloradius-accounting/reset-groups-open-for-today.sh
-5 0 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
-0 7 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
-1,9,19,29,39,49,59 7-17 * * 1-5 /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
-0,10,20,30,40,50,59 18-23 * * * /home/pfSensePortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
+59 23 * * * /home/marsPortal/daloradius-accounting/reset-groups-open-for-today.sh
+5 0 * * * /home/marsPortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
+0 7 * * 1-5 /home/marsPortal/daloradius-accounting/accounting-snapshot-beg-of-work.sh
+1,9,19,29,39,49,59 7-17 * * 1-5 /home/marsPortal/daloradius-accounting/accounting-snapshot-end-of-work.sh
+0,10,20,30,40,50,59 18-23 * * * /home/marsPortal/daloradius-accounting/accounting-snapshot-end-of-day.sh
 
 
 Notes/ideas

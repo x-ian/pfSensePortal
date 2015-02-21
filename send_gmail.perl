@@ -9,11 +9,11 @@ use Net::SMTP::TLS;
 my $SUBJECT=$ARGV[0];
 my $BODY=$ARGV[1];
 
-my $SENDER='mail@apzu.pih.org';
-my $RECEIVER='apzu-it@apzu.pih.org';
+my $SENDER='cneumann@marsgeneral.com';
+my $RECEIVER='cneumann@marsgeneral.com';
 
 #my $PASSWORD='changeme';
-open FILE, "</home/pfSensePortal/config_gmail.txt";
+open FILE, "</home/marsPortal/config_gmail.txt";
 $PASSWORD = do { local $/; <FILE> };
 
 my $SMTP='smtp.gmail.com';

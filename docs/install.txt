@@ -94,22 +94,23 @@ mkdir /home/device_status_log
 mkdir /home/local_backup_sequences
 cd /home
 
-TODO git clone https://github.com/x-ian/pfSensePortal.git
+TODO git clone https://github.com/x-ian/marsPortal.git
 
 ln -s /usr/local/bin/bash /bin/bash
-cp /home/pfSensePortal/config.txt.sample /home/pfSensePortal/config.txt
-cp /home/pfSensePortal/config_gmail.txt.sample /home/pfSensePortal/config_gmail.txt
+cp /home/marsPortal/config.txt.sample /home/marsPortal/config.txt
+cp /home/marsPortal/config_gmail.txt.sample /home/marsPortal/config_gmail.txt
 
 Now open config.txt and config_gmail.txt and adjust the config values as needed
 
 add these line to root crontab
-@reboot /home/pfSensePortal/misc/send_gmail_after_startup.sh
-59 23 * * Sun /home/pfSensePortal/misc/weekly_maintenance.sh
-5 7 * * * /home/pfSensePortal/misc/monitor_network_devices.sh
-50 23 * * * /home/pfSensePortal/misc/captiveportal-disconnect-all-users.sh
-55 23 * * * /home/pfSensePortal/misc/daloradius-mail-statistics.sh
+@reboot /home/marsPortal/misc/send_gmail_after_startup.sh
+59 23 * * Sun /home/marsPortal/misc/weekly_maintenance.sh
+5 7 * * * /home/marsPortal/misc/monitor_network_devices.sh
+50 23 * * * /home/marsPortal/misc/captiveportal-disconnect-all-users.sh
+55 23 * * * /home/marsPortal/misc/daloradius-mail-statistics.sh
 
-Edit files /home/pfSensePortal/send_gmail_*.perl and adjust sender and receiver of mails as needed
+
+Edit files /home/marsPortal/send_gmail_*.perl and adjust sender and receiver of mails as needed
 
 
 Additional notes
@@ -117,6 +118,13 @@ Additional notes
 On some installations the local console is not shown - it stops with the 'bootup complete' message, unclear how to solve this: https://forum.pfsense.org/index.php?topic=34814.0. In my case the file /etc/ttys was corrupt and was replaced with a working file from another system. This file is checked in under misc/ttys.example of this Github project.
 
 When temporarily deactivating a network interface to shutdown a certain area of the network, pfSense needs to be rebooted
+
+Facebook DNS based blocking
+1. Add Firewall Alias with URL Table pointing to http://172.16.1.2:8000/captiveportal-facebook_subnets.txt
+2. Create schedule to include working hours
+3. Add Floating Firewall Rules with Destination Alias name of Firewall Alias name of 1.
+4. Optional: Update list of Facebook subnets once in a while with
+     for ip in `whois -h whois.radb.net '!gAS32934' | grep /`; do echo $ip; done
 
 
 Open issues
