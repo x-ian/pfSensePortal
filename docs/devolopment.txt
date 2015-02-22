@@ -1,10 +1,15 @@
-Setting up environment with Virtual Box
+Setting up dev environment with Virtual Box
+===========================================
+
 
 Offline network config
 ----------------------
 
-pfSense
-2 network adapters with adapter 1 NAT and adapter 2 with Internal network pfSense-intnet
+Set up pfSense VM with 2 network adapters with adapter 1 with NAT and DHCP inside of pfSense (often with IP 10.0.2.2) and adapter 2 with Internal network pfSense-intnet and static IP address inside (like 192.168.10.1)
+
+Configure daloRADIUS VM with Internal network pfSense-intnet and use static IP inside (e.g. 192.168.10.2)
+
+Any additional VM can be set up as client(s) connected to the Internal network pfSense-intnet with DHCP. As long as they have different MAC addresses, they are seen as different systems inside the pfSense-intnet network.
 
 
 'Remote' access to guests
