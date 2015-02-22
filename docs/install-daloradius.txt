@@ -30,7 +30,9 @@ Set timezone for PHP to date.timezone = 'Africa/Blantyre' (or 'Europe/Berlin') i
 
 Deactivate /etc/cron.d/cron-apt in cron (to avoid system load while checking for updates)
 
-Copy all files from setup-daloradius/www/mars to daloradius system to /var/www/mars
+Copy/clone marsPortal package to /home/ (git clone https://github.com/x-ian/marsPortal.git)
+
+Create symbloc link /var/www/mars pointing to setup-daloradius/www/mars
 
 
 Configuration of freeRADIUS
@@ -39,7 +41,7 @@ Configuration of freeRADIUS
 Modify /etc/freeradius/sites-enabled/default as follows:
 
         # checking for concurrently active users of same user group / profile
-        # copy/paste into daloradius /etc/freeradius/sites-enabled/default
+        # copy/paste into authorize section of daloradius /etc/freeradius/sites-enabled/default
         # below the counterChilliSpot entries
         if ("%{check:mars-Max-Concurrent-Devices}") {
                 if("%{check:mars-Max-Concurrent-Devices}" <= "%{sql:select count(*) from radacct where acctstoptime is null and username in (select username from radusergroup where groupname in (select groupname from radusergroup where username='%{User-Name}'));}") {
@@ -50,41 +52,41 @@ Modify /etc/freeradius/sites-enabled/default as follows:
                 }
         }
 
+        # accounting during business hours, preventing re-connect in case session previously terminated
+        # copy/paste into authorize section of daloradius /etc/freeradius/sites-enabled/default
+        # below the counterChilliSpot entries
+        update control {
+                # based on content in table daily_accounting, which is updated by cronjobs
+                My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+                My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+        }
 
+        # check for daily volume restrictions during business hours
+        if ("%{check:mars-Output-Megabytes-Daily-Work-Hours}" && "%{check:mars-Input-Megabytes-Daily-Work-Hours}") {
+                if (("%{control:My-Local-Output}" > "%{check:mars-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:mars-Input-Megabytes-Daily-Work-Hours}")) {
+                        update reply {
+                                Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:mars-Output-Megabytes-Daily-Work-Hours} / %{check:mars-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
+                        }
+                        reject
+                }
+        }
 
-	# accounting during working hours
-	# needs to go in authorize section
-	update control {
-		# based on content in table daily_accounting, which is updated by cronjobs
-		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
-		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
-	}
+	    # ---------------
 	
-	# check for daily volume restrictions during working hours
-	if ("%{check:mars-Output-Megabytes-Daily-Work-Hours}" && "%{check:mars-Input-Megabytes-Daily-Work-Hours}") {
-		if (("%{control:My-Local-Output}" > "%{check:mars-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:mars-Input-Megabytes-Daily-Work-Hours}")) {
-			update reply {
-				Reply-Message := "Data bundle during business hours exceeded. Used: %{control:My-Local-Output} / %{control:My-Local-Input} MB - Granted: %{check:mars-Output-Megabytes-Daily-Work-Hours} / %{check:mars-Input-Megabytes-Daily-Work-Hours} MB (download/upload)"
-			}
-			reject
-		}
-	}
+        # accounting during working hours, kicking out active session if limit is reached
+        # needs to go in accounting section
+        update control {
+                # based on content in table daily_accounting, which is updated by cronjobs
+                My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+                My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
+        }
 
-	# ---
-	# accounting during working hours
-	# needs to go in accounting section
-	update control {
-		# based on content in table daily_accounting, which is updated by cronjobs
-		My-Local-Output = "%{sql:SELECT IFNULL((SELECT ROUND((outputoctets_work_end - outputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
-		My-Local-Input = "%{sql:SELECT IFNULL((SELECT ROUND((inputoctets_work_end - inputoctets_work_beg) / 1000000) FROM daily_accounting WHERE username = '%{SQL-User-Name}' AND day = date_format(now(), '%Y-%m-%d') AND work_end IS NOT NULL AND day_end IS NULL), '0')}"
-	}
-
-	# check for daily volume restrictions during working hours
-	if ("%{check:mars-Output-Megabytes-Daily-Work-Hours}" && "%{check:mars-Input-Megabytes-Daily-Work-Hours}") {
-		if (("%{control:My-Local-Output}" > "%{check:mars-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:mars-Input-Megabytes-Daily-Work-Hours}")) {
-			captiveportal-disconnect-user
-		}
-	}
+        # check for daily volume restrictions during working hours
+        if ("%{check:mars-Output-Megabytes-Daily-Work-Hours}" && "%{check:mars-Input-Megabytes-Daily-Work-Hours}") {
+                if (("%{control:My-Local-Output}" > "%{check:mars-Output-Megabytes-Daily-Work-Hours}") || ("%{control:My-Local-Input}" > "%{check:mars-Input-Megabytes-Daily-Work-Hours}")) {
+                        captiveportal-disconnect-user
+                }
+        }
 
 add to /etc/freeradius/modules/exec
 # enforce user disconnect from pfSense 
@@ -114,9 +116,6 @@ check
 Manual configs
 --------------
 
-cd /home
-git clone https://github.com/x-ian/marsPortal.git
-
 DROP TABLE `daily_accounting`;
 CREATE TABLE `daily_accounting` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
@@ -138,7 +137,6 @@ CREATE TABLE `daily_accounting` (
   UNIQUE `unique` (`username`, `day`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-
 crontab 
 59 23 * * * /home/marsPortal/daloradius-accounting/reset-groups-open-for-today.sh
 5 0 * * * /home/marsPortal/daloradius-accounting/accounting-snapshot-beg-of-day.sh
@@ -157,8 +155,7 @@ https://github.com/pfsense/pfsense/blob/27c2e32e28f871adf036b666e8e3ae1bf54ea7a2
 https://github.com/pfsense/pfsense/blob/9775c69d65dd629f29bf3daa0b1efa277719f0d0/usr/local/captiveportal/radius_accounting.inc
 https://github.com/pfsense/pfsense/search?utf8=%E2%9C%93&q=pfSense_ipfw_getTablestats
 
-
-another attempt to externaize accounting out of radius
+another attempt to externalize accounting out of radius
 http://www.netexpertise.eu/en/freeradius/daily-accounting.html
 
 

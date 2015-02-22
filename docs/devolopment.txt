@@ -16,10 +16,10 @@ Any additional VM can be set up as client(s) connected to the Internal network p
 -------------------------
 
 To access pfense 'at the edge' directly from your host enable its remote SSH and HTTP access. Afterwards configure port forwarding for adapter 1 of pfSense guest and use localhost to access pfSense with ssh -p 2222 root@localhost and http://localhost:8888
-VBoxManage modifyvm "pfSense" --natpf1 "pfsensessh,tcp,,2222,,22"
-VBoxManage modifyvm "pfSense" --natpf1 "pfsensehttp,tcp,,8888,,80"
-VBoxManage modifyvm "pfSense" --natpf1 "radiusssh,tcp,,3333,,3333"
-VBoxManage modifyvm "pfSense" --natpf1 "radiushttp,tcp,,9999,,9999"
+VBoxManage modifyvm "pfSense 2.2" --natpf1 "pfsensessh,tcp,,2222,,22"
+VBoxManage modifyvm "pfSense 2.2" --natpf1 "pfsensehttp,tcp,,8888,,80"
+VBoxManage modifyvm "pfSense 2.2" --natpf1 "radiusssh,tcp,,3333,,3333"
+VBoxManage modifyvm "pfSense 2.2" --natpf1 "radiushttp,tcp,,9999,,9999"
 #VBoxManage modifyvm "pfSense" --natpf1 delete "pfsensessh"
 
 Configure NAT within pfSense to pass through access to (internal) daloRADIUS by adding 2 NAT entries taking port 3333 and 9999 to RADIUS host 192.168.10.2 with ports 22 and 80. Make sure that these rules are above any potential 'allow all' rules, as elsewise they won't be evaluated.
@@ -52,3 +52,6 @@ As many 'client VMs' as required can be set up. Simply ensure that they use diff
 
 Local testing of data volume/bundles
 ------------------------------------
+
+Run a HTTP server on your hosts (e.g. any rails environment) and place a reasonable sized file into the public directory. Now from a pfSense Client system run somethink like 'wget http://10.0.2.2:3000/r.zip' to invoke a transfer through pfSense.
+
