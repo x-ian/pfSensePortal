@@ -41,6 +41,7 @@ Registering new device
 
 Changing group of a device
 --------------------------
+
 Remember: Disconnect this device from the captive portal session to make sure the changes are immidiately applied
 
 
@@ -57,7 +58,7 @@ All registered devices
 
 All devices with total data volume for last 7 days
 
-Data volume of one device last 7 days
+Data volume of one device for last 7 days
 
 
 Maintenance

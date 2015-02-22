@@ -24,17 +24,3 @@ uncomment auth_log in sites-enabled/default: /var/log/freeradius/radacct/<192.16
 /var/log/freeradius/radius.log
 
 Avoid running freeradius -X from the command line. it might/could/will permanently crash the free radius installation as it seems to activate an additional set of config files which will fail as a default (mainly EAP). Better increase the logging level by adding this line to /etc/freeradius/radiusd.conf: "debug_level = 2". Run '/etc/init.d/freeradius force-reload' to re-apply config changes
-
-
-Virtual Machine Setup
----------------------
-
-pfSense
-2 network adapters with adapter 1 NAT and adapter 2 with Internal network pfSense-intnet
-Adapter 1 Port forwarding
-VBoxManage modifyvm "pfSense" --natpf1 "pfsensessh,tcp,,2222,,22"
-VBoxManage modifyvm "pfSense" --natpf1 "pfsensehttp,tcp,,8888,,80"
-VBoxManage modifyvm "pfSense" --natpf1 "daloradiusssh,tcp,,2223,,2223"
-VBoxManage modifyvm "pfSense" --natpf1 "daloradiushttp,tcp,,8889,,80"
-
-VBoxManage modifyvm "VM name" --natpf1 delete "guestssh"
