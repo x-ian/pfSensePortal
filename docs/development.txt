@@ -24,6 +24,10 @@ VBoxManage modifyvm "pfSense 2.2" --natpf1 "radiushttp,tcp,,9999,,9999"
 
 Configure NAT within pfSense to pass through access to (internal) daloRADIUS by adding 2 NAT entries taking port 3333 and 9999 to RADIUS host 192.168.10.2 with ports 22 and 80. Make sure that these rules are above any potential 'allow all' rules, as elsewise they won't be evaluated.
 
+Make sure that the daloRADIUS host can pass through the Captive Portal without authentication by adding ts MAC address to Captive Portal list of allowed MAC addresses.
+
+Block private networks on WAN interface of pfSense needs to be deactivated.
+
 Afterwards access pfSense (ssh -p 2222 root@localhost, http://localhost:8888) and daloRADIUS (ssh -p 3333 root@localhost, http://localhost:9999) right from your host.
 
 
