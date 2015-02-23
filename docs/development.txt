@@ -26,7 +26,7 @@ Configure NAT within pfSense to pass through access to (internal) daloRADIUS by 
 
 Make sure that the daloRADIUS host can pass through the Captive Portal without authentication by adding ts MAC address to Captive Portal list of allowed MAC addresses.
 
-Block private networks on WAN interface of pfSense needs to be deactivated.
+Block private (& bogus?) networks on WAN interface of pfSense needs to be deactivated.
 
 Afterwards access pfSense (ssh -p 2222 root@localhost, http://localhost:8888) and daloRADIUS (ssh -p 3333 root@localhost, http://localhost:9999) right from your host.
 
@@ -41,7 +41,7 @@ Linux and FreeBSD VMs need to see the host hardware clock as UTC. Enable this VM
 The Virtual Box Guest Addition contains a time syncing feature, but they are either overkill (too many features) or not available at all (e.g. on FreeBSD)
 
 Activate SSHD on your host and configure passwordless access (by adding the public key to ~/.ssh/authorized_keys). Afterwards from the client VMs this manually 'syncs' the time from the host every 5 minutes:
-On Linux guests: */5 * * * * date -s "`ssh xian@10.0.2.2 'date'`"
+On Linux guests: */5 * * * * date -s "`ssh xian@10.0.2.2 'date'`" >/dev/null
 On FreeBSD guests: */5 * * * * /root/sync_time_with_host.sh
   with script 
   #!/bin/bash
