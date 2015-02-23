@@ -19,3 +19,8 @@ DR_USER=administrator
 DR_PASSWD=radius
 DR_MYSQL_USER=radius
 DR_MYSQL_PASSWD=radius
+
+# mail notifications
+GMAIL_SENDER=cneumann@marsgeneral.com
+GMAIL_SENDER_PASSWD=..change_me..
+RECEIVER=cneumann@marsgeneral.com

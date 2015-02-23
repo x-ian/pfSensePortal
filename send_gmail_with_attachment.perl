@@ -12,6 +12,9 @@ my $DATA_FILE = $ARGV[1];
 my $FILENAME=$ARGV[2];
 my $CONTENTTYPE=$ARGV[3];
 my $BODY=$ARGV[4];
+my $SENDER=$ARGV[5];
+my $PASSWORD=$ARGV[6];
+my $RECEIVER=$ARGV[7];
 
 my $attachFile = 'attachment';
 my $boundary = 'frontier';
@@ -23,14 +26,6 @@ while (($n = read DATA, $data, 4) != 0) {
   $buf .= $data;
 }
 close(DATA);
-
-
-my $SENDER='cneumann@marsgeneral.com';
-my $RECEIVER='cneumann@marsgeneral.com';
-
-#my $PASSWORD='changeme';
-open FILE, "</home/marsPortal/config_gmail.txt";
-$PASSWORD = do { local $/; <FILE> };
 
 my $SMTP='smtp.gmail.com';
 my $HELLO='smtp.gmail.com';

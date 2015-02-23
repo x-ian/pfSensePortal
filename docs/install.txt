@@ -34,7 +34,7 @@ Adjust timezone if needed
 
 Firewall
 --------
-Add firewall rules to allow ICMP pings
+Add firewall rule to allow ICMP pings
 Add a default firewall rule for every inside network/VLAN interface allowing any protocol to pass
 Add firewall rules on wan interface to allow traffic on port 3000 (for ntop)
 
@@ -74,7 +74,7 @@ with RRD Graphs captive portal :: concurrent and a weekly time span and RRD Grap
 
 marsPortal Customization
 ------------------------
-Login with SSH as root and run these statement in the shell (to get to the shell press 8)
+Login with SSH as root and run these statements in the shell (to get to the shell press 8)
 # for AMD64 used 
 #setenv PACKAGESITE ftp://ftp-archive.freebsd.org/pub/FreeBSD-Archive/ports/amd64/packages-8.3-release/Latest/
 # for i386 use
@@ -90,17 +90,16 @@ edit file /usr/local/lib/perl5/site_perl/5.12.4/Net/SMTP/TLS.pm and add a new li
 
 now reboot the system and log again in with SSH and run these commands
 
-mkdir /home/device_status_log
-mkdir /home/local_backup_sequences
+mkdir /home/client_activities_log
+mkdir /home/local_backups
 cd /home
 
 TODO git clone https://github.com/x-ian/marsPortal.git
 
 ln -s /usr/local/bin/bash /bin/bash
 cp /home/marsPortal/config.txt.sample /home/marsPortal/config.txt
-cp /home/marsPortal/config_gmail.txt.sample /home/marsPortal/config_gmail.txt
 
-Now open config.txt and config_gmail.txt and adjust the config values as needed
+Now open config.txt and adjust the config values as needed
 
 add these line to root crontab
 @reboot /home/marsPortal/misc/send_gmail_after_startup.sh
@@ -108,9 +107,6 @@ add these line to root crontab
 5 7 * * * /home/marsPortal/misc/monitor_network_devices.sh
 50 23 * * * /home/marsPortal/misc/captiveportal-disconnect-all-users.sh
 55 23 * * * /home/marsPortal/misc/daloradius-mail-statistics.sh
-
-
-Edit files /home/marsPortal/send_gmail_*.perl and adjust sender and receiver of mails as needed
 
 
 Additional notes

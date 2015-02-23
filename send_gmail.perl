@@ -8,13 +8,9 @@ use Net::SMTP::TLS;
 
 my $SUBJECT=$ARGV[0];
 my $BODY=$ARGV[1];
-
-my $SENDER='cneumann@marsgeneral.com';
-my $RECEIVER='cneumann@marsgeneral.com';
-
-#my $PASSWORD='changeme';
-open FILE, "</home/marsPortal/config_gmail.txt";
-$PASSWORD = do { local $/; <FILE> };
+my $SENDER=$ARGV[2];
+my $PASSWORD=$ARGV[3];
+my $RECEIVER=$ARGV[4];
 
 my $SMTP='smtp.gmail.com';
 my $HELLO='smtp.gmail.com';

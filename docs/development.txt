@@ -36,7 +36,7 @@ Time
 
 Time in VMs can quickly go wrong, mostly when VMs are suspended. Using NTP within the VMs requires an Internet connection and it may not sync immidiately if the time difference is too big.
 
-Linux VMs need to see the host hardware clock as UTC. Enable this VM setting with the System - Motherboard - Extended features option.
+Linux and FreeBSD VMs need to see the host hardware clock as UTC. Enable this VM setting with the System - Motherboard - Extended features option.
 
 The Virtual Box Guest Addition contains a time syncing feature, but they are either overkill (too many features) or not available at all (e.g. on FreeBSD)
 

@@ -8,6 +8,8 @@
 BASEDIR=`dirname $0`
 LOG=/tmp/monitor_network_devices.log
 
+source /home/marsPortal/config.txt
+
 rm $LOG
 rm $LOG.tmp
 
@@ -28,5 +30,5 @@ if [ -e $LOG ]; then
   echo "(list of monitored devices under pfSense://home/marsPortal/misc/monitor_network_devices.txt)" >> $LOG
   SUBJECT="`echo "pfSense: Internal network devices check : "` `date +%Y%m%d-%H%M`"
   
-  /usr/bin/perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/../send_gmail.perl "$SUBJECT" "`cat $LOG`"
+  /usr/bin/perl -I /usr/local/lib/perl5/site_perl/5.10.1/ -I /usr/local/lib/perl5/site_perl/5.10.1/mach $BASEDIR/../send_gmail.perl "$SUBJECT" "`cat $LOG`" "$GMAIL_SENDER" "$GMAIL_SENDER_PASSWD" "$RECEIVER"
 fi
